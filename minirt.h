@@ -66,7 +66,6 @@ typedef struct s_mlx {
 	int endian;
 	int screen_height;
 	int screen_width;
-	t_list *objects;
 	t_cam cam;
 	t_ambient ambient;
 	t_list *lights;

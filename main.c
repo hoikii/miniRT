@@ -10,8 +10,12 @@
 #include "parser.h"
 
 int close_window(t_mlx *param) {
+	int i;
+
 	mlx_destroy_window(param->mlx, param->win);
-	ft_lstclear(&(param->objects), free);
+	i = -1;
+	while (++i < param->objs_cnt)
+		free(param->objects_array[i].data);
 	ft_lstclear(&(param->lights), free);
 	exit(0);
 }

@@ -11,16 +11,20 @@
 
 t_color trace_ray(t_ray ray, t_mlx *rt)
 {
-	t_list *objects = rt->objects;
 	t_color rgb;
 	t_rec rec;
 	t_vec unit = v_unit(ray.direction);
 	double tmax = DBL_MAX;
-	int hit = 0;
-	t_list *head_bak = objects;
+	int hit_flag = 0;
 
 	for (int i = 0; i < rt->objs_cnt; i++)
 	{
+		if (hit(rt->objects_array[i], ray, tmax, &rec))
+		{
+			tmax = rec.t;
+			hit_flag = 1;
+		}
+#if 0
 		if (rt->objects_array[i].type == TYPE_SPHERE) {
 			if ( hit_sphere( (t_sphere *)(rt->objects_array[i].data), ray, tmax, &rec) > 0.1) {
 				tmax = rec.t;
@@ -39,10 +43,11 @@ t_color trace_ray(t_ray ray, t_mlx *rt)
 				hit = 1;
 			}
 		}
+#endif
 	}
 
 	
-	if (hit) {
+	if (hit_flag) {
 		t_color l = compute_light(ray, rec, rt);
 		t_color result = c_mix(l, rec.color);
 		return (result);

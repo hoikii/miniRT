@@ -20,8 +20,9 @@
 # include "triangle.h"
 
 
-double hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec);
-double hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec);
-double hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec);
+int hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec);
+int hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec);
+int hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec);
+int hit(t_objects obj, t_ray ray, double tmax, t_rec *rec);
 
 #endif

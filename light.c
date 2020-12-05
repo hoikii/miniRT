@@ -32,7 +32,6 @@ void free_light(t_light *light)
 
 t_color	compute_light(t_ray ray, t_rec rec, t_mlx *rt)
 {
-	t_list *objects = rt->objects;
 	t_ambient ambient = rt->ambient;
 	t_list *light = rt->lights;
 	t_color amb = c_mul(ambient.color, ambient.brightness);
@@ -63,10 +62,16 @@ specular = color(0,0,0);
 		tolight.direction = lightdir;
 		double distance = v_len(v_sub(((t_light *)(light->content))->position, op)) / v_len(lightdir);
 		t_rec tmp;
-		t_list *objs = rt->objects;
 
 		for (int i = 0; i < rt->objs_cnt; i++)
 		{
+			if (hit(rt->objects_array[i], tolight, distance, &tmp))
+			{
+					specular = color(0,0,0);
+					diffuse = color(0,0,0);
+					break;
+			}
+#if 0
 			if (rt->objects_array[i].type == TYPE_SPHERE)
 				if ( hit_sphere( (t_sphere *)(rt->objects_array[i].data), tolight, distance, &tmp) > EPSILON) {
 					specular = color(0,0,0);
@@ -85,6 +90,7 @@ specular = color(0,0,0);
 					diffuse = color(0,0,0);
 					break;
 				}
+#endif
 		}
 #if 0
 		while (objs != NULL) {

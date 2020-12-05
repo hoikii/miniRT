@@ -238,6 +238,9 @@ static void parse_objects(char *line, t_mlx *rt)
 		parse_sphere(line, rt);
 	if (*line == 'p' && *(line + 1) == 'l')
 		parse_plane(line, rt);
+	if (*line == 't' && *(line + 1) == 'r')
+		parse_triangle(line, rt);
+
 	return ;
 }
 
