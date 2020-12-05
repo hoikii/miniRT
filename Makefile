@@ -17,9 +17,11 @@ UNAME		:= $(shell uname)
 
 ifeq ($(UNAME),Linux)
 	LIBXDIR = minilibx-linux
-	CFLAGS += -D LINUX -lX11 -lXext
+	LIBXFILE = libmlx.a
+	CFLAGS += -D LINUX -L. -lft -l$(LIBXNAME) -L/usr/lib -lX11 -lXext -lm
 else
-	CFLAGS += -D MACOS
+	CFLAGS += -D MACOS -L. -lft -L$(LIBXDIR) -l$(LIBXNAME)
+
 endif	
 
 .PHONY: test all clean fclean re bonus
@@ -29,7 +31,7 @@ test:
 	cp libft/libft.a ./
 	$(MAKE) -C $(LIBXDIR) > /dev/null
 	cp $(LIBXDIR)/$(LIBXFILE) ./
-	gcc $(SRC) $(CFLAGS) -L. -lft -L$(LIBXDIR) -l$(LIBXNAME) && ./a.out
+	gcc $(SRC) $(CFLAGS) && ./a.out
 	
 all: $(NAME)
 

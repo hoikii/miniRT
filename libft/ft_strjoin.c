@@ -17,7 +17,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len1;
 	size_t	len2;
-	size_t	i;
 	char	*dst;
 
 	if (!s1 || !s2)
@@ -26,7 +25,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len2 = ft_strlen(s2);
 	if (!(dst = malloc(sizeof(char) * (len1 + len2 + 1))))
 		return (NULL);
-	i = 0;
 	ft_memcpy(dst, s1, len1);
 	ft_memcpy(dst + len1, s2, len2);
 	dst[len1 + len2] = '\0';

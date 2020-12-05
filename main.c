@@ -43,7 +43,7 @@ int main() {
 	ft_lstadd_back(&lights, ft_lstnew(new_light(v_new(  2, 0.4, -0.5), 0.3, color(1,1,1)),0));
 	rt.lights = lights;
 
-
+	rt.objs_cnt = 0;
 	parser(&rt);
 
 
@@ -58,8 +58,8 @@ int main() {
 	draw(&rt);
 
 	//mlx_key_hook(mlx.win, key_hook, &mlx);
-	mlx_hook(rt.win, X_EVENT_KEY_EXIT, 0, close_window, &rt);
-	mlx_hook(rt.win, X_EVENT_KEY_PRESS, 0, key_pressed, &rt);
+	mlx_hook(rt.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, &rt);
+	mlx_hook(rt.win, KEYPRESS, KEYPRESSMASK, key_pressed, &rt);
 	mlx_loop(rt.mlx);
 	return 0;
 }

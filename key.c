@@ -13,7 +13,7 @@
 #include "key.h"
 
 int key_pressed(int keycode, t_mlx *param) {
-	printf("\rkeycode=%d", keycode);
+	printf("\rkeycode=%d      ", keycode);
 	if (keycode == KEY_ESC) {
 		close_window(param);
 		return 0;
