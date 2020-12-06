@@ -1,9 +1,11 @@
 NAME		= miniRT.out
 SRC			= main.c vec.c color.c key.c sphere.c math_utils.c ray.c draw.c \
-			  color2.c light.c plane.c objects.c triangle.c parser.c\
+			  color2.c light.c plane.c objects.c triangle.c \
+			  parser.c parser_utils.c parse_value.c parse_objects.c \
 			  gnl/get_next_line.c gnl/get_next_line_utils.c
 HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h color2.h light.h \
 			  plane.h objects.h triangle.h \
+			  parser.h parser_utils.h parse_value.h parse_objects.h \
 			  gnl/get_next_line.h
 OBJS		= $(SRC:.c=.o)
 LIBXDIR		= minilibx

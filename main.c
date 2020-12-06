@@ -8,6 +8,7 @@
 #include "key.h"
 #include "math_utils.h"
 #include "parser.h"
+#include "error.h"
 
 int close_window(t_mlx *param) {
 	int i;
@@ -20,7 +21,7 @@ int close_window(t_mlx *param) {
 	exit(0);
 }
 
-int main() {
+int main(int ac, char **av) {
 	t_mlx rt;
 
 
@@ -47,8 +48,14 @@ int main() {
 	ft_lstadd_back(&lights, ft_lstnew(new_light(v_new(  2, 0.4, -0.5), 0.3, color(1,1,1)),0));
 	rt.lights = lights;
 
+	
+
 	rt.objs_cnt = 0;
-	parser(&rt);
+	char *filepath;
+	if (ac == 1)
+		filepath = "smpl.rt";
+	if (parser(filepath, &rt) != SUCCESS)
+		printf("parse failed");
 
 
 	// Render

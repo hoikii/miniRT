@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: user42 <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 11:18:13 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/05 18:17:55 by kanlee           ###   ########.fr       */
+/*   Created: 2020/12/05 16:41:58 by user42            #+#    #+#             */
+/*   Updated: 2020/12/05 16:44:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef ERROR_H
+# define ERROR_H
 
-int parser(char *filepath, t_mlx *rt);
+# define SUCCESS 0
+# define FILE_OPEN_FAILED 1
+
 #endif

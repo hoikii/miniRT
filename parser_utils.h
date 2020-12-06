@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parser_utils.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 11:18:13 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/05 18:17:55 by kanlee           ###   ########.fr       */
+/*   Created: 2020/12/05 16:18:34 by kanlee            #+#    #+#             */
+/*   Updated: 2020/12/05 18:18:40 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef PARSER_UTILS_H
+# define PARSER_UTILS_H
 
-int parser(char *filepath, t_mlx *rt);
+# include "minirt.h"
+
+void skip_blank(char **line);
+void skip_sep(char **line);
+void append_object(void *obj, int type, t_mlx *rt);
+
 #endif
