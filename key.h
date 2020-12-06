@@ -6,8 +6,8 @@
 # ifdef LINUX
 #  define KEYPRESS 2
 #  define KEYPRESSMASK 1L<<0
-#  define DESTROYNOTIFY 17
-#  define STRUCTURENOTIFYMASK 1L<<17
+#  define CLIENTMESSAGE 33
+#  define WM_DELETE_WINDOW 3
 #  define KEY_ESC 65307
 #  define KEY_A 97
 #  define KEY_S 115

@@ -69,7 +69,11 @@ int main(int ac, char **av) {
 	draw(&rt);
 
 	//mlx_key_hook(mlx.win, key_hook, &mlx);
+#ifdef LINUX
+	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
+#else
 	mlx_hook(rt.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, &rt);
+#endif
 	mlx_hook(rt.win, KEYPRESS, KEYPRESSMASK, key_pressed, &rt);
 	mlx_loop(rt.mlx);
 	return 0;
