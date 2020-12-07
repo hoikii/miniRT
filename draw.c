@@ -69,11 +69,10 @@ t_color trace_ray(t_ray ray, t_mlx *rt)
 
 void draw(t_mlx *rt)
 {
-	double ratio = (double)rt->screen_width / rt->screen_height;
 	t_cam *current_cam = (t_cam *)(rt->cam_list->content);
 	double fov = current_cam->fov;
 	double vp_width = 2 * tan(degree_to_radian(fov/2));
-	double vp_height = vp_width / ratio;
+	double vp_height = vp_width / rt->screen_width * rt->screen_height;
 	t_vec origin = current_cam->origin;
 	t_vec direction = current_cam->direction;
 	t_vec u = current_cam->u;
@@ -88,18 +87,6 @@ void draw(t_mlx *rt)
 				v_div(vertical, 2)), direction);
 
 
-#if 0
-	t_ambient ambient;
-	ambient.brightness = 0.2;
-	ambient.color = color(0.6, 0.6, 0.6);
-	t_light light[2];
-	light[0].position = v_new(-3,0.6,-0.6);
-	light[0].brightness = 0.9;
-	light[0].color = color(1, 1, 1);
-	light[1].position = v_new( 3,0.6,-0.6);
-	light[1].brightness = 0.9;
-	light[1].color = color(1, 1, 1);
-#endif
 
 	for (int i = 0; i < rt->screen_height; i++) {
 		for (int j = 0; j < rt->screen_width; j++) {

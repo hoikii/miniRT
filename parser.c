@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 14:45:03 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/07 23:05:10 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "gnl/get_next_line.h"
 #include "libft/libft.h"
 #include "camera.h"
+#include "light.h"
 #include <stdio.h>
 
 
@@ -38,14 +39,30 @@ static void parse_resolution(char *line, t_mlx *rt)
 
 static void parse_ambient(char *line, t_mlx *rt)
 {
-	double amb;
+	line++;
+	skip_blank(&line);
+	rt->ambient.brightness = get_double(&line);
+	skip_blank(&line);
+	rt->ambient.color = get_color(&line);
+	return ;
+}
+
+static void parse_light(char *line, t_mlx *rt)
+{
+	t_vec pos;
+	double brightness;
 	t_color color;
+	t_light *light;
 
 	line++;
 	skip_blank(&line);
-	amb = get_double(&line);
+	pos = get_vector(&line);
+	skip_blank(&line);
+	brightness = get_double(&line);
 	skip_blank(&line);
 	color = get_color(&line);
+	light = new_light(pos, brightness, color);
+	ft_lstadd_back(&(rt->lights), ft_lstnew(light, 0));
 	return ;
 }
 
@@ -55,6 +72,7 @@ static void parse_camera(char *line, t_mlx *rt)
 	t_vec direction;
 	int fov;
 	t_cam *cam;
+
 	line++;
 	skip_blank(&line);
 	pos = get_vector(&line);
@@ -90,6 +108,8 @@ static void parse_line(char *line, t_mlx *rt)
 		parse_ambient(line, rt);
 	else if (*line == 'c')
 		parse_camera(line, rt);
+	else if (*line == 'l')
+		parse_light(line, rt);
 	else
 		parse_objects(line, rt);
 	return ;

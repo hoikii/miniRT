@@ -25,19 +25,6 @@ int close_window(t_mlx *param) {
 int main(int ac, char **av) {
 	t_mlx rt;
 
-	// Lights
-	t_ambient ambient;
-	ambient.brightness = 0.2;
-	ambient.color = color(0.6, 0.6, 0.6);
-	rt.ambient = ambient;
-
-	t_list *lights;
-	lights =                ft_lstnew(new_light(v_new( -3, 0.7, -0.5), 0.3, color(1,1,1)),0);
-	ft_lstadd_back(&lights, ft_lstnew(new_light(v_new(  2, 0.4, -0.5), 0.3, color(1,1,1)),0));
-	rt.lights = lights;
-
-	
-
 	rt.objs_cnt = 0;
 	rt.cam_list = NULL;
 	char *filepath;
