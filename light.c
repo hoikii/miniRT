@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/03 11:48:42 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/08 02:07:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ void free_light(t_light *light)
 
 t_color	compute_light(t_ray ray, t_rec rec, t_mlx *rt)
 {
-	t_ambient ambient = rt->ambient;
 	t_list *light = rt->lights;
-	t_color amb = c_mul(ambient.color, ambient.brightness);
+	t_color amb = c_mul(rt->ambient.color, rt->ambient.brightness);
 	t_vec op = rec.point;
 
 	t_color diffuse_sum = color(0,0,0);
@@ -71,47 +70,8 @@ specular = color(0,0,0);
 					diffuse = color(0,0,0);
 					break;
 			}
-#if 0
-			if (rt->objects_array[i].type == TYPE_SPHERE)
-				if ( hit_sphere( (t_sphere *)(rt->objects_array[i].data), tolight, distance, &tmp) > EPSILON) {
-					specular = color(0,0,0);
-					diffuse = color(0,0,0);
-					break;
-				}
-			if (rt->objects_array[i].type == TYPE_PLANE)
-				if ( hit_plane( (t_plane *)(rt->objects_array[i].data), tolight, distance, &tmp) > EPSILON) {
-					specular = color(0,0,0);
-					diffuse = color(0,0,0);
-					break;
-				}
-			if (rt->objects_array[i].type == TYPE_TRIANGLE)
-				if ( hit_triangle( (t_triangle *)(rt->objects_array[i].data), tolight, distance, &tmp) > EPSILON) {
-					specular = color(0,0,0);
-					diffuse = color(0,0,0);
-					break;
-				}
-#endif
 		}
-#if 0
-		while (objs != NULL) {
-			if ( objs->type == 0 && hit_sphere( (t_sphere *)objs->content, tolight,distance, &tmp) > EPSILON) {
-				specular = color(0,0,0);
-				diffuse  = color(0,0,0);
-				break;
-			}
-			if ( objs->type == 1 && hit_plane( (t_plane *)objs->content, tolight,distance, &tmp) > EPSILON) {
-				specular = color(0,0,0);
-				diffuse  = color(0,0,0);
-				break;
-			}
-			if ( objs->type == 2 && hit_triangle( (t_triangle *)objs->content, tolight,distance, &tmp) > EPSILON) {
-				specular = color(0,0,0);
-				diffuse  = color(0,0,0);
-				break;
-			}
-			objs = objs->next;
-		}
-#endif
+
 		diffuse_sum = c_add(diffuse_sum, diffuse);
 		specular_sum = c_add(specular_sum, specular);
 		light = light->next;

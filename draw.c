@@ -12,41 +12,22 @@
 
 t_color trace_ray(t_ray ray, t_mlx *rt)
 {
-	t_color rgb;
 	t_rec rec;
-	t_vec unit = v_unit(ray.direction);
-	double tmax = DBL_MAX;
-	int hit_flag = 0;
-
-	for (int i = 0; i < rt->objs_cnt; i++)
+	double tmax;
+	int hit_flag;
+	int i;
+   
+	tmax = DBL_MAX;
+	hit_flag = 0;
+	i = -1;
+	while (++i < rt->objs_cnt)
 	{
 		if (hit(rt->objects_array[i], ray, tmax, &rec))
 		{
 			tmax = rec.t;
 			hit_flag = 1;
 		}
-#if 0
-		if (rt->objects_array[i].type == TYPE_SPHERE) {
-			if ( hit_sphere( (t_sphere *)(rt->objects_array[i].data), ray, tmax, &rec) > 0.1) {
-				tmax = rec.t;
-				hit = 1;
-			}
-		}
-		if (rt->objects_array[i].type == TYPE_PLANE) {
-			if ( hit_plane( (t_plane *)(rt->objects_array[i].data), ray, tmax, &rec) > 0.1) {
-				tmax = rec.t;
-				hit = 1;
-			}
-		}
-		if (rt->objects_array[i].type == TYPE_TRIANGLE) {
-			if ( hit_triangle( (t_triangle *)(rt->objects_array[i].data), ray, tmax, &rec) > 0.1) {
-				tmax = rec.t;
-				hit = 1;
-			}
-		}
-#endif
 	}
-
 	
 	if (hit_flag) {
 		t_color l = compute_light(ray, rec, rt);
@@ -56,9 +37,10 @@ t_color trace_ray(t_ray ray, t_mlx *rt)
 //		return color(255*0.5*(rec.normal.x + 1), 255*0.5*(rec.normal.y+1), 255*0.5*(rec.normal.z+1));
 	}
 
-
+	t_color rgb = color(0,0,0);
 	return rgb;
 /*
+	t_vec unit = v_unit(ray.direction);
 	double t = 0.5 * (unit.y + 1.0);
 	rgb.r = 255 * ((1.0 - t) * 0.5 + t * 1.0);
 	rgb.g = 255 * ((1.0 - t) * 0.7 + t * 1.0);
@@ -70,23 +52,18 @@ t_color trace_ray(t_ray ray, t_mlx *rt)
 void draw(t_mlx *rt)
 {
 	t_cam *current_cam = (t_cam *)(rt->cam_list->content);
-	double fov = current_cam->fov;
-	double vp_width = 2 * tan(degree_to_radian(fov/2));
+	double vp_width = 2 * tan(degree_to_radian(current_cam->fov/2));
 	double vp_height = vp_width / rt->screen_width * rt->screen_height;
 	t_vec origin = current_cam->origin;
 	t_vec direction = current_cam->direction;
 	t_vec u = current_cam->u;
 	t_vec v = current_cam->v;
 
-
 	t_vec horizontal = v_mul(u, vp_width);
 	t_vec vertical = v_mul(v, -vp_height);
 
-
 	t_vec upper_left_corner = v_add(v_sub(v_sub(origin, v_div(horizontal, 2)), 
 				v_div(vertical, 2)), direction);
-
-
 
 	for (int i = 0; i < rt->screen_height; i++) {
 		for (int j = 0; j < rt->screen_width; j++) {

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/05 18:17:17 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/08 01:47:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void parse_triangle(char *line, t_mlx *rt)
 	p2 = get_vector(&line);
 	skip_blank(&line);
 	p3 = get_vector(&line);
+	skip_blank(&line);
 	color = get_color(&line);
 	tr = new_triangle(p1, p2, p3, color);
 	append_object(tr, TYPE_TRIANGLE, rt);
