@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 11:31:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 22:42:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/07 23:56:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "camera.h"
 #include "math_utils.h"
+#include <stdio.h>
 
 t_cam *new_camera(t_vec origin, t_vec direction, double fov)
 {
@@ -23,7 +24,7 @@ t_cam *new_camera(t_vec origin, t_vec direction, double fov)
 	cam->fov = fov;
 	cam->vup = v_new(0,1,0);
 	cam->tanx = rtod(atan(cam->direction.x / cam->direction.z));
-	cam->tany = rtod(-1 * asin(cam->direction.y));
+	cam->tany = rtod(asin(cam->direction.y));
 
 	cam->u = v_unit(v_cross(cam->vup, cam->direction));
 	cam->v = v_cross(cam->direction, cam->u);
@@ -56,11 +57,11 @@ void rotate_camera(t_cam *cam, double rx, double ry)
 			cam->tany += 360;
 	}
 
-	cam->direction = rotateY(v_new(0,0,1), degree_to_radian(cam->tany));
-	cam->direction = rotateX(cam->direction, degree_to_radian(cam->tanx));
+	cam->direction = rotateY(v_new(0,0,1), 0 - degree_to_radian(cam->tany));
+	cam->direction = rotateX(cam->direction, 0 - degree_to_radian(cam->tanx));
 	cam->direction = v_unit(cam->direction);
-	cam->vup = rotateY(v_new(0,1,0), degree_to_radian(cam->tany));
-	cam->vup = rotateX(cam->vup, degree_to_radian(cam->tanx));
+	cam->vup = rotateY(v_new(0,1,0), 0 - degree_to_radian(cam->tany));
+	cam->vup = rotateX(cam->vup, 0 - degree_to_radian(cam->tanx));
 	cam->vup = v_unit(cam->vup);
 	cam->u = v_unit(v_cross(cam->vup, cam->direction));
 	cam->v = v_cross(cam->direction, cam->u);
