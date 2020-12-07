@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 11:31:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 15:49:39 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/07 22:42:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,4 @@ void modify_fov(t_cam *cam, double delta)
 	cam->fov = clamp(cam->fov + delta, 0, 180);
 	return ;
 }
-
-
-	
 

@@ -25,19 +25,6 @@ int close_window(t_mlx *param) {
 int main(int ac, char **av) {
 	t_mlx rt;
 
-
-	// Camera
-	rt.cam.origin = v_new(-2,2,-1);
-	rt.cam.direction = v_unit(v_new(2,-2,2));
-//	rt.cam.origin = v_new(0,0,-2);
-//	rt.cam.direction = v_unit(v_new(0,0,1));
-	rt.cam.origin = v_new(0,2,-2);
-	rt.cam.direction = v_unit(v_new(0,-1,1));
-	rt.cam.fov = 90;
-	rt.cam.vup = v_new(0,1,0);
-	rt.cam.tanx = rtod(atan(rt.cam.direction.x / rt.cam.direction.z));
-	rt.cam.tany = rtod(-1 * asin(rt.cam.direction.y));
-
 	// Lights
 	t_ambient ambient;
 	ambient.brightness = 0.2;

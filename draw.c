@@ -70,32 +70,6 @@ t_color trace_ray(t_ray ray, t_mlx *rt)
 void draw(t_mlx *rt)
 {
 	double ratio = (double)rt->screen_width / rt->screen_height;
-/*
-	rt->cam.fov = clamp(rt->cam.fov, 0, 180);
-	double fov = rt->cam.fov;
-	double vp_width = 2 * tan(degree_to_radian(fov/2));
-	double vp_height = vp_width / ratio;
-#if 0
-	x' = cos0 -sin0 x
-	y' = sin0 cos0  y
-#endif
-
-//printf("\rtx:%f, ty:%f", rt->cam.tanx, rt->cam.tany);
-	rt->cam.direction = rotateY(v_new(0,0,1), degree_to_radian(rt->cam.tany));
-	rt->cam.direction = rotateX(rt->cam.direction, degree_to_radian(rt->cam.tanx));
-	rt->cam.direction = v_unit(rt->cam.direction);
-	rt->cam.vup = rotateY(v_new(0,1,0), degree_to_radian(rt->cam.tany));
-	rt->cam.vup = rotateX(rt->cam.vup, degree_to_radian(rt->cam.tanx));
-	rt->cam.vup = v_unit(rt->cam.vup);
-
-
-	t_vec vup = rt->cam.vup;
-	t_vec u = v_unit(v_cross(vup, rt->cam.direction));
-	t_vec v = v_cross(rt->cam.direction, u);
-	rt->cam.origin = v_add(v_add(rt->cam.origin, v_mul(u, rt->cam.offsetX)), v_mul(rt->cam.direction, rt->cam.offsetZ));
-	t_vec origin = rt->cam.origin;
-	rt->cam.offsetX = rt->cam.offsetZ = 0;
-*/
 	t_cam *current_cam = (t_cam *)(rt->cam_list->content);
 	double fov = current_cam->fov;
 	double vp_width = 2 * tan(degree_to_radian(fov/2));
@@ -110,12 +84,6 @@ void draw(t_mlx *rt)
 	t_vec vertical = v_mul(v, -vp_height);
 
 
-//	double vp_height = 2.0;
-//	double vp_width = vp_height * ratio;
-	double focal_length = 1.0;
-//	t_vec origin = v_new(0,0,0);
-//	t_vec horizontal = v_new(vp_width, 0, 0);
-//	t_vec vertical = v_new(0, -vp_height, 0);
 	t_vec upper_left_corner = v_add(v_sub(v_sub(origin, v_div(horizontal, 2)), 
 				v_div(vertical, 2)), direction);
 
