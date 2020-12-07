@@ -8,6 +8,7 @@
 #include "key.h"
 #include "math_utils.h"
 #include "objects.h"
+#include "vec.h"
 
 t_color trace_ray(t_ray ray, t_mlx *rt)
 {
@@ -66,28 +67,10 @@ t_color trace_ray(t_ray ray, t_mlx *rt)
 */
 }
 
-t_vec rotateX(t_vec a, double rad) {
-	t_vec ret;
-
-	ret.x = a.x * cos(rad) - a.z * sin(rad);
-	ret.y = a.y;
-	ret.z = a.x * sin(rad) + a.z * cos(rad);
-	return ret;
-}
-
-t_vec rotateY(t_vec a, double rad) {
-	t_vec ret;
-
-	ret.x = a.x;
-	ret.y = a.y * cos(rad) - a.z * sin(rad);
-	ret.z = a.y * sin(rad) + a.z * cos(rad);
-	return ret;
-}
-
 void draw(t_mlx *rt)
 {
 	double ratio = (double)rt->screen_width / rt->screen_height;
-
+/*
 	rt->cam.fov = clamp(rt->cam.fov, 0, 180);
 	double fov = rt->cam.fov;
 	double vp_width = 2 * tan(degree_to_radian(fov/2));
@@ -112,8 +95,20 @@ void draw(t_mlx *rt)
 	rt->cam.origin = v_add(v_add(rt->cam.origin, v_mul(u, rt->cam.offsetX)), v_mul(rt->cam.direction, rt->cam.offsetZ));
 	t_vec origin = rt->cam.origin;
 	rt->cam.offsetX = rt->cam.offsetZ = 0;
+*/
+	t_cam *current_cam = (t_cam *)(rt->cam_list->content);
+	double fov = current_cam->fov;
+	double vp_width = 2 * tan(degree_to_radian(fov/2));
+	double vp_height = vp_width / ratio;
+	t_vec origin = current_cam->origin;
+	t_vec direction = current_cam->direction;
+	t_vec u = current_cam->u;
+	t_vec v = current_cam->v;
+
+
 	t_vec horizontal = v_mul(u, vp_width);
 	t_vec vertical = v_mul(v, -vp_height);
+
 
 //	double vp_height = 2.0;
 //	double vp_width = vp_height * ratio;
@@ -122,7 +117,7 @@ void draw(t_mlx *rt)
 //	t_vec horizontal = v_new(vp_width, 0, 0);
 //	t_vec vertical = v_new(0, -vp_height, 0);
 	t_vec upper_left_corner = v_add(v_sub(v_sub(origin, v_div(horizontal, 2)), 
-				v_div(vertical, 2)), rt->cam.direction);
+				v_div(vertical, 2)), direction);
 
 
 #if 0

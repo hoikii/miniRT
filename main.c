@@ -18,6 +18,7 @@ int close_window(t_mlx *param) {
 	while (++i < param->objs_cnt)
 		free(param->objects_array[i].data);
 	ft_lstclear(&(param->lights), free);
+	ft_lstclear(&(param->cam_list_head), free);
 	exit(0);
 }
 
@@ -51,6 +52,7 @@ int main(int ac, char **av) {
 	
 
 	rt.objs_cnt = 0;
+	rt.cam_list = NULL;
 	char *filepath;
 	if (ac == 1)
 		filepath = "smpl.rt";

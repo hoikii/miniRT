@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/05 18:17:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/07 14:45:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include "vec.h"
 #include "libft/libft.h"
 #include "gnl/get_next_line.h"
+#include "libft/libft.h"
+#include "camera.h"
 #include <stdio.h>
 
 
@@ -52,7 +54,7 @@ static void parse_camera(char *line, t_mlx *rt)
 	t_vec pos;
 	t_vec direction;
 	int fov;
-
+	t_cam *cam;
 	line++;
 	skip_blank(&line);
 	pos = get_vector(&line);
@@ -60,6 +62,8 @@ static void parse_camera(char *line, t_mlx *rt)
 	direction = get_vector(&line);
 	skip_blank(&line);
 	fov = get_integer(&line);
+	cam = new_camera(pos, direction, fov);
+	ft_lstadd_back(&(rt->cam_list), ft_lstnew(cam, 0));
 	return ;
 }
 
@@ -107,6 +111,8 @@ int parser(char *filepath, t_mlx *rt)
 	free(line);
 
 	printf("R:%dx%d\n", rt->screen_width, rt->screen_height);
+	printf("Cam:%d\n", ft_lstsize(rt->cam_list));
+	rt->cam_list_head = rt->cam_list;
 	printf("objs_cnt:%d\n",rt->objs_cnt);
 	close(fd);
 	return (SUCCESS);

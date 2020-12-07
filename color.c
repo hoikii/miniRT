@@ -6,20 +6,12 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:01:49 by kanlee            #+#    #+#             */
-/*   Updated: 2020/11/25 14:08:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/07 15:05:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "color.h"
-
-double clamp(double x, double min, double max)
-{
-	if (x < min)
-		return (min);
-	if (x > max)
-		return (max);
-	return (x);
-}
+#include "math_utils.h"
 
 t_color color(double r, double g, double b)
 {

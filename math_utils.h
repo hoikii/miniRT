@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:18:47 by kanlee            #+#    #+#             */
-/*   Updated: 2020/11/29 23:35:49 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/07 15:04:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,6 @@
 double degree_to_radian(double degree);
 
 double rtod(double);
+double clamp(double x, double min, double max);
+
 #endif

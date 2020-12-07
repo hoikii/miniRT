@@ -19,6 +19,7 @@
 #  define KEY_UP 65362
 #  define KEY_PLUS 65451
 #  define KEY_MINUS 65453
+#  define KEY_SPACE 32
 # else
 #  define KEYPRESS 2
 #  define KEYPRESSMASK 1
