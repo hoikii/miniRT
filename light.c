@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/08 02:07:49 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/08 14:14:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_color	compute_light(t_ray ray, t_rec rec, t_mlx *rt)
 		double diff = v_dot(rec.normal, lightdir);
 		if (diff < 0)
 			diff = 0;
-		t_color diffuse = c_mul(((t_light *)(light->content))->color, diff);
+		t_color diffuse = c_mul(((t_light *)(light->content))->color, diff * ((t_light *)(light->content))->brightness);
 
 		t_vec reflect = v_unit(v_sub(v_mul(rec.normal, 2 * diff), lightdir));
 		double cosa = v_dot(reflect, v_mul(ray.direction, -1));
@@ -59,7 +59,7 @@ specular = color(0,0,0);
 		t_ray tolight;
 		tolight.origin = op;
 		tolight.direction = lightdir;
-		double distance = v_len(v_sub(((t_light *)(light->content))->position, op)) / v_len(lightdir);
+		double distance = v_len(v_sub(((t_light *)(light->content))->position, op));
 		t_rec tmp;
 
 		for (int i = 0; i < rt->objs_cnt; i++)
