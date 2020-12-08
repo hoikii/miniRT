@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 14:45:17 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/08 19:21:25 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ typedef struct s_mlx {
 	int endian;
 	int screen_height;
 	int screen_width;
-	t_cam cam;
-	t_list *cam_list_head;
-	t_list *cam_list;
+	int resolution_declared;
 	t_ambient ambient;
+	int ambient_declared;
+	t_cam cam;
+//	t_list *cam_list_head;
+	t_list *cam_list;
 	t_list *lights;
 	int objs_cnt;
 	t_objects *objects_array;

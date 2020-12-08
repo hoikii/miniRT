@@ -9,24 +9,19 @@
 #include "math_utils.h"
 #include "parser.h"
 #include "error.h"
+#include "exit.h"
 
-int close_window(t_mlx *param) {
-	int i;
-
-	mlx_destroy_window(param->mlx, param->win);
-	i = -1;
-	while (++i < param->objs_cnt)
-		free(param->objects_array[i].data);
-	ft_lstclear(&(param->lights), free);
-	ft_lstclear(&(param->cam_list_head), free);
-	exit(0);
-}
 
 int main(int ac, char **av) {
 	t_mlx rt;
 
 	rt.objs_cnt = 0;
 	rt.cam_list = NULL;
+	rt.lights = NULL;
+	rt.resolution_declared = 0;
+	rt.ambient_declared = 0;
+	rt.mlx = mlx_init();
+	rt.win = NULL;
 	char *filepath;
 	if (ac == 1)
 		filepath = "smpl.rt";
@@ -35,7 +30,6 @@ int main(int ac, char **av) {
 
 
 	// Render
-	rt.mlx = mlx_init();
 	rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
 	rt.img = mlx_new_image(rt.mlx, rt.screen_width, rt.screen_height);
 	rt.imgdata = mlx_get_data_addr(rt.img, &rt.bpp, &rt.size_line, &rt.endian);

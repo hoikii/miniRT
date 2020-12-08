@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 23:05:10 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/09 08:40:18 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,38 @@
 #include "libft/libft.h"
 #include "camera.h"
 #include "light.h"
+#include "exit.h"
 #include <stdio.h>
 
 
 static void parse_resolution(char *line, t_mlx *rt)
 {
+	int res_x;
+	int res_y;
+
+	if (rt->resolution_declared)
+		exit_error("Resolution must be declared once.", rt);
+	rt->resolution_declared = 1;
 	line++;
 	skip_blank(&line);
 	rt->screen_width = get_integer(&line);
 	skip_blank(&line);
 	rt->screen_height = get_integer(&line);
+	mlx_get_screen_size(rt->mlx, &res_x, &res_y);
+	if (rt->screen_width > res_x || rt->screen_height > res_y)
+	{
+//		ft_putstr_fd("Resolution Max\n");
+		rt->screen_width = res_x;
+		rt->screen_height = res_y;
+	}
 	return ;
 }
 
 static void parse_ambient(char *line, t_mlx *rt)
 {
+	if (rt->ambient_declared)
+		exit_error("Ambient must be declared once.", rt);
+	rt->ambient_declared = 1;
 	line++;
 	skip_blank(&line);
 	rt->ambient.brightness = get_double(&line);
@@ -115,6 +132,17 @@ static void parse_line(char *line, t_mlx *rt)
 	return ;
 }
 
+void check_parsed(t_mlx *rt)
+{
+	if (rt->resolution_declared == 0)
+		exit_error("Resolution must be declared once.", rt);
+	if (rt->ambient_declared == 0)
+		exit_error("Ambient must be declared once.", rt);
+	if (ft_lstsize(rt->cam_list) == 0)
+		exit_error("At least one Camera must be present.", rt);
+	ft_lstadd_back(&(rt->cam_list), rt->cam_list);
+	return ;
+}
 int parser(char *filepath, t_mlx *rt)
 {
 	int fd;
@@ -129,10 +157,9 @@ int parser(char *filepath, t_mlx *rt)
 	}
 	parse_line(line, rt);
 	free(line);
-
+	check_parsed(rt);
 	printf("R:%dx%d\n", rt->screen_width, rt->screen_height);
 	printf("Cam:%d\n", ft_lstsize(rt->cam_list));
-	rt->cam_list_head = rt->cam_list;
 	printf("objs_cnt:%d\n",rt->objs_cnt);
 	close(fd);
 	return (SUCCESS);

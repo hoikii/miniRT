@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 12:22:19 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 08:43:17 by kanlee           ###   ########.fr       */
+/*   Created: 2020/12/08 15:30:51 by kanlee            #+#    #+#             */
+/*   Updated: 2020/12/08 15:40:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef EXIT_H
+# define EXIT_H
 
-int	ft_lstsize(t_list *lst)
-{
-	int		i;
-	t_list	*head;
+# include "minirt.h"
 
-	head = lst;
-	i = 0;
-	while (lst != NULL)
-	{
-		i++;
-		lst = lst->next;
-		if (lst == head)
-			break ;
-	}
-	return (i);
-}
+int close_window(t_mlx *param);
+void exit_error(char *str, t_mlx *rt);
+
+#endif

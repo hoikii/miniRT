@@ -54,16 +54,14 @@ void draw(t_mlx *rt)
 	t_cam *current_cam = (t_cam *)(rt->cam_list->content);
 	double vp_width = 2 * tan(degree_to_radian(current_cam->fov/2));
 	double vp_height = vp_width / rt->screen_width * rt->screen_height;
-	t_vec origin = current_cam->origin;
-	t_vec direction = current_cam->direction;
-	t_vec u = current_cam->u;
-	t_vec v = current_cam->v;
+	t_ray ray;
+	ray.origin = current_cam->origin;
 
-	t_vec horizontal = v_mul(u, vp_width);
-	t_vec vertical = v_mul(v, -vp_height);
+	t_vec horizontal = v_mul(current_cam->u, vp_width);
+	t_vec vertical = v_mul(current_cam->v, -vp_height);
 
-	t_vec upper_left_corner = v_add(v_sub(v_sub(origin, v_div(horizontal, 2)), 
-				v_div(vertical, 2)), direction);
+	t_vec upper_left_corner = v_add(v_sub(v_sub(current_cam->origin,
+		v_div(horizontal, 2)), v_div(vertical, 2)), current_cam->direction);
 
 	for (int i = 0; i < rt->screen_height; i++) {
 		for (int j = 0; j < rt->screen_width; j++) {
@@ -73,10 +71,8 @@ void draw(t_mlx *rt)
 			t_vec direction; 
 			direction = v_add(upper_left_corner, v_mul(horizontal, u));
 			direction = v_add(direction, v_mul(vertical, v));
-			direction = v_sub(direction, origin);
+			direction = v_sub(direction, ray.origin);
 
-			t_ray ray;
-			ray.origin = origin;
 			ray.direction = direction;
 
 			t_color color = trace_ray(ray, rt);

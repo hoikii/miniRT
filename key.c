@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 23:47:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/09 08:41:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ int key_pressed(int keycode, t_mlx *param) {
 	}
 	else if (keycode == KEY_SPACE)
 	{
-		if (param->cam_list->next == NULL)
-			param->cam_list = param->cam_list_head;
-		else
 			param->cam_list = param->cam_list->next;
 	}
 	draw(param);
