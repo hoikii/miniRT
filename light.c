@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/08 14:14:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/09 17:18:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 #include "light.h"
 #include "objects.h"
 
-t_light *new_light(t_vec position, double brightness, t_color color)
-
+t_light	*new_light(t_vec position, double brightness, t_color color)
 {
-	t_light *l = malloc(sizeof(t_light));
+	t_light *l;
+	if (!(l = malloc(sizeof(t_light))))
+		return (NULL);
 	l->position = position;
 	l->brightness = brightness;
 	l->color = color;
-	return l;
+	return (l);
 }
 
-void free_light(t_light *light)
+void	free_light(t_light *light)
 {
 	free(light);
 	return ;

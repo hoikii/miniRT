@@ -6,20 +6,16 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:18:47 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 15:04:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/09 18:11:10 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_UTILS_H
 # define MATH_UTILS_H
 
-#if 0
-//const double PI = 3.141592653897932385;
-//const double EPSILON = 0.0001;
-#endif
-double degree_to_radian(double degree);
-
-double rtod(double);
-double clamp(double x, double min, double max);
+double	degree_to_radian(double degree);
+double	rtod(double rad);
+double	clamp(double x, double min, double max);
+double	quadratic_solve(double a, double b, double c);
 
 #endif

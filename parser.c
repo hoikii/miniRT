@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 08:40:18 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/09 17:17:21 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ static void parse_light(char *line, t_mlx *rt)
 	brightness = get_double(&line);
 	skip_blank(&line);
 	color = get_color(&line);
-	light = new_light(pos, brightness, color);
+	if (!(light = new_light(pos, brightness, color)))
+		exit_error("Load failed when parsing light.", rt);
 	ft_lstadd_back(&(rt->lights), ft_lstnew(light, 0));
 	return ;
 }
@@ -97,7 +98,8 @@ static void parse_camera(char *line, t_mlx *rt)
 	direction = get_vector(&line);
 	skip_blank(&line);
 	fov = get_integer(&line);
-	cam = new_camera(pos, direction, fov);
+	if (!(cam = new_camera(pos, direction, fov)))
+		exit_error("Load failed when parsing camera.", rt);
 	ft_lstadd_back(&(rt->cam_list), ft_lstnew(cam, 0));
 	return ;
 }

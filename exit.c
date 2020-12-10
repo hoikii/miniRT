@@ -6,14 +6,15 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 08:39:26 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/09 17:14:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "libft/libft.h"
 
-int close_window(t_mlx *param) {
+int		close_window(t_mlx *param)
+{
 	int i;
 
 	if (param->win)
@@ -26,11 +27,10 @@ int close_window(t_mlx *param) {
 	exit(0);
 }
 
-void exit_error(char *str, t_mlx *rt)
+void	exit_error(char *str, t_mlx *rt)
 {
 	ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(str, 1);
 	close_window(rt);
 	return ;
 }
-

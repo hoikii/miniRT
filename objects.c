@@ -6,49 +6,48 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/02 13:57:31 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 09:22:14 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "objects.h"
+#include "math_utils.h"
 
-int hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec)
+int	hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec)
 {
-	t_vec center = sp->center;
-	double radius = sp->radius;
-	t_vec oc = v_sub(ray.origin, center);
-	double a = v_dot(ray.direction, ray.direction);
-	double b = 2.0 * v_dot(oc, ray.direction);
-	double c = v_dot(oc, oc) - radius * radius;
-	double discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return (0);
-	double t = (-b - sqrt(discriminant)) / (2.0 * a);
-	if (t < 0)
-		t = (-b + sqrt(discriminant)) / (2.0 * a);
-	if (EPSILON <= t && t < tmax) {
+	t_vec	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	t;
+
+	oc = v_sub(ray.origin, sp->center);
+	a = v_dot(ray.direction, ray.direction);
+	b = 2.0 * v_dot(oc, ray.direction);
+	c = v_dot(oc, oc) - sp->radius * sp->radius;
+	t = quadratic_solve(a, b, c);
+	if (EPSILON <= t && t < tmax)
+	{
 		rec->color = sp->color;
 		rec->t = t;
-		rec->normal = v_unit(v_sub(ray_at(ray, t), center));
+		rec->normal = v_unit(v_sub(ray_at(ray, t), sp->center));
 		rec->point = ray_at(ray, t);
 		return (1);
 	}
 	return (0);
 }
 
-#if 0
-  t =( A.h - O.h ) / (d.h)
- 
-#endif
-
-int hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
+int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 {
+	double t;
+
 	if (fabs(v_dot(ray.direction, pl->normal)) <= EPSILON)
 		return (0);
-//	double t = (v_dot(pl->point, pl->normal) - v_dot(ray.origin, pl->normal)) / v_dot(ray.direction, pl->normal);
-	double t = v_dot(v_sub(pl->point,ray.origin), pl->normal) / v_dot(ray.direction, pl->normal);
-	if (EPSILON <= t && t < tmax) {
+	t = v_dot(v_sub(pl->point, ray.origin), pl->normal) /
+			v_dot(ray.direction, pl->normal);
+	if (EPSILON <= t && t < tmax)
+	{
 		rec->color = pl->color;
 		rec->t = t;
 		rec->normal = pl->normal;
@@ -58,28 +57,30 @@ int hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-
 /*
-	A+tb = L;
-	tb = L-A;
-	(L-A)/b
+**	A+tb = L;
+**	tb = L-A;
+**	(L-A)/b
 */
 
-int check_edge(t_vec p1, t_vec p2, t_vec hit_point, t_vec normal)
+int	check_edge(t_vec p1, t_vec p2, t_vec hit_point, t_vec normal)
 {
-	t_vec edge = v_sub(p2, p1);
-	t_vec v_p = v_sub(hit_point, p1);
-	return ( v_dot(normal,  v_cross(edge, v_p)) >= 0.0 );
+	t_vec edge;
+	t_vec v_p;
+
+	edge = v_sub(p2, p1);
+	v_p = v_sub(hit_point, p1);
+	return (v_dot(normal, v_cross(edge, v_p)) >= 0.0);
 }
 
-
-int hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
+int	hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
 {
-	t_plane pl;
+	t_plane	pl;
+	t_rec	r;
+
 	pl.point = tri->p1;
 	pl.normal = tri->normal;
 	pl.color = tri->color;
-	t_rec r;
 	if (!hit_plane(&pl, ray, tmax, &r))
 		return (0);
 	if (r.t < EPSILON || r.t >= tmax)
@@ -100,7 +101,7 @@ int hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-int hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
+int	hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 {
 	if (obj.type == TYPE_SPHERE)
 		return (hit_sphere(obj.data, ray, tmax, rec));
@@ -110,5 +111,3 @@ int hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 		return (hit_triangle(obj.data, ray, tmax, rec));
 	return (0);
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 14:09:53 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/07 14:23:01 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 09:54:50 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,27 @@ t_vec	v_div(t_vec a, double b)
 	return (ret);
 }
 
-double v_len_squared(t_vec a)
+double	v_len_squared(t_vec a)
 {
 	return (a.x * a.x + a.y * a.y + a.z * a.z);
 }
 
-double v_len(t_vec a)
+double	v_len(t_vec a)
 {
 	return (sqrt(v_len_squared(a)));
 }
 
-t_vec v_unit(t_vec a)
+t_vec	v_unit(t_vec a)
 {
 	return (v_div(a, v_len(a)));
 }
 
-double v_dot(t_vec a, t_vec b)
+double	v_dot(t_vec a, t_vec b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-t_vec v_cross(t_vec a, t_vec b)
+t_vec	v_cross(t_vec a, t_vec b)
 {
 	t_vec ret;
 
@@ -93,22 +93,22 @@ t_vec v_cross(t_vec a, t_vec b)
 	return (ret);
 }
 
-
-t_vec rotateX(t_vec a, double rad) {
+t_vec	rotateX(t_vec a, double rad)
+{
 	t_vec ret;
 
 	ret.x = a.x * cos(rad) - a.z * sin(rad);
 	ret.y = a.y;
 	ret.z = a.x * sin(rad) + a.z * cos(rad);
-	return ret;
+	return (ret);
 }
 
-t_vec rotateY(t_vec a, double rad) {
+t_vec	rotateY(t_vec a, double rad)
+{
 	t_vec ret;
 
 	ret.x = a.x;
 	ret.y = a.y * cos(rad) - a.z * sin(rad);
 	ret.z = a.y * sin(rad) + a.z * cos(rad);
-	return ret;
+	return (ret);
 }
-

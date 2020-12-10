@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/08 01:47:46 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:06:40 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "objects.h"
 #include "vec.h"
 #include "color.h"
+#include "exit.h"
 
 void parse_sphere(char *line, t_mlx *rt)
 {
@@ -31,7 +32,8 @@ void parse_sphere(char *line, t_mlx *rt)
 	radius = get_double(&line);
 	skip_blank(&line);
 	color = get_color(&line);
-	sp = new_sphere(center, radius, color);
+	if (!(sp = new_sphere(center, radius, color)))
+		exit_error("Failed while loading sphere.", rt);
 	append_object(sp, TYPE_SPHERE, rt);
 	return ;
 }
@@ -50,7 +52,8 @@ void parse_plane(char *line, t_mlx *rt)
 	normal = get_vector(&line);
 	skip_blank(&line);
 	color = get_color(&line);
-	pl = new_plane(point, normal, color);
+	if (!(pl = new_plane(point, normal, color)))
+		exit_error("Failed while loading plane.", rt);
 	append_object(pl, TYPE_PLANE, rt);
 	return ;
 }
@@ -72,7 +75,8 @@ void parse_triangle(char *line, t_mlx *rt)
 	p3 = get_vector(&line);
 	skip_blank(&line);
 	color = get_color(&line);
-	tr = new_triangle(p1, p2, p3, color);
+	if (!(tr = new_triangle(p1, p2, p3, color)))
+		exit_error("Failed while loading triangle.", rt);
 	append_object(tr, TYPE_TRIANGLE, rt);
 	return ;
 }
