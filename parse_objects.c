@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:06:40 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:37:26 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 #include "color.h"
 #include "exit.h"
 
-void parse_sphere(char *line, t_mlx *rt)
+void	parse_sphere(char *line, t_mlx *rt)
 {
-	t_sphere *sp;
-	t_vec center;
-	double radius;
-	t_color color;
+	t_sphere	*sp;
+	t_vec		center;
+	double		radius;
+	t_color		color;
 
 	line += 2;
 	skip_blank(&line);
@@ -38,12 +38,12 @@ void parse_sphere(char *line, t_mlx *rt)
 	return ;
 }
 
-void parse_plane(char *line, t_mlx *rt)
+void	parse_plane(char *line, t_mlx *rt)
 {
-	t_plane *pl;
-	t_vec point;
-	t_vec normal;
-	t_color color;
+	t_plane	*pl;
+	t_vec	point;
+	t_vec	normal;
+	t_color	color;
 
 	line += 2;
 	skip_blank(&line);
@@ -58,13 +58,13 @@ void parse_plane(char *line, t_mlx *rt)
 	return ;
 }
 
-void parse_triangle(char *line, t_mlx *rt)
+void	parse_triangle(char *line, t_mlx *rt)
 {
-	t_triangle *tr;
-	t_vec p1;
-	t_vec p2;
-	t_vec p3;
-	t_color color;
+	t_triangle	*tr;
+	t_vec		p1;
+	t_vec		p2;
+	t_vec		p3;
+	t_color		color;
 
 	line += 2;
 	skip_blank(&line);

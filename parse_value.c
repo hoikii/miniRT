@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/05 18:18:54 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:30:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int		get_integer(char **line)
 
 double	get_double(char **line)
 {
-	double ret;
-	double decimal;
-	int sign;
+	double	ret;
+	double	decimal;
+	int		sign;
 
 	sign = 1;
 	if (**line == '-')
