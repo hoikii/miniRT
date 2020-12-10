@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 17:17:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 15:20:13 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static void parse_light(char *line, t_mlx *rt)
 	color = get_color(&line);
 	if (!(light = new_light(pos, brightness, color)))
 		exit_error("Load failed when parsing light.", rt);
-	ft_lstadd_back(&(rt->lights), ft_lstnew(light, 0));
+	ft_lstadd_back(&(rt->lights_list), ft_lstnew(light, 0));
 	return ;
 }
 

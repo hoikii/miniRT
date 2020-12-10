@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 17:14:03 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 15:19:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		close_window(t_mlx *param)
 	i = -1;
 	while (++i < param->objs_cnt)
 		free(param->objects_array[i].data);
-	ft_lstclear(&(param->lights), free);
+	ft_lstclear(&(param->lights_list), free);
 	ft_lstclear(&(param->cam_list), free);
 	exit(0);
 }

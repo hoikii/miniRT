@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 09:58:47 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:22:31 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ t_color			trace_ray(t_ray ray, t_mlx *rt)
 		if (hit(rt->objects_array[i], ray, tmax, &rec))
 		{
 			tmax = rec.t;
+			rec.raydir = ray.direction;
 			hit_flag = 1;
 		}
 	}
 	if (hit_flag)
 	{
-		result = c_mix(rec.color, compute_light(ray, rec, rt));
+//		result = c_mix(rec.color, compute_light(ray, rec, rt->lights_list, rt));
+		result = apply_light(ray, rec, rt->lights_list, rt);
 		return (result);
 	}
 	return (color(0, 0, 0));

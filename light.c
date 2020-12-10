@@ -6,17 +6,19 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 17:18:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:22:39 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "light.h"
 #include "objects.h"
+#include "math_utils.h"
 
 t_light	*new_light(t_vec position, double brightness, t_color color)
 {
 	t_light *l;
+
 	if (!(l = malloc(sizeof(t_light))))
 		return (NULL);
 	l->position = position;
@@ -31,51 +33,59 @@ void	free_light(t_light *light)
 	return ;
 }
 
-t_color	compute_light(t_ray ray, t_rec rec, t_mlx *rt)
+int		is_shadow(t_vec op, t_vec lightdir, t_mlx *rt, t_light *light)
 {
-	t_list *light = rt->lights;
-	t_color amb = c_mul(rt->ambient.color, rt->ambient.brightness);
-	t_vec op = rec.point;
+	t_ray	tolight;
+	int		i;
+	t_rec	tmp;
+	double	distance;
 
-	t_color diffuse_sum = color(0,0,0);
-	t_color specular_sum = color(0,0,0);
-	while (light != NULL) {
-		t_vec lightdir = v_unit(v_sub(((t_light *)(light->content))->position, rec.point));
-		double diff = v_dot(rec.normal, lightdir);
-		if (diff < 0)
-			diff = 0;
-		t_color diffuse = c_mul(((t_light *)(light->content))->color, diff * ((t_light *)(light->content))->brightness);
-
-		t_vec reflect = v_unit(v_sub(v_mul(rec.normal, 2 * diff), lightdir));
-		double cosa = v_dot(reflect, v_mul(ray.direction, -1));
-		t_color specular;
-		if (cosa >= 1)
-			cosa = 1;
-		if (cosa <= 0 || diff <= 0)
-			specular = color(0,0,0);
-		else
-			specular = c_mul(((t_light *)(light->content))->color, pow(cosa, 100));
-specular = color(0,0,0);
-
-		t_ray tolight;
-		tolight.origin = op;
-		tolight.direction = lightdir;
-		double distance = v_len(v_sub(((t_light *)(light->content))->position, op));
-		t_rec tmp;
-
-		for (int i = 0; i < rt->objs_cnt; i++)
-		{
-			if (hit(rt->objects_array[i], tolight, distance, &tmp))
-			{
-					specular = color(0,0,0);
-					diffuse = color(0,0,0);
-					break;
-			}
-		}
-
-		diffuse_sum = c_add(diffuse_sum, diffuse);
-		specular_sum = c_add(specular_sum, specular);
-		light = light->next;
+	tolight.origin = op;
+	tolight.direction = lightdir;
+	distance = v_len(v_sub(light->position, op));
+	i = -1;
+	while (++i < rt->objs_cnt)
+	{
+		if (hit(rt->objects_array[i], tolight, distance, &tmp))
+			return (1);
 	}
-	return c_add(c_add(amb, diffuse_sum), specular_sum);
+	return (0);
+}
+
+t_color	calc_specular(t_rec rec, t_vec lightdir, double diff, t_light *light)
+{
+	double	spec;
+	t_vec	reflect;
+
+	if (diff <= 0)
+		return (color(0, 0, 0));
+	reflect = v_unit(v_sub(v_mul(rec.normal, 2 * diff), lightdir));
+	spec = clamp(v_dot(reflect, v_mul(rec.raydir, -1)), -1, 1);
+	if (spec > 0)
+		return (c_mul(light->color, pow(spec, 10) * 0.5 * light->brightness));
+	return (color(0, 0, 0));
+}
+
+t_color	apply_light(t_ray ray, t_rec rec, t_list *lights_list, t_mlx *rt)
+{
+	t_light	*light;
+	t_vec	lightdir;
+	t_color	result;
+	t_color	specular;
+	double	diff;
+
+	specular = color(0, 0, 0);
+	result = c_mul(rt->ambient.color, rt->ambient.brightness);
+	while (lights_list != NULL)
+	{
+		light = (t_light *)(lights_list->content);
+		lights_list = lights_list->next;
+		lightdir = v_unit(v_sub(light->position, rec.point));
+		if (is_shadow(rec.point, lightdir, rt, light))
+			continue;
+		diff = clamp(v_dot(rec.normal, lightdir), 0, 1);
+		result = c_add(result, c_mul(light->color, diff * light->brightness));
+		specular = c_add(specular, calc_specular(rec, lightdir, diff, light));
+	}
+	return (c_add(c_mix(rec.color, result), specular));
 }

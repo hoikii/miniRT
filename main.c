@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:13:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 15:20:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	init_struct(t_mlx *rt)
 {
 	rt->objs_cnt = 0;
 	rt->cam_list = NULL;
-	rt->lights = NULL;
+	rt->lights_list = NULL;
 	rt->resolution_declared = 0;
 	rt->ambient_declared = 0;
 	rt->win = NULL;

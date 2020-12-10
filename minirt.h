@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 11:01:46 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 19:14:30 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_rec {
 	double		t;
 	t_vec		normal;
 	t_vec		point;
+	t_vec		raydir;
 }				t_rec;
 
 typedef enum	e_obj_type {
@@ -70,7 +71,7 @@ typedef struct	s_mlx {
 	int			ambient_declared;
 	t_cam		cam;
 	t_list		*cam_list;
-	t_list		*lights;
+	t_list		*lights_list;
 	int			objs_cnt;
 	t_objects	*objects_array;
 }				t_mlx;
