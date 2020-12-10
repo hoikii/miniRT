@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 22:47:30 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 09:50:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:47:30 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define TRIANGLE_H
 
 # include "color.h"
-# include "color2.h"
+# include "vec.h"
 
 typedef struct	s_triangle {
 	t_vec		p1;

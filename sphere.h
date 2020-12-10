@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:03:25 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 18:33:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:47:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SPHERE_H
 
 # include "color.h"
-# include "color2.h"
+# include "vec.h"
 
 typedef struct	s_sphere {
 	t_vec		center;

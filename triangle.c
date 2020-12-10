@@ -6,10 +6,11 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 22:46:49 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 09:50:18 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:50:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "triangle.h"
 
 t_triangle	*new_triangle(t_vec p1, t_vec p2, t_vec p3, t_color color)

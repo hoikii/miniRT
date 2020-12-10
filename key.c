@@ -6,11 +6,12 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 08:41:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:59:25 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "key.h"
+#include "exit.h"
 
 int key_pressed(int keycode, t_mlx *param) {
 	printf("\rkeycode=%d      ", keycode);

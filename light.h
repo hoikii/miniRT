@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:48:37 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 17:15:37 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:46:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "minirt.h"
 # include "color.h"
-# include "color2.h"
 # include "ray.h"
 
 typedef struct	s_light {

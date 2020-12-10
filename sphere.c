@@ -6,10 +6,11 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 16:35:03 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 18:33:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:50:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "sphere.h"
 
 t_sphere	*new_sphere(t_vec center, double radius, t_color color)

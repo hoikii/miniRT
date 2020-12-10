@@ -6,10 +6,11 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:14:14 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:07:31 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:50:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "plane.h"
 
 t_plane	*new_plane(t_vec point, t_vec normal, t_color color)

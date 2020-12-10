@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:16:17 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:05:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/10 10:48:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PLANE_H
 
 # include "color.h"
-# include "color2.h"
+# include "vec.h"
 
 typedef struct	s_plane {
 	t_vec		point;
