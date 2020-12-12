@@ -6,12 +6,21 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:12:59 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 18:28:00 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/12 02:57:01 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ray.h"
 #include "vec.h"
+
+t_ray	new_ray(t_vec origin, t_vec direction)
+{
+	t_ray ray;
+
+	ray.origin = origin;
+	ray.direction = direction;
+	return (ray);
+}
 
 t_vec	ray_at(t_ray r, double t)
 {

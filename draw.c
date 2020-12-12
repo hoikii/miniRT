@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 19:22:31 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/12 18:23:59 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,45 @@ void			set_pixel_color(t_mlx *rt, int y, int x, t_color tcolor)
 	return ;
 }
 
-t_color			trace_ray(t_ray ray, t_mlx *rt)
+int				hit_nearest_object(t_mlx *rt, t_ray ray, t_rec *rec)
 {
-	t_rec	rec;
-	double	tmax;
-	int		hit_flag;
 	int		i;
-	t_color	result;
+	int		ret;
+	double	tmax;
 
 	tmax = DBL_MAX;
-	hit_flag = 0;
+	ret = 0;
 	i = -1;
 	while (++i < rt->objs_cnt)
 	{
-		if (hit(rt->objects_array[i], ray, tmax, &rec))
+		if (hit(rt->objects_array[i], ray, tmax, rec))
 		{
-			tmax = rec.t;
-			rec.raydir = ray.direction;
-			hit_flag = 1;
+			tmax = rec->t;
+			rec->raydir = ray.direction;
+			ret = 1;
 		}
 	}
-	if (hit_flag)
-	{
-//		result = c_mix(rec.color, compute_light(ray, rec, rt->lights_list, rt));
-		result = apply_light(ray, rec, rt->lights_list, rt);
-		return (result);
-	}
-	return (color(0, 0, 0));
+	return (ret);
+}
+
+t_color			trace_ray(t_ray ray, int depth, t_mlx *rt)
+{
+	t_rec	rec;
+	t_color	local_color;
+	t_color	reflected_color;
+	t_vec	reflect_dir;
+	double	r;
+
+	if (!hit_nearest_object(rt, ray, &rec))
+		return (color(0, 0, 0));
+	local_color = apply_light(ray, rec, rt->lights_list, rt);
+	r = 0.1;
+	if (depth <= 0 || r <= 0)
+		return (local_color);
+	reflect_dir = v_sub(ray.direction, 
+			v_mul(rec.normal, v_dot(rec.normal, ray.direction) * 2));
+	reflected_color = trace_ray(new_ray(rec.point, reflect_dir), depth - 1, rt);
+	return c_add(c_mul(local_color, 1 - r), c_mul(reflected_color, r));
 }
 
 /*
@@ -108,6 +120,7 @@ void			draw(t_mlx *rt)
 	int			j;
 	t_ray		ray;
 	t_viewport	vp;
+int depth = 3;
 
 	set_viewport(rt, &vp);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
@@ -120,7 +133,7 @@ void			draw(t_mlx *rt)
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			set_pixel_color(rt, i, j, trace_ray(ray, rt));
+			set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
 		}
 	}
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 0, 0);
