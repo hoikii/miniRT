@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 15:20:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/13 00:25:56 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			main(int ac, char **av)
 	init_struct(&rt);
 	rt.mlx = mlx_init();
 	if (ac == 1)
-		filepath = "smpl.rt";
+		filepath = "cat.rt";
 	if (parser(filepath, &rt) != SUCCESS)
 		printf("parse failed");
 	rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 19:14:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/13 17:19:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define PI 3.141592653897932385
 # define EPSILON 0.0001
+
+# define THREADS_CNT 3
 
 typedef struct	s_img {
 	void		*img;
@@ -75,6 +77,11 @@ typedef struct	s_mlx {
 	int			objs_cnt;
 	t_objects	*objects_array;
 }				t_mlx;
+
+typedef struct	s_thread {
+	t_mlx		*mlx;
+	int			tid;
+}				t_thread;
 
 void			draw(t_mlx *rt);
 
