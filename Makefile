@@ -33,7 +33,7 @@ test:
 	cp libft/libft.a ./
 	$(MAKE) -C $(LIBXDIR) > /dev/null
 	cp $(LIBXDIR)/$(LIBXFILE) ./
-	gcc $(SRC) $(CFLAGS) -g3 -fsanitize=address && ./a.out
+	gcc $(SRC) $(CFLAGS) -g3 -fsanitize=address -D BONUS && ./a.out
 	
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/13 01:43:14 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 22:10:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ printf("tid:%d\n", tid);
 
 
 
-void			draw(t_mlx *rt)
+void			draw_thread_entry(t_mlx *rt)
 {
 	pthread_t	threads[THREADS_CNT];
 	t_thread	arg[THREADS_CNT];
@@ -166,5 +166,30 @@ void			draw(t_mlx *rt)
 	}
 	while (--i >= 0)
 		pthread_join(threads[i], NULL);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 0, 0);
+}
+
+void			draw(t_mlx *rt)
+{
+	int			i;
+	int			j;
+	t_ray		ray;
+	t_viewport	vp;
+int depth = 3;
+
+	set_viewport(rt, &vp);
+	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
+	i = -1;
+	while (++i < rt->screen_height)
+	{
+		j = -1;
+		while (++j < rt->screen_width)
+		{
+			ray.direction = set_ray_direction(ray, vp,
+					(double)i / (rt->screen_height - 1),
+					(double)j / (rt->screen_width - 1));
+			set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
+		}
+	}
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 0, 0);
 }

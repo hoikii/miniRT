@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/13 00:25:56 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 22:30:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			main(int ac, char **av)
 	init_struct(&rt);
 	rt.mlx = mlx_init();
 	if (ac == 1)
-		filepath = "cat.rt";
+		filepath = "smpl.rt";
 	if (parser(filepath, &rt) != SUCCESS)
 		printf("parse failed");
 	rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
@@ -50,7 +50,10 @@ int			main(int ac, char **av)
 	rt.imgdata = mlx_get_data_addr(rt.img, &rt.bpp, &rt.size_line, &rt.endian);
 	printf("mlx window running\n");
 	setbuf(stdout, NULL);
-	draw(&rt);
+	if (BONUS == 1 && THREADS_CNT > 1)
+		draw_thread_entry(&rt);
+	else
+		draw(&rt);
 #ifdef LINUX
 	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
 #else

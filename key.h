@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:07:59 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 22:31:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 #  define KEY_UP 126
 #  define KEY_PLUS 69
 #  define KEY_MINUS 78
+#  define KEY_SPACE 49
 # endif
 
 int key_pressed(int keycode, t_mlx *param);
