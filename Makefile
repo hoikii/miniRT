@@ -1,6 +1,6 @@
 NAME		= miniRT.out
 SRC			= main.c vec.c color.c key.c sphere.c math_utils.c ray.c draw.c \
-			  light.c plane.c objects.c triangle.c camera.c \
+			  light.c plane.c objects.c triangle.c camera.c square.c \
 			  parser.c parser_utils.c parse_value.c parse_objects.c exit.c \
 			  gnl/get_next_line.c gnl/get_next_line_utils.c
 HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h light.h \
@@ -20,7 +20,7 @@ UNAME		:= $(shell uname)
 ifeq ($(UNAME),Linux)
 	LIBXDIR = minilibx-linux
 	LIBXFILE = libmlx.a
-	CFLAGS += -D LINUX -L. -lft -l$(LIBXNAME) -L/usr/lib -lX11 -lXext -lm
+	CFLAGS += -D LINUX -L. -lft -l$(LIBXNAME) -L/usr/lib -lm -lXext -lX11
 else
 	CFLAGS += -D MACOS -L. -lft -L$(LIBXDIR) -l$(LIBXNAME)
 

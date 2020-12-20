@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 15:20:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 22:49:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ static void parse_objects(char *line, t_mlx *rt)
 		parse_plane(line, rt);
 	if (*line == 't' && *(line + 1) == 'r')
 		parse_triangle(line, rt);
-
+	if (*line == 's' && *(line + 1) == 'q')
+		parse_square(line, rt);
 	return ;
 }
 

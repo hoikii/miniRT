@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/19 22:29:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 22:46:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ typedef struct	s_rec {
 typedef enum	e_obj_type {
 	TYPE_SPHERE = 0,
 	TYPE_PLANE,
-	TYPE_TRIANGLE
+	TYPE_TRIANGLE,
+	TYPE_SQUARE
 }				t_obj_type;
 
 typedef struct	s_objects {

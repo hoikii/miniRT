@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/19 22:10:03 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 23:15:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void			*draw_thread(void *arg)
 	int			j;
 	t_ray		ray;
 	t_viewport	vp;
-int depth = 3;
+int depth = 1;
 	t_mlx *rt;
 	rt = ((t_thread *)arg)->mlx;
 	int tid = ((t_thread *)arg)->tid;

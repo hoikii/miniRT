@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 09:22:14 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/20 22:28:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,54 @@ int	hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
 	pl.color = tri->color;
 	if (!hit_plane(&pl, ray, tmax, &r))
 		return (0);
-	if (r.t < EPSILON || r.t >= tmax)
-		return (0);
+//	if (r.t < EPSILON || r.t >= tmax)
+//		return (0);
 	if (check_edge(tri->p1, tri->p2, r.point, tri->normal) &&
 			check_edge(tri->p2, tri->p3, r.point, tri->normal) &&
 			check_edge(tri->p3, tri->p1, r.point, tri->normal))
+	{
+		rec->color = r.color;
+		rec->t = r.t;
+		if (v_dot(ray.direction, r.normal) < 0)
+			rec->normal = r.normal;
+		else
+			rec->normal = v_mul(r.normal, -1);
+		rec->point = r.point;
+		return (1);
+	}
+	return (0);
+}
+
+int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
+{
+	t_plane	pl;
+	t_rec	r;
+	t_vec	dist;
+
+	pl.point = sq->center;
+	pl.normal = sq->normal;
+	pl.color = sq->color;
+	if (!hit_plane(&pl, ray, tmax, &r))
+		return (0);
+#if 0
+	dist = v_sub(r.point, sq->center);
+	if ((fabs(dist.x) <= sq->size / 2) && (fabs(dist.y) <= sq->size / 2) &&
+		(fabs(dist.z) <= sq->size / 2))
+	{
+		rec->color = r.color;
+		rec->t = r.t;
+		if (v_dot(ray.direction, r.normal) < 0)
+			rec->normal = r.normal;
+		else
+			rec->normal = v_mul(r.normal, -1);
+		rec->point = r.point;
+		return (1);
+	}
+#endif
+	if (check_edge(sq->p1, sq->p2, r.point, sq->normal) &&
+			check_edge(sq->p2, sq->p3, r.point, sq->normal) &&
+			check_edge(sq->p3, sq->p4, r.point, sq->normal) &&
+			check_edge(sq->p4, sq->p1, r.point, sq->normal))
 	{
 		rec->color = r.color;
 		rec->t = r.t;
@@ -109,5 +152,7 @@ int	hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 		return (hit_plane(obj.data, ray, tmax, rec));
 	if (obj.type == TYPE_TRIANGLE)
 		return (hit_triangle(obj.data, ray, tmax, rec));
+	if (obj.type == TYPE_SQUARE)
+		return (hit_square(obj.data, ray, tmax, rec));
 	return (0);
 }

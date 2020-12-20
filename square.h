@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_objects.h                                    :+:      :+:    :+:   */
+/*   square.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 16:48:35 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/19 22:47:03 by kanlee           ###   ########.fr       */
+/*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
+/*   Updated: 2020/12/20 11:51:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_OBJECTS_H
-# define PARSE_OBJECTS_H
+#ifndef SQUARE_H
+# define SQUARE_H
 
-# include "minirt.h"
+# include "vec.h"
+# include "color.h"
 
-void parse_sphere(char *line, t_mlx *rt);
-void parse_plane(char *line, t_mlx *rt);
-void parse_triangle(char *line, t_mlx *rt);
-void parse_square(char *line, t_mlx *rt);
+typedef struct	s_square {
+	t_vec		center;
+	t_vec		normal;
+	double		size;
+	t_color		color;
+	t_vec		p1;
+	t_vec		p2;
+	t_vec		p3;
+	t_vec		p4;
+}				t_square;
+
+
+t_square	*new_square(t_vec center, t_vec normal, double size, t_color color);
+void		free_square(t_square *sq);
 
 #endif

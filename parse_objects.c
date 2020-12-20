@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 19:37:26 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/19 22:46:43 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,28 @@ void	parse_triangle(char *line, t_mlx *rt)
 	if (!(tr = new_triangle(p1, p2, p3, color)))
 		exit_error("Failed while loading triangle.", rt);
 	append_object(tr, TYPE_TRIANGLE, rt);
+	return ;
+}
+
+void	parse_square(char *line, t_mlx *rt)
+{
+	t_square	*sq;
+	t_vec		center;
+	t_vec		normal;
+	double		size;
+	t_color		color;
+
+	line += 2;
+	skip_blank(&line);
+	center = get_vector(&line);
+	skip_blank(&line);
+	normal = get_vector(&line);
+	skip_blank(&line);
+	size = get_double(&line);
+	skip_blank(&line);
+	color = get_color(&line);
+	if (!(sq = new_square(center, normal, size, color)))
+		exit_error("Failed while loading square.", rt);
+	append_object(sq, TYPE_SQUARE, rt);
 	return ;
 }
