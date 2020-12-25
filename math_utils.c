@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:15:33 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 18:11:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/23 14:38:54 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,24 @@ double	quadratic_solve(double a, double b, double c)
 	if (ans < 0)
 		ans = (-b + sqrt(discriminant)) / (2.0 * a);
 	return (ans);
+}
+
+int		quadratic_solve2(double *root1, double *root2, t_coef coef)
+{
+	double discriminant;
+	double a;
+	double b;
+	double c;
+
+	a = coef.a;
+	b = coef.b;
+	c = coef.c;
+	discriminant = b * b - 4 * a * c;
+	if (discriminant < 0)
+		return (0);
+	*root1 = (-b - sqrt(discriminant)) / (2.0 * a);
+	*root2 = (-b + sqrt(discriminant)) / (2.0 * a);
+	if (discriminant == 0)
+		return (1);
+	return (2);
 }

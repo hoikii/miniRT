@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/19 22:49:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/23 00:23:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ static void parse_objects(char *line, t_mlx *rt)
 		parse_triangle(line, rt);
 	if (*line == 's' && *(line + 1) == 'q')
 		parse_square(line, rt);
+	if (*line == 'c' && *(line + 1) == 'y')
+		parse_cylinder(line, rt);
 	return ;
 }
 
@@ -126,7 +128,7 @@ static void parse_line(char *line, t_mlx *rt)
 		parse_resolution(line, rt);
 	else if (*line == 'A')
 		parse_ambient(line, rt);
-	else if (*line == 'c')
+	else if (*line == 'c' && *(line + 1) != 'y')
 		parse_camera(line, rt);
 	else if (*line == 'l')
 		parse_light(line, rt);
