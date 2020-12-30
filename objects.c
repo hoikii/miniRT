@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/24 20:02:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/30 17:32:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,13 @@ static t_vec pre_compute_coef(t_vec v1, t_vec v2)
 	return (v_sub(v1, v_mul(v2, v_dot(v1, v2))));
 }
 
+int is_cylinder_range(t_cylinder *cy, t_ray ray, double t)
+{
+	t_vec aa = v_sub(ray_at(ray, t), cy->bottom);
+	double aaa = v_dot(aa, cy->direction);
+	return (0 <= aaa && aaa <= cy->height);
+}
+
 int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 {
 #if 0
@@ -194,25 +201,24 @@ int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 	if (quadratic_solve2(&root1, &root2, coef) == 0)
 		return (0);
 	t_vec aa; double aaa;
-	if (EPSILON <= root1 && root1 < tmax){
+	if (EPSILON < root1 && is_cylinder_range(cy, ray, root1))
 		t = root1;
-		aa = v_sub(ray_at(ray, t), cy->bottom);
-		aaa = v_dot(aa, cy->direction);
-		if (aaa < 0 || aaa > cy->height) {
-			t = root2;
-			aa = v_sub(ray_at(ray, t), cy->bottom);
-			aaa = v_dot(aa, cy->direction);
-			if (aaa < 0 || aaa > cy->height)
-				return (0);
-		}
-	}
+	else if (EPSILON < root2 && is_cylinder_range(cy, ray, root2))
+		t = root2;
+	else
+		return (0);
 	if (EPSILON <= t && t < tmax)
 	{
 		rec->color = cy->color;
-		rec->t = t;
+		rec->t = root1;
+		aa = v_sub(ray_at(ray, root1), cy->bottom);
+		aaa = v_dot(aa, cy->direction);
 //		t_vec res = v_sub(aa, v_mul(cy->direction, v_dot(aa, cy->direction)));
 		t_vec res = v_sub(aa, v_mul(cy->direction, aaa));
-		rec->normal = v_unit(res);
+		if (t == root1)
+			rec->normal = v_unit(res);
+		else
+			rec->normal = v_mul(v_unit(res), -1);
 		rec->point = ray_at(ray, t);
 		return (1);
 	}
