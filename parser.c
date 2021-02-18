@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/23 00:23:37 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/31 00:41:53 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ static void parse_camera(char *line, t_mlx *rt)
 	fov = get_integer(&line);
 	if (!(cam = new_camera(pos, direction, fov)))
 		exit_error("Load failed when parsing camera.", rt);
+	cam->image.img = mlx_new_image(rt->mlx, rt->screen_width, rt->screen_height);
+	cam->image.imgdata = mlx_get_data_addr(cam->image.img,
+			&cam->image.bpp, &cam->image.size_line, &cam->image.endian);
 	ft_lstadd_back(&(rt->cam_list), ft_lstnew(cam, 0));
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/19 23:15:12 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/01/28 16:38:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@
 #include "vec.h"
 #include <stdio.h>
 
-void			set_pixel_color(t_mlx *rt, int y, int x, t_color tcolor)
+void			set_pixel_color(t_cam *cam, int y, int x, t_color tcolor)
 {
 	char	*imgdata;
 	int		color;
 	int		pos;
 
-	imgdata = rt->imgdata;
+	imgdata = cam->image.imgdata;
 //	color = mlx_get_color_value(rt->mlx, rgb_to_int(_color.r, _color.g, _color.b));
 	color = color_to_int(tcolor);
-	pos = y * rt->size_line + x * rt->bpp / 8;
+	pos = y * cam->image.size_line + x * cam->image.bpp / 8;
 	imgdata[pos + 0] = color;
 	imgdata[pos + 1] = color >> 8;
 	imgdata[pos + 2] = color >> 16;
@@ -143,7 +143,8 @@ printf("tid:%d\n", tid);
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
+			//set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
+			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, depth, rt));
 		}
 	}
 	pthread_exit((void *)0);
@@ -166,7 +167,7 @@ void			draw_thread_entry(t_mlx *rt)
 	}
 	while (--i >= 0)
 		pthread_join(threads[i], NULL);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 0, 0);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->cam_list->content->image.img, 0, 0);
 }
 
 void			draw(t_mlx *rt)
@@ -188,8 +189,9 @@ int depth = 3;
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
+			//set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
+			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, depth, rt));
 		}
 	}
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->img, 0, 0);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->cam_list->content->image.img, 0, 0);
 }

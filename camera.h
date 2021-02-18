@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:21 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 10:48:18 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/31 00:34:24 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define CAMERA_H
 
 # include "vec.h"
+
+typedef struct	s_img {
+	void		*img;
+	char		*imgdata;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_img;
 
 typedef struct	s_cam {
 	t_vec		origin;
@@ -24,6 +32,7 @@ typedef struct	s_cam {
 	double		tany;
 	t_vec		u;
 	t_vec		v;
+	t_img		image;
 }				t_cam;
 
 typedef struct	s_viewport {

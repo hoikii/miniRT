@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/19 22:30:00 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/01/28 16:34:27 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,13 @@ int			main(int ac, char **av)
 	if (parser(filepath, &rt) != SUCCESS)
 		printf("parse failed");
 	rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
-	rt.img = mlx_new_image(rt.mlx, rt.screen_width, rt.screen_height);
-	rt.imgdata = mlx_get_data_addr(rt.img, &rt.bpp, &rt.size_line, &rt.endian);
 	printf("mlx window running\n");
 	setbuf(stdout, NULL);
 	if (BONUS == 1 && THREADS_CNT > 1)
 		draw_thread_entry(&rt);
 	else
 		draw(&rt);
+	//mlx_put_image_to_window(rt.mlx, rt.win, ((t_cam *)(rt.cam_list->content))->image.img, 0, 0);
 #ifdef LINUX
 	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
 #else

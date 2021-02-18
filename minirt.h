@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/23 00:08:42 by kanlee           ###   ########.fr       */
+/*   Updated: 2020/12/31 01:17:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,6 @@
 # ifndef THREADS_CNT
 #  define THREADS_CNT 3
 # endif
-
-typedef struct	s_img {
-	void		*img;
-	int			bpp;
-	int			size_line;
-	int			endian;
-}				t_img;
 
 typedef struct	s_ambient {
 	double		brightness;
@@ -79,7 +72,7 @@ typedef struct	s_mlx {
 	int			resolution_declared;
 	t_ambient	ambient;
 	int			ambient_declared;
-	t_cam		cam;
+	//t_cam		cam;
 	t_list		*cam_list;
 	t_list		*lights_list;
 	int			objs_cnt;
