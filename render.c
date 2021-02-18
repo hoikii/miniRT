@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/01/28 16:38:19 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/18 21:46:05 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,13 @@ static t_vec	set_ray_direction(t_ray ray, t_viewport vp, double y, double x)
 }
 
 
+void			print_progress()
+{
+	printf("\r");
+	for (int i = 0; i < THREADS_CNT; i++)
+		printf("t%d:%2d%%   ", i, g_threads_progress[i]);
+}
+
 
 void			*draw_thread(void *arg)
 {
@@ -124,18 +131,17 @@ void			*draw_thread(void *arg)
 	int			j;
 	t_ray		ray;
 	t_viewport	vp;
-int depth = 1;
 	t_mlx *rt;
+
 	rt = ((t_thread *)arg)->mlx;
 	int tid = ((t_thread *)arg)->tid;
-printf("tid:%d\n", tid);
 
 	set_viewport(rt, &vp);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
 	i = -1;
 	while (++i < rt->screen_height)
 	{
-		if (i % THREADS_CNT == tid)
+		if (i % THREADS_CNT != tid)
 			continue;
 		j = -1;
 		while (++j < rt->screen_width)
@@ -144,19 +150,21 @@ printf("tid:%d\n", tid);
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
 			//set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
-			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, depth, rt));
+			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
+		g_threads_progress[tid] = (i + 1) * 100 / rt->screen_height;
+		print_progress();
 	}
 	pthread_exit((void *)0);
 }
 
-
-
+/*
 void			draw_thread_entry(t_mlx *rt)
 {
 	pthread_t	threads[THREADS_CNT];
 	t_thread	arg[THREADS_CNT];
 	int			i;
+	t_cam		*camera;
 
 	i = -1;
 	while (++i < THREADS_CNT)
@@ -167,8 +175,10 @@ void			draw_thread_entry(t_mlx *rt)
 	}
 	while (--i >= 0)
 		pthread_join(threads[i], NULL);
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->cam_list->content->image.img, 0, 0);
+	camera = rt->cam_list->content;
+	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img, 0, 0);
 }
+*/
 
 void			draw(t_mlx *rt)
 {
@@ -176,7 +186,7 @@ void			draw(t_mlx *rt)
 	int			j;
 	t_ray		ray;
 	t_viewport	vp;
-int depth = 3;
+	t_cam		*camera;
 
 	set_viewport(rt, &vp);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
@@ -190,8 +200,36 @@ int depth = 3;
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
 			//set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
-			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, depth, rt));
+			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
+		printf("\rrendering %2d%%", (i + 1) * 100 / rt->screen_height);
 	}
-	mlx_put_image_to_window(rt->mlx, rt->win, rt->cam_list->content->image.img, 0, 0);
+	printf("\r\n");
+	camera = rt->cam_list->content;
+	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img, 0, 0);
+}
+
+void		render_scene(t_mlx *rt)
+{
+	pthread_t	threads[THREADS_CNT];
+	t_thread	arg[THREADS_CNT];
+	int			i;
+	t_cam		*camera;
+
+	if (BONUS != 1 || THREADS_CNT <= 1)
+		draw(rt);
+	else
+	{
+		i = -1;
+		while (++i < THREADS_CNT)
+		{
+			arg[i].mlx = rt;
+			arg[i].tid = i;
+			pthread_create(&threads[i], NULL, &draw_thread, (void *)(&arg[i]));
+		}
+		while (--i >= 0)
+			pthread_join(threads[i], NULL);
+		camera = rt->cam_list->content;
+		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img, 0, 0);
+	}
 }

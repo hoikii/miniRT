@@ -1,5 +1,5 @@
 NAME		= miniRT.out
-SRC			= main.c vec.c color.c key.c sphere.c math_utils.c ray.c draw.c \
+SRC			= main.c vec.c color.c key.c sphere.c math_utils.c ray.c render.c \
 			  light.c plane.c objects.c triangle.c camera.c square.c cylinder.c \
 			  parser.c parser_utils.c parse_value.c parse_objects.c exit.c \
 			  gnl/get_next_line.c gnl/get_next_line_utils.c

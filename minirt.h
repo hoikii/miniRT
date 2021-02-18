@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/31 01:17:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/18 21:43:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@
 
 # ifndef THREADS_CNT
 #  define THREADS_CNT 3
+# endif
+
+# ifndef REFLECTION_DEPTH
+#  define REFLECTION_DEPTH 3
 # endif
 
 typedef struct	s_ambient {
@@ -84,7 +88,8 @@ typedef struct	s_thread {
 	int			tid;
 }				t_thread;
 
-void			draw(t_mlx *rt);
-void			draw_thread_entry(t_mlx *rt);
+int g_threads_progress[THREADS_CNT];
+
+void			render_scene(t_mlx *rt);
 
 #endif

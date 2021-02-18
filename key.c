@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:59:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/18 20:21:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int key_pressed(int keycode, t_mlx *param) {
 	{
 			param->cam_list = param->cam_list->next;
 	}
-	draw(param);
+	render_scene(param);
 	return 0;
 }
 
