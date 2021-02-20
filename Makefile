@@ -21,10 +21,12 @@ ifeq ($(UNAME),Linux)
 	LIBXDIR = minilibx-linux
 	LIBXFILE = libmlx.a
 	CFLAGS += -D LINUX -L. -lft -l$(LIBXNAME) -L/usr/lib -lm -lXext -lX11
+#	CFLAGS += -D THREADS_CNT=$(shell grep -c processor /proc/cpuinfo)
 else
 	CFLAGS += -D MACOS -L. -lft -L$(LIBXDIR) -l$(LIBXNAME)
-
-endif	
+#	CFLAGS += -D THREADS_CNT=$(shell sysctl -n hw.ncpu)
+endif
+CFLAGS += -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
 
 .PHONY: test all clean fclean re bonus
 

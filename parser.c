@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/31 00:41:53 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/20 17:28:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void parse_resolution(char *line, t_mlx *rt)
 	mlx_get_screen_size(rt->mlx, &res_x, &res_y);
 	if (rt->screen_width > res_x || rt->screen_height > res_y)
 	{
-//		ft_putstr_fd("Resolution Max\n");
+		printf("Limit resolution to %dx%d\n", res_x, res_y);
 		rt->screen_width = res_x;
 		rt->screen_height = res_y;
 	}

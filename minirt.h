@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/18 21:43:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/20 18:42:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # endif
 
 # ifndef THREADS_CNT
-#  define THREADS_CNT 3
+#  define THREADS_CNT 1
 # endif
 
 # ifndef REFLECTION_DEPTH
