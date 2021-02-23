@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.h                                     :+:      :+:    :+:   */
+/*   ft_cntwords_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 16:18:34 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/23 12:16:15 by kanlee           ###   ########.fr       */
+/*   Created: 2021/02/23 13:21:05 by kanlee            #+#    #+#             */
+/*   Updated: 2021/02/23 13:22:13 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_UTILS_H
-# define PARSER_UTILS_H
+#include "libft.h"
 
-# include "minirt.h"
-# define SUCCESS 0
-# define FAIL 1
+int ft_cntwords(const char *str, char sep)
+{
+	int cnt;
 
-void skip_blank(char **line);
-void skip_sep(char **line);
-void append_object(void *obj, int type, t_mlx *rt);
-
-#endif
+	cnt = 0;
+	while (*str == sep)
+		str++;
+	while (1)
+	{
+		if (!(*str == sep || *str == '\0'))
+		{
+			str++;
+			continue;
+		}
+		while (*str == sep)
+			str++;
+		cnt++;
+		if (*str == '\0')
+			return (cnt);
+	}
+}

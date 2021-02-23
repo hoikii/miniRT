@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 13:09:12 by kanlee            #+#    #+#             */
-/*   Updated: 2020/11/27 14:19:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/23 13:22:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
 
+int					ft_cntwords(const char *str, char sep);
 #endif

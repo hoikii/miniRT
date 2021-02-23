@@ -6,12 +6,13 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/20 17:28:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/02/23 13:48:16 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "minirt.h"
 #include "error.h"
 #include "parser_utils.h"
@@ -25,10 +26,8 @@
 #include "camera.h"
 #include "light.h"
 #include "exit.h"
-#include <stdio.h>
 
-
-static void parse_resolution(char *line, t_mlx *rt)
+static int parse_resolution(char *line, t_mlx *rt)
 {
 	int res_x;
 	int res_y;
@@ -36,6 +35,8 @@ static void parse_resolution(char *line, t_mlx *rt)
 	if (rt->resolution_declared)
 		exit_error("Resolution must be declared once.", rt);
 	rt->resolution_declared = 1;
+	if (ft_cntwords(line, ' ') != 3)
+		exit_error("error while parsing resolution\n", rt);
 	line++;
 	skip_blank(&line);
 	rt->screen_width = get_integer(&line);
@@ -48,7 +49,7 @@ static void parse_resolution(char *line, t_mlx *rt)
 		rt->screen_width = res_x;
 		rt->screen_height = res_y;
 	}
-	return ;
+	return SUCCESS;
 }
 
 static void parse_ambient(char *line, t_mlx *rt)
@@ -56,6 +57,8 @@ static void parse_ambient(char *line, t_mlx *rt)
 	if (rt->ambient_declared)
 		exit_error("Ambient must be declared once.", rt);
 	rt->ambient_declared = 1;
+	if (ft_cntwords(line, ' ') != 3)
+		exit_error("error while parsing ambient\n", rt);
 	line++;
 	skip_blank(&line);
 	rt->ambient.brightness = get_double(&line);
@@ -70,7 +73,9 @@ static void parse_light(char *line, t_mlx *rt)
 	double brightness;
 	t_color color;
 	t_light *light;
-
+	
+	if (ft_cntwords(line, ' ') != 4)
+		exit_error("error while parsing light\n", rt);
 	line++;
 	skip_blank(&line);
 	pos = get_vector(&line);
@@ -90,14 +95,14 @@ static void parse_camera(char *line, t_mlx *rt)
 	t_vec direction;
 	int fov;
 	t_cam *cam;
+	char **words;
 
-	line++;
-	skip_blank(&line);
-	pos = get_vector(&line);
-	skip_blank(&line);
-	direction = get_vector(&line);
-	skip_blank(&line);
-	fov = get_integer(&line);
+	if (ft_cntwords(line, ' ') != 4)
+		exit_error("error while parsing camera\n", rt);
+	words = ft_split(line, ' ');
+	pos = get_vector(words[1]);
+	direction = get_vector(words[2]);
+	fov = get_integer(words[3]);
 	if (!(cam = new_camera(pos, direction, fov)))
 		exit_error("Load failed when parsing camera.", rt);
 	cam->image.img = mlx_new_image(rt->mlx, rt->screen_width, rt->screen_height);
@@ -124,11 +129,13 @@ static void parse_objects(char *line, t_mlx *rt)
 }
 
 
-static void parse_line(char *line, t_mlx *rt)
+static int parse_line(char *line, t_mlx *rt)
 {
+	int ret = -1;
+
 	skip_blank(&line);
 	if (*line == 'R')
-		parse_resolution(line, rt);
+		ret = parse_resolution(line, rt);
 	else if (*line == 'A')
 		parse_ambient(line, rt);
 	else if (*line == 'c' && *(line + 1) != 'y')
@@ -137,7 +144,8 @@ static void parse_line(char *line, t_mlx *rt)
 		parse_light(line, rt);
 	else
 		parse_objects(line, rt);
-	return ;
+	free(line);
+	return ret;
 }
 
 void check_parsed(t_mlx *rt)
@@ -153,22 +161,28 @@ void check_parsed(t_mlx *rt)
 }
 int parser(char *filepath, t_mlx *rt)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
+	int		parse_error;
 
+	parse_error = SUCCESS;
 	if ((fd = open(filepath, O_RDONLY)) < 0)
 		return (FILE_OPEN_FAILED);
 	while (get_next_line(fd, &line) > 0)
 	{
-		parse_line(line, rt);
-		free(line);
+		parse_error = parse_line(line, rt);
+		if (parse_error == FAIL)
+			break ;
 	}
-	parse_line(line, rt);
-	free(line);
-	check_parsed(rt);
-	printf("R:%dx%d\n", rt->screen_width, rt->screen_height);
-	printf("Cam:%d\n", ft_lstsize(rt->cam_list));
-	printf("objs_cnt:%d\n",rt->objs_cnt);
+	if (parse_error != FAIL)
+		parse_error = parse_line(line, rt);
+	if (parse_error != FAIL)
+	{
+		check_parsed(rt);
+		printf("R:%dx%d\n", rt->screen_width, rt->screen_height);
+		printf("Cam:%d\n", ft_lstsize(rt->cam_list));
+		printf("objs_cnt:%d\n",rt->objs_cnt);
+	}
 	close(fd);
 	return (SUCCESS);
 }
