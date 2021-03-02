@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_value.h                                      :+:      :+:    :+:   */
+/*   parse_info.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 16:21:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 17:29:38 by kanlee           ###   ########.fr       */
+/*   Created: 2020/12/03 11:18:13 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/02 14:46:31 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_VALUE_H
-# define PARSE_VALUE_H
+#ifndef PARSE_INFO_H
+# define PARSE_INFO_H
 
-int		get_integer(char *str, int *ret);
-int		get_double(char *str, double *ret);
-int		get_color(char *str, t_color *ret);
-int		get_vector(char *str, t_vec *ret);
-int		get_vector_norm(char *str, t_vec *ret);
+void parse_resolution(char *line, t_mlx *rt, int linenum);
+void parse_ambient(char *line, t_mlx *rt, int linenum);
+void parse_camera(char *line, t_mlx *rt, int linenum);
+void parse_light(char *line, t_mlx *rt, int linenum);
 
 #endif

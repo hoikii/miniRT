@@ -6,12 +6,39 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 15:19:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 16:47:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "libft/libft.h"
+
+static void	destroy_img(t_mlx *rt)
+{
+	t_list *tmp;
+	t_list *head;
+	t_cam *cam;
+/*
+	tmp = param->cam_list;
+	while (tmp)
+	{
+		cam = tmp->content;
+		if (cam->image.img_ptr)
+			mlx_destroy_image(param->mlx, cam->image.img_ptr);
+		tmp = tmp->next;
+	}*/
+	head = rt->cam_list;
+	tmp = head;
+	while (tmp)
+	{
+		cam = tmp->content;
+		if (cam->image.img_ptr)
+			mlx_destroy_image(rt->mlx, cam->image.img_ptr);
+		tmp = tmp->next;
+		if (tmp == head)
+			break ;
+	}
+}
 
 int		close_window(t_mlx *param)
 {
@@ -23,6 +50,7 @@ int		close_window(t_mlx *param)
 	while (++i < param->objs_cnt)
 		free(param->objects_array[i].data);
 	ft_lstclear(&(param->lights_list), free);
+	destroy_img(param);
 	ft_lstclear(&(param->cam_list), free);
 	exit(0);
 }
@@ -33,4 +61,17 @@ void	exit_error(char *str, t_mlx *rt)
 	ft_putstr_fd(str, 1);
 	close_window(rt);
 	return ;
+}
+
+void	exit_error_ln(char *str, t_mlx *rt, int linenumber)
+{
+	printf("Error\n");
+	printf("line #%d: %s\n", linenumber, str);
+	close_window(rt);
+	return ;
+}
+
+void	exit_errorr(char *str, t_mlx *rt, int linenumber)
+{
+	return exit_error_ln(str, rt, linenumber);
 }

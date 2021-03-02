@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:18:34 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/23 12:16:15 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/01 21:50:57 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@
 void skip_blank(char **line);
 void skip_sep(char **line);
 void append_object(void *obj, int type, t_mlx *rt);
+void free_words(char **words);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/18 21:46:05 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 16:24:36 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ void			draw(t_mlx *rt)
 	}
 	printf("\r\n");
 	camera = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img, 0, 0);
+	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 }
 
 void		render_scene(t_mlx *rt)
@@ -230,6 +230,6 @@ void		render_scene(t_mlx *rt)
 		while (--i >= 0)
 			pthread_join(threads[i], NULL);
 		camera = rt->cam_list->content;
-		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img, 0, 0);
+		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 	}
 }

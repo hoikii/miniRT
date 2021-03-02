@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 19:30:37 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 19:03:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,71 +15,121 @@
 #include "vec.h"
 #include "color.h"
 
-int		get_integer(char **line)
+int		get_integer(char *str, int *ret)
 {
-	int ret;
 	int sign;
 
 	sign = 1;
-	if (**line == '-')
+	if (*str == '-')
 		sign = -1;
-	if (**line == '-' || **line == '+')
-		(*line)++;
-	ret = 0;
-	while (**line && ft_isdigit(**line))
+	if (*str == '-' || *str == '+')
+		str++;
+	*ret = 0;
+	while (*str != '\0')
 	{
-		ret = ret * 10 + **line - '0';
-		(*line)++;
+		if (!ft_isdigit(*str))
+			return (FAIL);
+		*ret = *ret * 10 + *str - '0';
+		str++;
 	}
-	return (ret * sign);
+	*ret *= sign;
+	return (SUCCESS);
 }
 
-double	get_double(char **line)
+int		get_double(char *str, double *ret)
 {
-	double	ret;
 	double	decimal;
 	int		sign;
 
 	sign = 1;
-	if (**line == '-')
+	if (*str == '-')
 		sign = -1;
-	if (**line == '-' || **line == '+')
-		(*line)++;
-	ret = get_integer(line);
-	decimal = 0.1;
-	if (**line == '.')
+	if (*str == '-' || *str == '+')
+		str++;
+	*ret = 0;
+	while (*str && *str != '.')
 	{
-		(*line)++;
-		while (**line && ft_isdigit(**line))
-		{
-			ret = ret + (**line - '0') * decimal;
-			decimal /= 10;
-			(*line)++;
-		}
+		if (!ft_isdigit(*str))
+			return (FAIL);
+		*ret = *ret * 10 + *(str++) - '0';
 	}
-	return (ret * sign);
+	decimal = 1.0;
+	if (*str == '.')
+		while (*(++str))
+		{
+			if (!ft_isdigit(*str))
+				return (FAIL);
+			*ret = *ret + (*str - '0') * (decimal /= 10);
+		}
+	*ret *= sign;
+	return (SUCCESS);
 }
 
-t_color	get_color(char **line)
+int		get_color(char *str, t_color *ret)
 {
-	t_color ret;
+	int		r;
+	int		g;
+	int		b;
+	char	**words;
 
-	ret.r = get_integer(line) / 255.0;
-	skip_sep(line);
-	ret.g = get_integer(line) / 255.0;
-	skip_sep(line);
-	ret.b = get_integer(line) / 255.0;
-	return (ret);
+	if (ft_cntwords(str, ',') != 3)
+		return (FAIL);
+	words = ft_split(str, ',');
+	if ((get_integer(words[0], &r) == FAIL) ||
+		(get_integer(words[1], &g) == FAIL) ||
+		(get_integer(words[2], &b) == FAIL))
+		return (FAIL);
+	if (!(0 <= r && r <= 255 && 0 <= g && g <= 255 && 0 <= b && b <= 255))
+		return (FAIL);
+	ret->r = r / 255.0;
+	ret->g = g / 255.0;
+	ret->b = b / 255.0;
+	free_words(words);
+	return (SUCCESS);
 }
 
-t_vec	get_vector(char **line)
+int		get_vector(char *str, t_vec *ret)
 {
-	t_vec ret;
+	double	x;
+	double	y;
+	double	z;
+	char	**words;
 
-	ret.x = get_double(line);
-	skip_sep(line);
-	ret.y = get_double(line);
-	skip_sep(line);
-	ret.z = get_double(line);
-	return (ret);
+	if (ft_cntwords(str, ',') != 3)
+		return (FAIL);
+	words = ft_split(str, ',');
+	if ((get_double(words[0], &x) == FAIL) ||
+		(get_double(words[1], &y) == FAIL) ||
+		(get_double(words[2], &z) == FAIL))
+		return (FAIL);
+	ret->x = x;
+	ret->y = y;
+	ret->z = z;
+	free_words(words);
+	return (SUCCESS);
+}
+
+int		get_vector_norm(char *str, t_vec *ret)
+{
+	double	x;
+	double	y;
+	double	z;
+	char	**words;
+
+	if (ft_cntwords(str, ',') != 3)
+		return (FAIL);
+	words = ft_split(str, ',');
+	if ((get_double(words[0], &x) == FAIL) ||
+		(get_double(words[1], &y) == FAIL) ||
+		(get_double(words[2], &z) == FAIL))
+		return (FAIL);
+	if (!(-1 <= x && x <= 1) ||
+		!(-1 <= y && y <= 1) ||
+		!(-1 <= z && z <= 1))
+		return (FAIL);
+	ret->x = x;
+	ret->y = y;
+	ret->z = z;
+	free_words(words);
+	return (SUCCESS);
 }

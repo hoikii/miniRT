@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:21 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/31 00:34:24 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 16:23:44 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "vec.h"
 
 typedef struct	s_img {
-	void		*img;
+	void		*img_ptr;
 	char		*imgdata;
 	int			bpp;
 	int			size_line;

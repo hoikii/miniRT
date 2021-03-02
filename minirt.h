@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/20 18:42:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 16:31:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 
 # define PI 3.141592653897932385
 # define EPSILON 0.0001
+
+# define MIN_X 20
+# define MIN_Y 20
 
 # ifndef BONUS
 #  define BONUS 0
@@ -66,8 +69,8 @@ typedef struct	s_objects {
 typedef struct	s_mlx {
 	void		*mlx;
 	void		*win;
-	void		*img;
-	char		*imgdata;
+//	void		*img;
+//	char		*imgdata;
 	int			bpp;
 	int			size_line;
 	int			endian;

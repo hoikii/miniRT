@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:18:16 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 19:35:38 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 19:03:18 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@ void	skip_blank(char **line)
 {
 	while (**line && **line == ' ')
 		(*line)++;
-	return ;
-}
-
-void	skip_sep(char **line)
-{
-	skip_blank(line);
-	while (**line && **line == ',')
-		(*line)++;
-	skip_blank(line);
 	return ;
 }
 
@@ -54,5 +45,19 @@ void	append_object(void *obj, int type, t_mlx *rt)
 	else
 		rt->objects_array[cnt] = new_item;
 	(rt->objs_cnt)++;
+	return ;
+}
+
+void	free_words(char **words)
+{
+	int i;
+
+	i = 0;
+	while (words[i])
+	{
+		free(words[i]);
+		i++;
+	}
+	free(words);
 	return ;
 }
