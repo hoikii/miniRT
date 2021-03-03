@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 00:26:08 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/03 22:03:15 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "camera.h"
 # include "color.h"
 # include "libft/libft.h"
+
+# define STDOUT 1
 
 # define PI 3.141592653897932385
 # define EPSILON 0.0001

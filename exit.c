@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 16:47:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/03 22:04:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int		close_window(t_mlx *param)
 
 void	exit_error(char *str, t_mlx *rt)
 {
-	ft_putstr_fd("Error\n", 1);
-	ft_putstr_fd(str, 1);
+	printf("Error\n");
+	printf("%s\n", str);
 	close_window(rt);
 	return ;
 }
