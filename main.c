@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/01 22:39:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/03 21:24:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,18 @@ int			main(int ac, char **av)
 {
 	t_mlx	rt;
 	char	*filepath;
+	int		save_bmp;
 
 	init_struct(&rt);
 	rt.mlx = mlx_init();
-	if (ac == 1)
-		filepath = "smpl.rt";
-	if (parser(filepath, &rt) != SUCCESS)
-		printf("parse failed");
+	if (ac < 2 || ac > 3 || (ac == 3 && !ft_strequ(av[2], "-save")))
+		exit_error("Usage: miniRT scene.rt [-save]", &rt);
+	parser(av[1], &rt);
+	save_bmp = 0;
+	if (ac == 3)
+		save_bmp = 1;
 	rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
-	printf("mlx window running\n");
-	setbuf(stdout, NULL);
-//exit(0);
-	render_scene(&rt);
-	//mlx_put_image_to_window(rt.mlx, rt.win, ((t_cam *)(rt.cam_list->content))->image.img, 0, 0);
+	render_scene(&rt, save_bmp);
 #ifdef LINUX
 	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
 #else

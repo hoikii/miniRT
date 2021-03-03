@@ -1,17 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   bmp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 11:18:13 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 23:53:34 by kanlee           ###   ########.fr       */
+/*   Created: 2021/03/03 00:39:48 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/03 19:06:14 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef BMP_H
+# define BMP_H
+# include "minirt.h"
 
-void parser(char *filepath, t_mlx *rt);
+# define BMP_FILE_HEADER_SIZE 14
+# define BMP_INFO_HEADER_SIZE 40
+
+void create_bmp_image(t_img image, t_mlx *rt);
+
 #endif

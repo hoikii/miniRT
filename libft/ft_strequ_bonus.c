@@ -1,17 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_strequ_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/03 11:18:13 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 23:53:34 by kanlee           ###   ########.fr       */
+/*   Created: 2020/10/04 16:24:36 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/03 00:14:56 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "libft.h"
 
-void parser(char *filepath, t_mlx *rt);
-#endif
+int	ft_strequ(const char *s1, const char *s2)
+{
+	size_t i;
+
+	i = 0;
+	while (s1[i] && s2[i] && (s1[i] == s2[i]))
+		i++;
+	if (s1[i] || s2[i])
+		return (0);
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 16:24:36 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/03 00:45:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "math_utils.h"
 #include "objects.h"
 #include "vec.h"
+#include "bmp.h"
 #include <stdio.h>
 
 void			set_pixel_color(t_cam *cam, int y, int x, t_color tcolor)
@@ -209,7 +210,7 @@ void			draw(t_mlx *rt)
 	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 }
 
-void		render_scene(t_mlx *rt)
+void		render_scene(t_mlx *rt, int save_bmp)
 {
 	pthread_t	threads[THREADS_CNT];
 	t_thread	arg[THREADS_CNT];
@@ -230,6 +231,8 @@ void		render_scene(t_mlx *rt)
 		while (--i >= 0)
 			pthread_join(threads[i], NULL);
 		camera = rt->cam_list->content;
+		if (save_bmp)
+			create_bmp_image(camera->image, rt);
 		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 	}
 }

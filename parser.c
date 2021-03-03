@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 19:01:40 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/02 23:53:25 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	check_mandatory(t_mlx *rt)
 	return ;
 }
 
-int			parser(char *filepath, t_mlx *rt)
+void		parser(char *filepath, t_mlx *rt)
 {
 	int		fd;
 	char	*line;
@@ -81,7 +81,7 @@ int			parser(char *filepath, t_mlx *rt)
 
 	linenum = 0;
 	if ((fd = open(filepath, O_RDONLY)) < 0)
-		return (FILE_OPEN_FAILED);
+		exit_error(ft_strjoin("cannot open ", filepath), rt);
 	while (get_next_line(fd, &line) > 0)
 	{
 		linenum++;
@@ -95,5 +95,5 @@ int			parser(char *filepath, t_mlx *rt)
 	printf("Cam:%d\n", ft_lstsize(rt->cam_list));
 	printf("objs_cnt:%d\n", rt->objs_cnt);
 	close(fd);
-	return (SUCCESS);
+	return ;
 }
