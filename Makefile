@@ -22,7 +22,7 @@ ifeq ($(UNAME),Linux)
 	LIBXDIR = minilibx-linux
 	LIBXFILE = libmlx.a
 	CFLAGS += -D LINUX
-	LIBS = -L. -lft -l$(LIBXNAME) -L/usr/lib -l -m -lXext -lX11
+	LIBS = -L. -lft -l$(LIBXNAME) -L/usr/lib -lm -lXext -lX11 -lpthread
 #	CFLAGS += -D THREADS_CNT=$(shell grep -c processor /proc/cpuinfo)
 else
 	CFLAGS += -D MACOS

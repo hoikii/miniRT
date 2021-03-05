@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 00:39:27 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/05 16:13:36 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/05 22:51:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	write_info_header(t_mlx *rt, t_img image, int fd)
 	size = (rt->screen_width + pad_size) * rt->screen_height * image.bpp / 8;
 	ft_memset(info_header, 0, BMP_INFO_HEADER_SIZE);
 	info_header[0] = BMP_INFO_HEADER_SIZE;
-	*(t__uint32_t *)(&info_header[4]) = rt->screen_width;
+	*(t_uint32_t *)(&info_header[4]) = rt->screen_width;
 	*(t_uint32_t *)(&info_header[8]) = rt->screen_height;
 	*(t_uint16_t *)(&info_header[12]) = 1;
 	*(t_uint16_t *)(&info_header[14]) = image.bpp;

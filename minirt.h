@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/05 22:23:42 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/05 23:11:59 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct	s_thread {
 	int			tid;
 }				t_thread;
 
-int				g_threads_progress[THREADS_CNT];
+int				g_threads_progress[THREADS_CNT+1];
 void			render_scene(t_mlx *rt, int save_bmp);
 
 #endif

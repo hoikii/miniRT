@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 22:01:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/05 23:15:07 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,11 @@ static t_vec	set_ray_direction(t_ray ray, t_viewport vp, double y, double x)
 
 void			print_progress()
 {
+	g_threads_progress[THREADS_CNT] = 1;
 	printf("\r");
 	for (int i = 0; i < THREADS_CNT; i++)
 		printf("t%d:%2d%%   ", i, g_threads_progress[i]);
+	g_threads_progress[THREADS_CNT] = 0;
 }
 
 
@@ -154,7 +156,8 @@ void			*draw_thread(void *arg)
 			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
 		g_threads_progress[tid] = (i + 1) * 100 / rt->screen_height;
-		print_progress();
+		if (g_threads_progress[THREADS_CNT] != 1)
+			print_progress();
 	}
 	pthread_exit((void *)0);
 }
