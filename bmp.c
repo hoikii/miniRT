@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 00:39:27 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 21:20:04 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/05 16:13:36 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	write_file_header(t_mlx *rt, t_img image, int fd)
 	ft_memset(file_header, 0, BMP_FILE_HEADER_SIZE);
 	file_header[0] = 'B';
 	file_header[1] = 'M';
-	*((u_int32_t *)&file_header[2]) = fsize;
+	*((t_uint32_t *)&file_header[2]) = fsize;
 	file_header[10] = BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE;
 	write(fd, file_header, BMP_FILE_HEADER_SIZE);
 	return ;
@@ -44,11 +44,11 @@ static void	write_info_header(t_mlx *rt, t_img image, int fd)
 	size = (rt->screen_width + pad_size) * rt->screen_height * image.bpp / 8;
 	ft_memset(info_header, 0, BMP_INFO_HEADER_SIZE);
 	info_header[0] = BMP_INFO_HEADER_SIZE;
-	*(u_int32_t *)(&info_header[4]) = rt->screen_width;
-	*(u_int32_t *)(&info_header[8]) = rt->screen_height;
-	*(u_int16_t *)(&info_header[12]) = 1;
-	*(u_int16_t *)(&info_header[14]) = image.bpp;
-	*(u_int32_t *)(&info_header[20]) = size;
+	*(t__uint32_t *)(&info_header[4]) = rt->screen_width;
+	*(t_uint32_t *)(&info_header[8]) = rt->screen_height;
+	*(t_uint16_t *)(&info_header[12]) = 1;
+	*(t_uint16_t *)(&info_header[14]) = image.bpp;
+	*(t_uint32_t *)(&info_header[20]) = size;
 	write(fd, info_header, BMP_INFO_HEADER_SIZE);
 	return ;
 }

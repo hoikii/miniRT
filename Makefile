@@ -11,6 +11,7 @@ OBJS		= $(SRC:.c=.o)
 LIBXDIR		= minilibx
 LIBXFILE	= libmlx.dylib
 LIBXNAME	= mlx
+LIBFTDIR	= libft
 CC			= gcc
 #CFLAGS		= -Wall -Wextra -Werror
 RM			= rm -rf
@@ -20,13 +21,18 @@ UNAME		:= $(shell uname)
 ifeq ($(UNAME),Linux)
 	LIBXDIR = minilibx-linux
 	LIBXFILE = libmlx.a
-	CFLAGS += -D LINUX -L. -lft -l$(LIBXNAME) -L/usr/lib -lm -lXext -lX11
+	CFLAGS += -D LINUX
+	LIBS = -L. -lft -l$(LIBXNAME) -L/usr/lib -l -m -lXext -lX11
 #	CFLAGS += -D THREADS_CNT=$(shell grep -c processor /proc/cpuinfo)
 else
-	CFLAGS += -D MACOS -L. -lft -L$(LIBXDIR) -l$(LIBXNAME)
+	CFLAGS += -D MACOS
+	LIBS = -L. -lft -L$(LIBXDIR) -l$(LIBXNAME)
 #	CFLAGS += -D THREADS_CNT=$(shell sysctl -n hw.ncpu)
 endif
 CFLAGS += -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
+
+
+
 
 .PHONY: test all clean fclean re bonus
 
@@ -35,19 +41,22 @@ test:
 	cp libft/libft.a ./
 	$(MAKE) -C $(LIBXDIR) > /dev/null
 	cp $(LIBXDIR)/$(LIBXFILE) ./
-	gcc $(SRC) $(CFLAGS) -g3 -fsanitize=address -D BONUS && ./a.out
+	gcc $(SRC) $(CFLAGS) -L$(LIBXDIR) -l$(LIBXNAME) -g3 -fsanitize=address -D BONUS && ./a.out
 	
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(MAKE) -C $(LIBXDIR)
+	$(MAKE) bonus -C libft > /dev/null
+	cp libft/libft.a ./
+	$(MAKE) -C $(LIBXDIR) > /dev/null
 	cp $(LIBXDIR)/$(LIBXFILE) ./
-	gcc $(SRC) -L$(LIBXDIR) -l$(LIBXNAME)
+	$(CC) $(OBJS) $(CFLAGS) $(LIBS) -o $(NAME)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: all
+bonus: CFLAGS += -DBONUS
+bonus: clean all
 
 clean:
 	$(RM) $(OBJS)

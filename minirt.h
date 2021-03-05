@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 22:03:15 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/05 22:23:42 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@
 #  define REFLECTION_DEPTH 3
 # endif
 
+/*
+** Since standard library macros aren't allowed by norminette,
+** define uint32_t manually.
+** This may not be necessary because most system/compiler uses 4 bytes for int
+** and 2 bytes for short.
+*/
+
+typedef int		t_uint32_t;
+typedef short	t_uint16_t;
+
 typedef struct	s_ambient {
 	double		brightness;
 	t_color		color;
@@ -71,8 +81,6 @@ typedef struct	s_objects {
 typedef struct	s_mlx {
 	void		*mlx;
 	void		*win;
-//	void		*img;
-//	char		*imgdata;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -81,7 +89,6 @@ typedef struct	s_mlx {
 	int			resolution_declared;
 	t_ambient	ambient;
 	int			ambient_declared;
-	//t_cam		cam;
 	t_list		*cam_list;
 	t_list		*lights_list;
 	int			objs_cnt;
@@ -93,8 +100,7 @@ typedef struct	s_thread {
 	int			tid;
 }				t_thread;
 
-int g_threads_progress[THREADS_CNT];
-
+int				g_threads_progress[THREADS_CNT];
 void			render_scene(t_mlx *rt, int save_bmp);
 
 #endif
