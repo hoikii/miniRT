@@ -44,7 +44,7 @@ endif
 
 test: CFLAGS += -g3 -fsanitize=address
 test: all
-	$(NAME) smpl.rt
+	./$(NAME) smpl.rt
 	
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 11:31:23 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 11:03:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 21:23:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cam	*new_camera(t_vec origin, t_vec direction, double fov)
 	if (!(cam = malloc(sizeof(t_cam))))
 		return (NULL);
 	cam->origin = origin;
-	cam->direction = v_unit(direction);
+	cam->direction = direction;
 	cam->fov = fov;
 	cam->vup = v_new(0, 1, 0);
 	cam->tanx = rtod(atan(cam->direction.x / cam->direction.z));

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 19:16:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 21:27:57 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 			each x,y,z", rt, linenum);
 	if (get_color(words[3], &pl->color) == FAIL)
 		exit_error_ln("Plane: Invalid color value", rt, linenum);
-	pl->normal = v_unit(pl->normal);
 	append_object(pl, TYPE_PLANE, rt);
 	free_words(words);
 	return ;
@@ -91,8 +90,6 @@ void	parse_triangle(char *line, t_mlx *rt, int linenum)
 void	parse_square(char *line, t_mlx *rt, int linenum)
 {
 	t_square	*sq;
-	t_vec		up;
-	t_vec		right;
 	char		**words;
 
 	if (ft_cntwords(line, ' ') != 5)
@@ -104,10 +101,9 @@ void	parse_square(char *line, t_mlx *rt, int linenum)
 		get_double(words[3], &sq->size) == FAIL ||
 		get_color(words[4], &sq->color) == FAIL)
 		exit_error_ln("Square: Invalid parameters", rt, linenum);
-	if (get_vector(words[2], &sq->normal) == FAIL)
+	if (get_vector_norm(words[2], &sq->normal) == FAIL)
 		exit_error_ln("Square: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	sq->normal = v_unit(sq->normal);
 	fill_square_info(sq);
 	append_object(sq, TYPE_SQUARE, rt);
 	free_words(words);
@@ -129,12 +125,12 @@ void	parse_cylinder(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &cy->direction) == FAIL)
 		exit_error_ln("Cylinder: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
+	diameter = 0.0;
 	if ((get_vector(words[1], &cy->center) == FAIL) ||
 		(get_double(words[3], &diameter) == FAIL) ||
 		(get_double(words[4], &cy->height) == FAIL) ||
 		(get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
-	cy->direction = v_unit(cy->direction);
 	cy->radius = diameter / 2;
 	cy->bottom = v_sub(cy->center, v_mul(cy->direction, cy->height / 2));
 	cy->top = v_add(cy->center, v_mul(cy->direction, cy->height / 2));

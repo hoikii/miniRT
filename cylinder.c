@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/23 00:11:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:53:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 t_cylinder	*new_cylinder(t_vec center, t_vec direction, double diameter, double height, t_color color)
 {
 	t_cylinder	*cy;
-	t_vec		bottom;
-	t_vec		top;
 
 	if (!(cy = malloc(sizeof(t_cylinder))))
 		return (NULL);

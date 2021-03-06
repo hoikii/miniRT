@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 19:22:39 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 21:03:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_color	calc_specular(t_rec rec, t_vec lightdir, double diff, t_light *light)
 	return (color(0, 0, 0));
 }
 
-t_color	apply_light(t_ray ray, t_rec rec, t_list *lights_list, t_mlx *rt)
+t_color	apply_light(t_rec rec, t_list *lights_list, t_mlx *rt)
 {
 	t_light	*light;
 	t_vec	lightdir;

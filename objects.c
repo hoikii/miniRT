@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/30 17:32:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:53:16 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
 {
 	t_plane	pl;
 	t_rec	r;
-	t_vec	dist;
 
 	pl.point = sq->center;
 	pl.normal = sq->normal;
@@ -113,6 +112,7 @@ int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
 	if (!hit_plane(&pl, ray, tmax, &r))
 		return (0);
 #if 0
+	t_vec	dist;
 	dist = v_sub(r.point, sq->center);
 	if ((fabs(dist.x) <= sq->size / 2) && (fabs(dist.y) <= sq->size / 2) &&
 		(fabs(dist.z) <= sq->size / 2))
@@ -160,10 +160,13 @@ int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
 **
 ** 0 <= (P-x1)(x2-x1) <= (x2-x1)(x2-x1)
 */
+
+/*
 static t_vec pre_compute_coef(t_vec v1, t_vec v2)
 {
 	return (v_sub(v1, v_mul(v2, v_dot(v1, v2))));
 }
+*/
 
 int is_cylinder_range(t_cylinder *cy, t_ray ray, double t)
 {

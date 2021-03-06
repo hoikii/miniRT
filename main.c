@@ -6,12 +6,10 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 22:01:56 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 21:08:41 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <float.h>
-#include <math.h>
 #include "minirt.h"
 #include "ray.h"
 #include "camera.h"
@@ -37,7 +35,6 @@ static void	init_struct(t_mlx *rt)
 int			main(int ac, char **av)
 {
 	t_mlx	rt;
-	char	*filepath;
 	int		save_bmp;
 
 	init_struct(&rt);

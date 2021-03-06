@@ -6,11 +6,10 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/05 23:15:07 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 21:02:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <float.h>
 #include <pthread.h>
 #include "minirt.h"
 #include "ray.h"
@@ -72,7 +71,8 @@ t_color			trace_ray(t_ray ray, int depth, t_mlx *rt)
 
 	if (!hit_nearest_object(rt, ray, &rec))
 		return (color(0, 0, 0));
-	local_color = apply_light(ray, rec, rt->lights_list, rt);
+	//local_color = apply_light(ray, rec, rt->lights_list, rt);
+	local_color = apply_light(rec, rt->lights_list, rt);
 	r = 0.1;
 	if (depth <= 0 || r <= 0)
 		return (local_color);
@@ -192,6 +192,7 @@ void			draw(t_mlx *rt)
 	t_viewport	vp;
 	t_cam		*camera;
 
+	printf("\n====dddddddd=====\n");
 	set_viewport(rt, &vp);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
 	i = -1;
@@ -223,7 +224,7 @@ void		render_scene(t_mlx *rt, int save_bmp)
 	if (BONUS != 1 || THREADS_CNT <= 1)
 		draw(rt);
 	else
-	{
+{
 		i = -1;
 		while (++i < THREADS_CNT)
 		{

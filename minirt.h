@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 20:48:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:49:40 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@
 
 typedef int		t_uint32_t;
 typedef short	t_uint16_t;
+
+/*
+** Define DBL_MAX manually instead of using float.h
+*/
+# define DBL_MAX 1.79769e+308
 
 typedef struct	s_ambient {
 	double		brightness;
