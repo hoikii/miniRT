@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 22:04:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/07 00:02:44 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,4 @@ void	exit_error_ln(char *str, t_mlx *rt, int linenumber)
 	printf("line #%d: %s\n", linenumber, str);
 	close_window(rt);
 	return ;
-}
-
-void	exit_errorr(char *str, t_mlx *rt, int linenumber)
-{
-	return exit_error_ln(str, rt, linenumber);
 }

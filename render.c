@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 21:02:19 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/07 00:24:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,13 @@ static t_vec	set_ray_direction(t_ray ray, t_viewport vp, double y, double x)
 }
 
 
-void			print_progress()
+void			print_progress(int tid, int current)
 {
+	if (g_threads_progress[THREADS_CNT] == 1)
+		return ;
 	g_threads_progress[THREADS_CNT] = 1;
 	printf("\r");
+	g_threads_progress[tid] = current;
 	for (int i = 0; i < THREADS_CNT; i++)
 		printf("t%d:%2d%%   ", i, g_threads_progress[i]);
 	g_threads_progress[THREADS_CNT] = 0;
@@ -134,17 +137,15 @@ void			*draw_thread(void *arg)
 	int			j;
 	t_ray		ray;
 	t_viewport	vp;
-	t_mlx *rt;
+	t_mlx		*rt;
 
 	rt = ((t_thread *)arg)->mlx;
-	int tid = ((t_thread *)arg)->tid;
-
 	set_viewport(rt, &vp);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
 	i = -1;
 	while (++i < rt->screen_height)
 	{
-		if (i % THREADS_CNT != tid)
+		if (i % THREADS_CNT != ((t_thread *)arg)->tid)
 			continue;
 		j = -1;
 		while (++j < rt->screen_width)
@@ -152,37 +153,12 @@ void			*draw_thread(void *arg)
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			//set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
 			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
-		g_threads_progress[tid] = (i + 1) * 100 / rt->screen_height;
-		if (g_threads_progress[THREADS_CNT] != 1)
-			print_progress();
+		print_progress(((t_thread *)arg)->tid, (i + 1) * 100 / rt->screen_height);
 	}
 	pthread_exit((void *)0);
 }
-
-/*
-void			draw_thread_entry(t_mlx *rt)
-{
-	pthread_t	threads[THREADS_CNT];
-	t_thread	arg[THREADS_CNT];
-	int			i;
-	t_cam		*camera;
-
-	i = -1;
-	while (++i < THREADS_CNT)
-	{
-		arg[i].mlx = rt;
-		arg[i].tid = i;
-		pthread_create(&threads[i], NULL, &draw_thread, (void *)(&arg[i]));
-	}
-	while (--i >= 0)
-		pthread_join(threads[i], NULL);
-	camera = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img, 0, 0);
-}
-*/
 
 void			draw(t_mlx *rt)
 {
@@ -190,9 +166,7 @@ void			draw(t_mlx *rt)
 	int			j;
 	t_ray		ray;
 	t_viewport	vp;
-	t_cam		*camera;
 
-	printf("\n====dddddddd=====\n");
 	set_viewport(rt, &vp);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
 	i = -1;
@@ -204,14 +178,12 @@ void			draw(t_mlx *rt)
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			//set_pixel_color(rt, i, j, trace_ray(ray, depth, rt));
-			set_pixel_color(rt->cam_list->content, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
+			set_pixel_color(rt->cam_list->content, i, j,
+					trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
 		printf("\rrendering %2d%%", (i + 1) * 100 / rt->screen_height);
 	}
-	printf("\r\n");
-	camera = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	return ;
 }
 
 void		render_scene(t_mlx *rt, int save_bmp)
@@ -224,7 +196,7 @@ void		render_scene(t_mlx *rt, int save_bmp)
 	if (BONUS != 1 || THREADS_CNT <= 1)
 		draw(rt);
 	else
-{
+	{
 		i = -1;
 		while (++i < THREADS_CNT)
 		{
@@ -234,10 +206,11 @@ void		render_scene(t_mlx *rt, int save_bmp)
 		}
 		while (--i >= 0)
 			pthread_join(threads[i], NULL);
-		camera = rt->cam_list->content;
-		if (save_bmp)
-			create_bmp_image(camera->image, rt);
-		else
-			mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 	}
+	camera = rt->cam_list->content;
+	if (save_bmp)
+		create_bmp_image(camera->image, rt);
+	else
+		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 00:39:27 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/05 22:51:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/07 00:01:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void		create_bmp_image(t_img image, t_mlx *rt)
 	write_info_header(rt, image, fd);
 	write_data(rt, image, fd);
 	close(fd);
+	printf("\nScene is exported as scene.bmp\n");
 	close_window(rt);
 }

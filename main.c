@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 21:08:41 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 23:49:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			main(int ac, char **av)
 		save_bmp = 1;
 	else
 		rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
+setbuf(stdout, NULL);
 	render_scene(&rt, save_bmp);
 #ifdef LINUX
 	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
