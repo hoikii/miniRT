@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/05 23:11:59 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/06 20:48:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@
 # define MIN_X 20
 # define MIN_Y 20
 
-# ifndef BONUS
+# ifdef BONUS
+#  undef BONUS
+#  define BONUS 1
+# else
 #  define BONUS 0
 # endif
 

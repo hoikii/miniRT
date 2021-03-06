@@ -1,4 +1,4 @@
-NAME		= miniRT.out
+NAME		= miniRT
 SRC			= main.c vec.c color.c key.c sphere.c math_utils.c ray.c render.c \
 			  light.c plane.c objects.c triangle.c camera.c square.c cylinder.c \
 			  parser.c parser_utils.c parse_value.c parse_objects.c parse_info.c exit.c \
@@ -8,63 +8,77 @@ HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h light.h \
 			  parser.h parser_utils.h parse_value.h parse_objects.h parse_info.h exit.h \
 			  gnl/get_next_line.h
 OBJS		= $(SRC:.c=.o)
-LIBXDIR		= minilibx
-LIBXFILE	= libmlx.dylib
-LIBXNAME	= mlx
 LIBFTDIR	= libft
+LIBFTNAME	= ft
 CC			= gcc
+####################################
+####################################
 #CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra
+####################################
+####################################
 RM			= rm -rf
 
+CCBLUE		= \033[34m
+CCEND		= \033[0m
+
 UNAME		:= $(shell uname)
-
 ifeq ($(UNAME),Linux)
-	LIBXDIR = minilibx-linux
-	LIBXFILE = libmlx.a
-	CFLAGS += -D LINUX
-	LIBS = -L. -lft -l$(LIBXNAME) -L/usr/lib -lm -lXext -lX11 -lpthread
-#	CFLAGS += -D THREADS_CNT=$(shell grep -c processor /proc/cpuinfo)
+	CFLAGS		+= -D LINUX
+	LIBXDIR		= minilibx-linux
+	LIBXFILE	= libmlx.a
+	LIBXNAME	= mlx
+	LDLIBS		= -L$(LIBFTDIR) -l$(LIBFTNAME) -L$(LIBXDIR) -l$(LIBXNAME)
+	LDLIBS		+= -L/usr/lib -lm -lXext -lX11 -lpthread
+#	CFLAGS		+= -D THREADS_CNT=$(shell grep -c processor /proc/cpuinfo)
 else
-	CFLAGS += -D MACOS
-	LIBS = -L. -lft -L$(LIBXDIR) -l$(LIBXNAME)
-#	CFLAGS += -D THREADS_CNT=$(shell sysctl -n hw.ncpu)
+	CFLAGS		+= -D MACOS
+	LIBXDIR		= minilibx
+	LIBXFILE	= libmlx.dylib
+	LIBXNAME	= mlx
+	LDLIBS		= -L$(LIBFTDIR) -l$(LIBFTNAME) -L$(LIBXDIR) -l$(LIBXNAME)
+#	CFLAGS		+= -D THREADS_CNT=$(shell sysctl -n hw.ncpu)
 endif
-CFLAGS += -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
 
+.PHONY: test all bonus cleanlib clean fclean re
 
-
-
-.PHONY: test all clean fclean re bonus
-
-test:
-	$(MAKE) bonus -C libft > /dev/null
-	cp libft/libft.a ./
-	$(MAKE) -C $(LIBXDIR) > /dev/null
-	cp $(LIBXDIR)/$(LIBXFILE) ./
-	gcc $(SRC) $(CFLAGS) -L$(LIBXDIR) -l$(LIBXNAME) -g3 -fsanitize=address -D BONUS && ./a.out
+test: CFLAGS += -g3 -fsanitize=address
+test: all
+	$(NAME) smpl.rt
 	
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(MAKE) bonus -C libft > /dev/null
-	cp libft/libft.a ./
-	$(MAKE) -C $(LIBXDIR) > /dev/null
+	@echo "$(CCBLUE) >>> make libft with bonus <<< $(CCEND)"
+	@$(MAKE) bonus -C libft
+	@echo "$(CCBLUE) >>> make minilibx (warning suppressed) <<< $(CCEND)"
+	@$(MAKE) -C $(LIBXDIR) 2> /dev/null
 	cp $(LIBXDIR)/$(LIBXFILE) ./
-	$(CC) $(OBJS) $(CFLAGS) $(LIBS) -o $(NAME)
+	@echo "$(CCBLUE) >>> linking obj files.  <<< $(CCEND)"
+	$(CC) $(OBJS) $(CFLAGS) $(LDLIBS) -o $(NAME)
+	@echo "$(CCBLUE) >>> make $(NAME) done!  <<< $(CCEND)"
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-bonus: CFLAGS += -DBONUS
+bonus: CFLAGS += -DBONUS -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
 bonus: clean all
 
-clean:
-	$(RM) $(OBJS)
-	$(MAKE) -C $(LIBFTDIR) clean
-
-fclean: clean
-	$(RM) $(NAME)
+cleanlib:
+	@echo "$(CCBLUE) >>> clean libft <<< $(CCEND)"
 	$(MAKE) -C $(LIBFTDIR) fclean
+	@echo "$(CCBLUE) >>> clean minilibx. <<< $(CCEND)"
+	$(MAKE) -C $(LIBXDIR) clean
+
+clean:
+	@echo "$(CCBLUE) >>> clean main projects object files. <<< $(CCEND)"
+	$(RM) $(OBJS)
+
+fclean: cleanlib clean
+	@echo "$(CCBLUE) >>> clean minilibx library file <<< $(CCEND)"
+	$(RM) $(LIBXFILE)
+	@echo "$(CCBLUE) >>> clean main project's executable. <<< $(CCEND)"
+	$(RM) $(NAME)
 
 re: fclean all
 
