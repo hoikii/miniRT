@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 01:47:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/07 02:05:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	draw_thread(t_mlx *rt, int tid)
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			set_pixel_color(rt->cam_list->content, i, j,
+			set_pixel_color(rt, i, j,
 					trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
 		print_progress(tid, (i + 1) * 100 / rt->screen_height);
@@ -105,7 +105,7 @@ static void	draw(t_mlx *rt)
 			ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			set_pixel_color(rt->cam_list->content, i, j,
+			set_pixel_color(rt, i, j,
 					trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
 		ft_putstr_fd("\rrenndering ", STDOUT);

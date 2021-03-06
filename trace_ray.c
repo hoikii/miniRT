@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 02:02:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/07 02:17:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,20 @@ t_vec		set_ray_direction(t_ray ray, t_viewport vp, double y, double x)
 	return (direction);
 }
 
-void		set_pixel_color(t_cam *cam, int y, int x, t_color tcolor)
+void		set_pixel_color(t_mlx *rt, int y, int x, t_color color)
 {
-	char	*imgdata;
-	int		color;
-	int		pos;
+	t_cam			*cam;
+	char			*imgdata;
+	unsigned int	color_value;
+	int				pos;
 
+	cam = rt->cam_list->content;
 	imgdata = cam->image.imgdata;
-//	color = mlx_get_color_value(rt->mlx, color_to_int(tcolor));
-	color = color_to_int(tcolor);
+	color_value = mlx_get_color_value(rt->mlx, color_to_int(color));
 	pos = y * cam->image.size_line + x * cam->image.bpp / 8;
-	imgdata[pos + 0] = color;
-	imgdata[pos + 1] = color >> 8;
-	imgdata[pos + 2] = color >> 16;
+	imgdata[pos + 0] = color_value;
+	imgdata[pos + 1] = color_value >> 8;
+	imgdata[pos + 2] = color_value >> 16;
 	return ;
 }
 
