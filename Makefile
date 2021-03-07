@@ -19,7 +19,7 @@ CFLAGS		= -Wall -Wextra
 ####################################
 RM			= rm -rf
 
-CCBLUE		= \033[34m
+CCBLUE		= \033[1;34m
 CCEND		= \033[0m
 
 UNAME		:= $(shell uname)
