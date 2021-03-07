@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 02:05:03 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/07 09:22:30 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,22 @@
 #include "trace_ray.h"
 #include "libft/libft.h"
 
+/*
+** Use write() instead of printf() because flusing buffer is needed but
+** fflush() or setbuf() isn't allowed.
+*/
+
 static void	print_progress(int tid, int current)
 {
 	int i;
 
+	if (tid == -1)
+	{
+		ft_putstr_fd("\rrenndering ", STDOUT);
+		ft_putnbr_fd(current, STDOUT);
+		ft_putchar_fd('%', STDOUT);
+		return ;
+	}
 	if (g_threads_progress[THREADS_CNT] == 1)
 		return ;
 	g_threads_progress[THREADS_CNT] = 1;
@@ -43,7 +55,6 @@ static void	print_progress(int tid, int current)
 		ft_putstr_fd(": ", STDOUT);
 		ft_putnbr_fd(g_threads_progress[i], STDOUT);
 		ft_putstr_fd("%   ", STDOUT);
-//		printf("t%d:%2d%%   ", i, g_threads_progress[i]);
 	}
 	g_threads_progress[THREADS_CNT] = 0;
 }
@@ -108,10 +119,7 @@ static void	draw(t_mlx *rt)
 			set_pixel_color(rt, i, j,
 					trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
-		ft_putstr_fd("\rrenndering ", STDOUT);
-		ft_putnbr_fd((i + 1) * 100 / rt->screen_height, STDOUT);
-		ft_putchar_fd('%', STDOUT);
-//		printf("\rrendering %2d%%", (i + 1) * 100 / rt->screen_height);
+		print_progress(-1, (i + 1) * 100 / rt->screen_height);
 	}
 	return ;
 }
