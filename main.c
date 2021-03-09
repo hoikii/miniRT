@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/08 05:14:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 22:13:10 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	init_struct(t_mlx *rt)
 	rt->resolution_declared = 0;
 	rt->ambient_declared = 0;
 	rt->win = NULL;
-	rt->object_mode = 0;
+	rt->transform_mode = MODE_CAM;
+	rt->obj_selected_idx =0;
 	return ;
 }
 

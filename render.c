@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 09:22:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 22:18:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,7 @@ void		render_scene(t_mlx *rt, int save_bmp)
 		create_bmp_image(camera->image, rt);
 	else
 		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	if (rt->transform_mode == MODE_OBJ)
+		show_object_info(rt->obj_selected_idx, rt);
 	return ;
 }

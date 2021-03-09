@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:03:25 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 17:33:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 22:41:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_sphere		*new_sphere(t_vec center, double radius, t_color color);
 void			free_sphere(t_sphere *sp);
 
 void move_sphere(t_sphere *sp, double dx, double dy);
+void resize_sphere(t_sphere *sp, double amount);
 void get_sphere_info(char **msg, t_sphere *sp);
 #endif

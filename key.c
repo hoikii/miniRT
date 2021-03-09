@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 17:45:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 00:32:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,15 @@ static void	key_arrow_pressed(int keycode, t_mlx *param)
 
 static void	key_sign_pressed(int keycode, t_mlx *param)
 {
-	if (keycode == KEY_PLUS)
-		modify_fov(param->cam_list->content, -5.0);
-	else if (keycode == KEY_MINUS)
-		modify_fov(param->cam_list->content, +5.0);
+	if (param->transform_mode == MODE_CAM)
+	{
+		if (keycode == KEY_PLUS)
+			modify_fov(param->cam_list->content, -5.0);
+		if (keycode == KEY_MINUS)
+			modify_fov(param->cam_list->content, +5.0);
+	}
+	else if (param->transform_mode == MODE_OBJ)
+		resize_object(param, (keycode == KEY_PLUS) ? 0.1 : -0.1);
 	render_scene(param, 0);
 }
 
@@ -81,24 +86,22 @@ int			key_pressed(int keycode, t_mlx *param)
 		key_sign_pressed(keycode, param);
 	else if (keycode == KEY_SPACE)
 	{
-		if (param->object_mode)
-		{
-			param->obj_selected_idx = (param->obj_selected_idx + 1) % param->objs_cnt;
-			show_object_info(param->obj_selected_idx, param);
-		}
-		else
-		{
 			param->cam_list = param->cam_list->next;
 			render_scene(param, 0);
-		}
 	}
-	else if (keycode == KEY_O)
+	else if (keycode == KEY_O && param->objs_cnt > 0)
 	{
-		param->object_mode ^= CAM_OBJ_SWITCH;
-		if (param->object_mode) {
-			param->obj_selected_idx = 0;
-			show_object_info(param->obj_selected_idx, param);
-		}
+		if (param->transform_mode == MODE_OBJ)
+			param->obj_selected_idx = (param->obj_selected_idx + 1) % param->objs_cnt;
+		else
+			param->transform_mode = MODE_OBJ;
+		show_object_info(param->obj_selected_idx, param);
+	}
+	else if (keycode == KEY_C)
+	{
+		param->transform_mode = MODE_CAM;
+		mlx_put_image_to_window(param->mlx, param->win,
+				((t_cam *)(param->cam_list->content))->image.img_ptr, 0, 0);
 	}
 	else
 		show_keycode(keycode, param);

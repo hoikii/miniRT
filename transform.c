@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 03:56:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 17:56:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 21:59:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		move_x(t_mlx *rt, double amount)
 	t_cam *cam;
 
 	cam = rt->cam_list->content;
-	if (!rt->object_mode)
+	if (rt->transform_mode == MODE_CAM)
 		cam->origin = v_add(cam->origin, v_mul(cam->u, amount));
 	else
 		move_object(rt, amount, 0);
@@ -33,7 +33,7 @@ void		move_z(t_mlx *rt, double amount)
 	t_cam *cam;
 
 	cam = rt->cam_list->content;
-	if (!rt->object_mode)
+	if (rt->transform_mode == MODE_CAM)
 		cam->origin = v_add(cam->origin, v_mul(cam->direction, amount));
 	else
 		move_object(rt, 0, amount);
@@ -57,7 +57,7 @@ void		rotate_yaw(t_mlx *rt, int amount)
 	t_cam *cam;
 
 	cam = rt->cam_list->content;
-	if (!rt->object_mode)
+	if (rt->transform_mode == MODE_CAM)
 	{
 		cam->angley += amount;
 		cam->angley = remainder(cam->angley + 360, 360);
@@ -71,7 +71,7 @@ void		rotate_pitch(t_mlx *rt, int amount)
 	t_cam *cam;
 
 	cam = rt->cam_list->content;
-	if (!rt->object_mode)
+	if (rt->transform_mode == MODE_CAM)
 	{
 		cam->anglex += amount;
 		cam->anglex = remainder(cam->anglex + 360, 360);

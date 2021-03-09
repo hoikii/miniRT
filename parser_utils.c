@@ -6,12 +6,13 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:18:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 19:03:18 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 23:36:53 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_utils.h"
 #include "exit.h"
+#include <stdio.h>
 
 void	skip_blank(char **line)
 {
@@ -32,6 +33,7 @@ void	append_object(void *obj, int type, t_mlx *rt)
 	cnt = rt->objs_cnt;
 	if ((cnt + 1) % 10 == 1)
 	{
+printf("obj malloc\n");
 		if (!(newarray = malloc((sizeof(t_objects) * (cnt + 10)))))
 			exit_error("Memory allocation failed.", rt);
 		i = -1;

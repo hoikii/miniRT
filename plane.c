@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:14:14 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:50:12 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 00:36:56 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,12 @@ void	free_plane(t_plane *pl)
 	free(pl);
 	return ;
 }
+
+void	move_plane(t_plane *pl, double dx, double dz)
+{
+	if (dx != 0)
+		pl->point = v_add(pl->point, v_new(dx, 0, 0));
+	if (dz != 0)
+		pl->point = v_add(pl->point, v_new(0, 0, dz));
+}
+

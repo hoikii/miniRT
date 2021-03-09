@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 21:27:57 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 21:19:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,7 @@ void	parse_cylinder(char *line, t_mlx *rt, int linenum)
 		(get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
 	cy->radius = diameter / 2;
-	cy->bottom = v_sub(cy->center, v_mul(cy->direction, cy->height / 2));
-	cy->top = v_add(cy->center, v_mul(cy->direction, cy->height / 2));
+	fill_cylinder_info(cy);
 	append_object(cy, TYPE_CYLINDER, rt);
 	free_words(words);
 	return ;

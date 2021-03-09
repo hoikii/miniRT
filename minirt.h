@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 16:07:05 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 21:58:07 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef short	t_uint16_t;
 */
 # define DBL_MAX 1.79769e+308
 
-# define CAM_OBJ_SWITCH 1
-
 typedef struct	s_ambient {
 	double		brightness;
 	t_color		color;
@@ -93,6 +91,12 @@ typedef struct	s_objects {
 	void		*data;
 }				t_objects;
 
+typedef enum	e_transform_mode {
+	MODE_CAM = 0,
+	MODE_OBJ,
+	MODE_LIGHT
+}				t_transform_mode;
+
 typedef struct	s_mlx {
 	void		*mlx;
 	void		*win;
@@ -105,7 +109,7 @@ typedef struct	s_mlx {
 	t_list		*lights_list;
 	int			objs_cnt;
 	t_objects	*objects_array;
-	int			object_mode;
+	int			transform_mode;
 	int			obj_selected_idx;
 }				t_mlx;
 
