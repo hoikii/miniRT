@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:04:28 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 09:52:59 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 16:04:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec			v_unit(t_vec a);
 double			v_dot(t_vec a, t_vec b);
 t_vec			v_cross(t_vec a, t_vec b);
 
-t_vec			rotateX(t_vec a, double rad);
-t_vec			rotateY(t_vec a, double rad);
+t_vec			v_rotate_x(t_vec a, double rad);
+t_vec			v_rotate_y(t_vec a, double rad);
 
 #endif

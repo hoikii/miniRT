@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 09:00:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/08 05:14:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	init_struct(t_mlx *rt)
 	rt->resolution_declared = 0;
 	rt->ambient_declared = 0;
 	rt->win = NULL;
+	rt->object_mode = 0;
 	return ;
 }
 
@@ -46,7 +47,13 @@ int			main(int ac, char **av)
 	if (ac == 3)
 		save_bmp = 1;
 	else
+	{
 		rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
+		printf("============================================\n");
+		printf("wasd: move    arrows: rotate     o:cam<->obj\n");
+		printf("+-: fov in cam mode, size in obj mode\n");
+		printf("============================================\n");
+	}
 	render_scene(&rt, save_bmp);
 #ifdef LINUX
 	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);

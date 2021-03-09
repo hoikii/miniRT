@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:21 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 16:23:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/08 14:41:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct	s_cam {
 	t_vec		direction;
 	double		fov;
 	t_vec		vup;
-	double		tanx;
-	double		tany;
+	double		anglex;
+	double		angley;
 	t_vec		u;
 	t_vec		v;
 	t_img		image;

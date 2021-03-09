@@ -2,11 +2,13 @@ NAME		= miniRT
 SRC			= main.c vec.c color.c key.c sphere.c math_utils.c ray.c render.c \
 			  light.c plane.c objects.c triangle.c camera.c square.c cylinder.c \
 			  parser.c parser_utils.c parse_value.c parse_objects.c parse_info.c exit.c \
-			  gnl/get_next_line.c gnl/get_next_line_utils.c bmp.c trace_ray.c
+			  gnl/get_next_line.c gnl/get_next_line_utils.c bmp.c trace_ray.c \
+			  transform.c
 HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h light.h \
 			  plane.h objects.h triangle.h \
 			  parser.h parser_utils.h parse_value.h parse_objects.h parse_info.h exit.h \
-			  gnl/get_next_line.h trace_ray.h
+			  gnl/get_next_line.h trace_ray.h \
+			  transform.h
 OBJS		= $(SRC:.c=.o)
 LIBFTDIR	= libft
 LIBFTNAME	= ft
@@ -42,7 +44,7 @@ endif
 
 .PHONY: test all bonus cleanlib clean fclean re
 
-test: CFLAGS += -g3 -fsanitize=address
+test: CFLAGS += -g3 -fsanitize=address -DBONUS -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
 test: all
 	./$(NAME) smpl.rt
 	

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 20:49:40 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 16:01:18 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@
 
 # define MIN_X 20
 # define MIN_Y 20
+
+# define MV_INC 0.2
+# define MV_DEC -0.2
+# define ROTATE_INC 10
+# define ROTATE_DEC -10
 
 # ifdef BONUS
 #  undef BONUS
@@ -60,6 +65,8 @@ typedef short	t_uint16_t;
 */
 # define DBL_MAX 1.79769e+308
 
+# define CAM_OBJ_SWITCH 1
+
 typedef struct	s_ambient {
 	double		brightness;
 	t_color		color;
@@ -89,9 +96,6 @@ typedef struct	s_objects {
 typedef struct	s_mlx {
 	void		*mlx;
 	void		*win;
-	int			bpp;
-	int			size_line;
-	int			endian;
 	int			screen_height;
 	int			screen_width;
 	int			resolution_declared;
@@ -101,6 +105,7 @@ typedef struct	s_mlx {
 	t_list		*lights_list;
 	int			objs_cnt;
 	t_objects	*objects_array;
+	int			object_mode;
 }				t_mlx;
 
 typedef struct	s_thread {
