@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 16:01:18 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 16:07:05 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct	s_mlx {
 	int			objs_cnt;
 	t_objects	*objects_array;
 	int			object_mode;
+	int			obj_selected_idx;
 }				t_mlx;
 
 typedef struct	s_thread {

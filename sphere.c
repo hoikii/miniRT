@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 16:35:03 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/10 10:50:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 17:37:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,20 @@ void		free_sphere(t_sphere *sp)
 	free(sp);
 	return ;
 }
+
+void		move_sphere(t_sphere *sp, double dx, double dz)
+{
+	if (dx != 0)
+		sp->center = v_add(sp->center, v_mul(v_new(1, 0, 0), dx));
+	if (dz != 0)
+		sp->center = v_add(sp->center, v_mul(v_new(0, 0, 1), dz));
+}
+
+void get_sphere_info(char **msg, t_sphere *sp)
+{
+	msg[1] = "sphere";
+	msg[2] = "center";
+	msg[3] = "radius";
+	msg[4] = "color";
+	msg[5] = NULL;
+}	

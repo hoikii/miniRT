@@ -6,13 +6,14 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 03:56:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 15:36:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 17:56:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "transform.h"
 #include "camera.h"
 #include "math_utils.h"
+#include "objects.h"
 #include <stdio.h>
 
 void		move_x(t_mlx *rt, double amount)
@@ -22,6 +23,8 @@ void		move_x(t_mlx *rt, double amount)
 	cam = rt->cam_list->content;
 	if (!rt->object_mode)
 		cam->origin = v_add(cam->origin, v_mul(cam->u, amount));
+	else
+		move_object(rt, amount, 0);
 	return ;
 }
 
@@ -32,6 +35,8 @@ void		move_z(t_mlx *rt, double amount)
 	cam = rt->cam_list->content;
 	if (!rt->object_mode)
 		cam->origin = v_add(cam->origin, v_mul(cam->direction, amount));
+	else
+		move_object(rt, 0, amount);
 	return ;
 }
 

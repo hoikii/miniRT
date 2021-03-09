@@ -6,22 +6,17 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 15:58:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 17:45:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "key.h"
+#include "objects.h"
 #include "transform.h"
 #include "exit.h"
 
 static void	key_wasd_pressed(int keycode, t_mlx *param)
 {
-	if (param->object_mode)
-	{
-		return ;
-	}
-	else
-	{
 		if (keycode == KEY_A)
 			move_x(param, MV_DEC);
 		else if (keycode == KEY_D)
@@ -30,7 +25,6 @@ static void	key_wasd_pressed(int keycode, t_mlx *param)
 			move_z(param, MV_INC);
 		else if (keycode == KEY_S)
 			move_z(param, MV_DEC);
-	}
 	render_scene(param, 0);
 }
 
@@ -87,11 +81,25 @@ int			key_pressed(int keycode, t_mlx *param)
 		key_sign_pressed(keycode, param);
 	else if (keycode == KEY_SPACE)
 	{
-		param->cam_list = param->cam_list->next;
-		render_scene(param, 0);
+		if (param->object_mode)
+		{
+			param->obj_selected_idx = (param->obj_selected_idx + 1) % param->objs_cnt;
+			show_object_info(param->obj_selected_idx, param);
+		}
+		else
+		{
+			param->cam_list = param->cam_list->next;
+			render_scene(param, 0);
+		}
 	}
 	else if (keycode == KEY_O)
+	{
 		param->object_mode ^= CAM_OBJ_SWITCH;
+		if (param->object_mode) {
+			param->obj_selected_idx = 0;
+			show_object_info(param->obj_selected_idx, param);
+		}
+	}
 	else
 		show_keycode(keycode, param);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 20:53:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 17:40:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,3 +242,50 @@ int	hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 		return (hit_cylinder(obj.data, ray, tmax, rec));
 	return (0);
 }
+
+
+
+void move_object(t_mlx *rt, double dx, double dy)
+{
+	t_objects obj;
+
+	obj = rt->objects_array[rt->obj_selected_idx];
+	if (obj.type == TYPE_SPHERE)
+		move_sphere(obj.data, dx, dy);
+#if 0
+	if (obj.type == TYPE_PLANE)
+		return (hit_plane(obj.data, ray, tmax, rec));
+	if (obj.type == TYPE_TRIANGLE)
+		return (hit_triangle(obj.data, ray, tmax, rec));
+	if (obj.type == TYPE_SQUARE)
+		return (hit_square(obj.data, ray, tmax, rec));
+	if (obj.type == TYPE_CYLINDER)
+		return (hit_cylinder(obj.data, ray, tmax, rec));
+#endif
+}
+
+void show_object_info(int idx, t_mlx *rt)
+{
+	t_cam	*cam;
+	char	*msg[10];
+	int		i;
+	char	*tmp;
+
+	tmp = ft_itoa(idx);
+	msg[0] = ft_strjoin("object selected idx:", tmp);
+	if (rt->objects_array[idx].type == TYPE_SPHERE)
+		get_sphere_info(msg, rt->objects_array[idx].data);
+	else
+		msg[1] = NULL;
+	cam = rt->cam_list->content;
+	mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
+	i = -1;
+	while (msg[++i] != '\0')
+	{
+		mlx_string_put(rt->mlx, rt->win, 11, 20 * i + 21, 0, msg[i]);
+		mlx_string_put(rt->mlx, rt->win, 10, 20 * i + 20,
+			255 << 16 | 255 << 8 | 255, msg[i]);
+	}
+	free(tmp);
+	free(msg[0]);
+}	
