@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 21:23:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/09 13:36:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ int		get_vector_norm(char *str, t_vec *ret)
 		return (FAIL);
 	if (!(-1 <= x && x <= 1) ||
 		!(-1 <= y && y <= 1) ||
-		!(-1 <= z && z <= 1))
+		!(-1 <= z && z <= 1) ||
+		(x == 0 && y == 0 && z == 0))
 		return (FAIL);
 	ret->x = x;
 	ret->y = y;

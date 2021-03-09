@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 23:53:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/08 05:10:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ void		parser(char *filepath, t_mlx *rt)
 	parse_line(line, rt, linenum);
 	free(line);
 	check_mandatory(rt);
-	printf("R:%dx%d\n", rt->screen_width, rt->screen_height);
-	printf("Cam:%d\n", ft_lstsize(rt->cam_list));
-	printf("objs_cnt:%d\n", rt->objs_cnt);
+	printf ("Rendering %d objects with %d cameras in %dx%d\n",
+		rt->objs_cnt, ft_lstsize(rt->cam_list), rt->screen_width,
+		rt->screen_height);
 	close(fd);
 	return ;
 }
