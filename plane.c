@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:14:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 14:32:19 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:09:20 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <math.h>
 #include "plane.h"
 #include "math_utils.h"
-
+/*
 t_plane	*new_plane(t_vec point, t_vec normal, t_color color)
 {
 	t_plane *pl;
@@ -32,7 +32,7 @@ void	free_plane(t_plane *pl)
 	free(pl);
 	return ;
 }
-
+*/
 void	move_plane(t_plane *pl, double dx, double dz)
 {
 	if (dx != 0)

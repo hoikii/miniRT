@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 11:31:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 15:41:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:08:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <stdlib.h>
 #include "camera.h"
 #include "math_utils.h"
-#include <stdio.h>
-#include "minirt.h"
 
 t_cam	*new_camera(t_vec origin, t_vec direction, double fov)
 {

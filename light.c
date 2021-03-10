@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 21:03:03 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:22:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,15 @@
 
 t_light	*new_light(t_vec position, double brightness, t_color color)
 {
-	t_light *l;
+	t_light	*l;
 
-	if (!(l = malloc(sizeof(t_light))))
+	l = malloc(sizeof(t_light));
+	if (!l)
 		return (NULL);
 	l->position = position;
 	l->brightness = brightness;
 	l->color = color;
 	return (l);
-}
-
-void	free_light(t_light *light)
-{
-	free(light);
-	return ;
 }
 
 int		is_shadow(t_vec op, t_vec lightdir, t_mlx *rt, t_light *light)

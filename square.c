@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 14:30:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:09:59 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		fill_square_info(t_square *sq, int rotate)
 		sq->angley = 0 - rtod(atan2(sq->normal.x, sq->normal.z));
 	}
 }
-
+/*
 t_square	*new_square(t_vec center, t_vec normal, double size, t_color color)
 {
 	t_square	*sq;
@@ -61,7 +61,7 @@ void		free_square(t_square *sq)
 	free(sq);
 	return ;
 }
-
+*/
 void	move_square(t_square *sq, double dx, double dz)
 {
 	if (dx != 0)

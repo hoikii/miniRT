@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 14:30:39 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:10:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		fill_cylinder_info(t_cylinder *cy, int rotate)
 		cy->angley = 0 - rtod(atan2(cy->direction.x, cy->direction.z));
 	}
 }
-
+/*
 t_cylinder	*new_cylinder(t_vec center, t_vec direction, double diameter, double height, t_color color)
 {
 	t_cylinder	*cy;
@@ -47,7 +47,7 @@ void		free_cylinder(t_cylinder *cy)
 	free(cy);
 	return ;
 }
-
+*/
 void	move_cylinder(t_cylinder *cy, double dx, double dz)
 {
 	if (dx != 0)

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 00:39:27 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 00:01:00 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:07:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	write_file_header(t_mlx *rt, t_img image, int fd)
 	ft_memset(file_header, 0, BMP_FILE_HEADER_SIZE);
 	file_header[0] = 'B';
 	file_header[1] = 'M';
-	*((t_uint32_t *)&file_header[2]) = fsize;
+	*(t_uint32_t *)(&file_header[2]) = fsize;
 	file_header[10] = BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE;
 	write(fd, file_header, BMP_FILE_HEADER_SIZE);
 	return ;
@@ -65,7 +65,7 @@ static void	write_data(t_mlx *rt, t_img image, int fd)
 	while (--i >= 0)
 	{
 		write(fd, image.imgdata + (i * rt->screen_width * image.bpp / 8),
-				image.size_line);
+			image.size_line);
 		write(fd, padding, padding_size);
 	}
 	return ;
@@ -73,9 +73,10 @@ static void	write_data(t_mlx *rt, t_img image, int fd)
 
 void		create_bmp_image(t_img image, t_mlx *rt)
 {
-	int fd;
+	int	fd;
 
-	if (!(fd = open("scene.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644)))
+	fd = open("scene.bmp", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (!fd)
 		exit_error("failed to create bmp file", rt);
 	write_file_header(rt, image, fd);
 	write_info_header(rt, image, fd);

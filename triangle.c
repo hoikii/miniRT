@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 22:46:49 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 00:18:40 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:09:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "triangle.h"
 
 #include <stdio.h>
-
+/*
 t_triangle	*new_triangle(t_vec p1, t_vec p2, t_vec p3, t_color color)
 {
 	t_triangle *tri;
@@ -34,7 +34,7 @@ void		free_triangle(t_triangle *tri)
 	free(tri);
 	return ;
 }
-
+*/
 void		move_triangle(t_triangle *tri, double dx, double dz)
 {
 	t_vec add;

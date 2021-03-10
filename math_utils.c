@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 11:15:33 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/23 14:38:54 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 18:30:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ double	clamp(double x, double min, double max)
 
 double	quadratic_solve(double a, double b, double c)
 {
-	double discriminant;
-	double ans;
+	double	discriminant;
+	double	ans;
 
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
@@ -54,10 +54,10 @@ double	quadratic_solve(double a, double b, double c)
 
 int		quadratic_solve2(double *root1, double *root2, t_coef coef)
 {
-	double discriminant;
-	double a;
-	double b;
-	double c;
+	double	discriminant;
+	double	a;
+	double	b;
+	double	c;
 
 	a = coef.a;
 	b = coef.b;

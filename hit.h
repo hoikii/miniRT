@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.h                                           :+:      :+:    :+:   */
+/*   hit.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/21 13:03:25 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 19:17:05 by kanlee           ###   ########.fr       */
+/*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/10 18:17:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPHERE_H
-# define SPHERE_H
+#include <math.h>
+#include "objects.h"
+#include "math_utils.h"
 
-# include "color.h"
-# include "vec.h"
-
-typedef struct	s_sphere {
-	t_vec		center;
-	double		radius;
-	t_color		color;
-}				t_sphere;
-
-void			move_sphere(t_sphere *sp, double dx, double dy);
-void			resize_sphere(t_sphere *sp, double amount);
-#endif
+int	hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec);
+int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec);
+int	hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec);
+int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec);
+int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec);
