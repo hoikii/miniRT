@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 22:20:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 17:56:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 #  define KEY_MINUS 78
 #  define KEY_SPACE 49
 #  define KEY_O 31
-#  define KEY_C -1
+#  define KEY_C 8
 # endif
 
 int key_pressed(int keycode, t_mlx *param);

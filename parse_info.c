@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/06 21:34:42 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 17:52:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 static void	limit_resolution(int *x, int *y, t_mlx *rt)
 {
-	int max_x;
-	int max_y;
+	int	max_x;
+	int	max_y;
 
 	mlx_get_screen_size(rt->mlx, &max_x, &max_y);
 	if (*x > max_x || *y > max_y || *x < MIN_X || *y < MIN_Y)
@@ -58,8 +58,8 @@ void		parse_resolution(char *line, t_mlx *rt, int linenum)
 	if (ft_cntwords(line, ' ') != 3)
 		exit_error_ln("Resolution: R x y", rt, linenum);
 	words = ft_split(line, ' ');
-	if ((get_integer(words[1], &res_x) == FAIL) || res_x < 0 ||
-		(get_integer(words[2], &res_y) == FAIL) || res_y < 0)
+	if ((get_integer(words[1], &res_x) == FAIL) || res_x < 0
+		|| (get_integer(words[2], &res_y) == FAIL) || res_y < 0)
 		exit_error_ln("Resolution: Invalid integer value", rt, linenum);
 	free_words(words);
 	limit_resolution(&res_x, &res_y, rt);
@@ -70,7 +70,7 @@ void		parse_resolution(char *line, t_mlx *rt, int linenum)
 
 void		parse_ambient(char *line, t_mlx *rt, int linenum)
 {
-	char **words;
+	char	**words;
 
 	if (rt->ambient_declared)
 		exit_error_ln("Ambient must be declared once.", rt, linenum);
@@ -78,8 +78,8 @@ void		parse_ambient(char *line, t_mlx *rt, int linenum)
 	if (ft_cntwords(line, ' ') != 3)
 		exit_error_ln("Ambient: A ratio R,G,B", rt, linenum);
 	words = ft_split(line, ' ');
-	if (get_double(words[1], &rt->ambient.brightness) == FAIL ||
-		rt->ambient.brightness < 0 || rt->ambient.brightness > 1)
+	if (get_double(words[1], &rt->ambient.brightness) == FAIL
+		|| rt->ambient.brightness < 0 || rt->ambient.brightness > 1)
 		exit_error_ln("Ambient ratio must be in range [0.0, 1.0]", rt, linenum);
 	if (get_color(words[2], &rt->ambient.color) == FAIL)
 		exit_error_ln("Ambient: Invalid color value", rt, linenum);
@@ -105,15 +105,15 @@ void		parse_camera(char *line, t_mlx *rt, int linenum)
 			each x,y,z", rt, linenum);
 	if ((get_integer(words[3], &fov) == FAIL) || fov < 0 || fov > 180)
 		exit_error_ln("Camera FOV must be in range [0, 180]", rt, linenum);
-	if (!(cam = new_camera(pos, direction, fov)))
+	cam = new_camera(pos, direction, fov);
+	if (!cam)
 		exit_error("Memory allocation failed.", rt);
 	cam->image.img_ptr = mlx_new_image(rt->mlx,
-		rt->screen_width, rt->screen_height);
+			rt->screen_width, rt->screen_height);
 	cam->image.imgdata = mlx_get_data_addr(cam->image.img_ptr,
-		&cam->image.bpp, &cam->image.size_line, &cam->image.endian);
+			&cam->image.bpp, &cam->image.size_line, &cam->image.endian);
 	ft_lstadd_back(&(rt->cam_list), ft_lstnew(cam, 0));
 	free_words(words);
-	return ;
 }
 
 void		parse_light(char *line, t_mlx *rt, int linenum)
@@ -129,12 +129,13 @@ void		parse_light(char *line, t_mlx *rt, int linenum)
 	words = ft_split(line, ' ');
 	if (get_vector(words[1], &pos) == FAIL)
 		exit_error_ln("Light: Invalid position vector", rt, linenum);
-	if (get_double(words[2], &brightness) == FAIL ||
-		brightness < 0.0 || brightness > 1.0)
+	if (get_double(words[2], &brightness) == FAIL
+		|| brightness < 0.0 || brightness > 1.0)
 		exit_error_ln("Light: ratio must be in range [0.0, 1.0]", rt, linenum);
 	if (get_color(words[3], &color) == FAIL)
 		exit_error_ln("Light: Invalid color value", rt, linenum);
-	if (!(light = new_light(pos, brightness, color)))
+	light = new_light(pos, brightness, color);
+	if (!light)
 		exit_error("Memory allocation failed.", rt);
 	ft_lstadd_back(&(rt->lights_list), ft_lstnew(light, 0));
 	free_words(words);

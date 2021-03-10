@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/08 05:10:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:27:58 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void		parser(char *filepath, t_mlx *rt)
 	int		linenum;
 
 	linenum = 0;
-	if ((fd = open(filepath, O_RDONLY)) < 0)
+	fd = open(filepath, O_RDONLY);
+	if (fd < 0)
 		exit_error(ft_strjoin("cannot open ", filepath), rt);
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -91,7 +92,7 @@ void		parser(char *filepath, t_mlx *rt)
 	parse_line(line, rt, linenum);
 	free(line);
 	check_mandatory(rt);
-	printf ("Rendering %d objects with %d cameras in %dx%d\n",
+	printf("Rendering %d objects with %d cameras in %dx%d\n",
 		rt->objs_cnt, ft_lstsize(rt->cam_list), rt->screen_width,
 		rt->screen_height);
 	close(fd);

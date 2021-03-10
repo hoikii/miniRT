@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 14:31:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:40:21 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	parse_sphere(char *line, t_mlx *rt, int linenum)
 
 	if (ft_cntwords(line, ' ') != 4)
 		exit_error_ln("Sphere: sp center diameter R,G,B", rt, linenum);
-	if (!(sp = malloc(sizeof(t_sphere))))
+	sp = malloc(sizeof(t_sphere));
+	if (!sp)
 		exit_error("Memory allocation failed.", rt);
 	words = ft_split(line, ' ');
 	if (get_vector(words[1], &sp->center) == FAIL)
@@ -49,7 +50,8 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 
 	if (ft_cntwords(line, ' ') != 4)
 		exit_error_ln("Plane: pl point normal R,G,B", rt, linenum);
-	if (!(pl = malloc(sizeof(t_plane))))
+	pl = malloc(sizeof(t_plane));
+	if (!pl)
 		exit_error("Memory allocation failed.", rt);
 	words = ft_split(line, ' ');
 	if (get_vector(words[1], &pl->point) == FAIL)
@@ -74,12 +76,13 @@ void	parse_triangle(char *line, t_mlx *rt, int linenum)
 
 	if (ft_cntwords(line, ' ') != 5)
 		exit_error_ln("Triangle: tr point point point color", rt, linenum);
-	if (!(tri = malloc(sizeof(t_triangle))))
+	tri = malloc(sizeof(t_triangle));
+	if (!tri)
 		exit_error("Memory allocation failed.", rt);
 	words = ft_split(line, ' ');
-	if (get_vector(words[1], &tri->p1) == FAIL ||
-		get_vector(words[2], &tri->p2) == FAIL ||
-		get_vector(words[3], &tri->p3) == FAIL)
+	if (get_vector(words[1], &tri->p1) == FAIL
+		|| get_vector(words[2], &tri->p2) == FAIL
+		|| get_vector(words[3], &tri->p3) == FAIL)
 		exit_error_ln("Triangle: Invalid point value", rt, linenum);
 	if (get_color(words[4], &tri->color) == FAIL)
 		exit_error_ln("Triangle: Invalid color value", rt, linenum);
@@ -97,12 +100,13 @@ void	parse_square(char *line, t_mlx *rt, int linenum)
 
 	if (ft_cntwords(line, ' ') != 5)
 		exit_error_ln("Square: sq center normal  size R,G,B", rt, linenum);
-	if (!(sq = malloc(sizeof(t_square))))
+	sq = malloc(sizeof(t_square));
+	if (!sq)
 		exit_error("Memory allocation failed.", rt);
 	words = ft_split(line, ' ');
-	if (get_vector(words[1], &sq->center) == FAIL ||
-		get_double(words[3], &sq->size) == FAIL ||
-		get_color(words[4], &sq->color) == FAIL)
+	if (get_vector(words[1], &sq->center) == FAIL
+		|| get_double(words[3], &sq->size) == FAIL
+		|| get_color(words[4], &sq->color) == FAIL)
 		exit_error_ln("Square: Invalid parameters", rt, linenum);
 	if (get_vector_norm(words[2], &sq->normal) == FAIL)
 		exit_error_ln("Square: Direction vector must be in range [-1,1] for \
@@ -122,17 +126,18 @@ void	parse_cylinder(char *line, t_mlx *rt, int linenum)
 	if (ft_cntwords(line, ' ') != 6)
 		exit_error_ln("Cylinder: cy center normal diameter height R,G,B",
 			rt, linenum);
-	if (!(cy = malloc(sizeof(t_cylinder))))
+	cy = malloc(sizeof(t_cylinder));
+	if (!cy)
 		exit_error("Memory allocation failed.", rt);
 	words = ft_split(line, ' ');
 	if (get_vector_norm(words[2], &cy->direction) == FAIL)
 		exit_error_ln("Cylinder: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
 	diameter = 0.0;
-	if ((get_vector(words[1], &cy->center) == FAIL) ||
-		(get_double(words[3], &diameter) == FAIL) ||
-		(get_double(words[4], &cy->height) == FAIL) ||
-		(get_color(words[5], &cy->color) == FAIL))
+	if ((get_vector(words[1], &cy->center) == FAIL)
+		|| (get_double(words[3], &diameter) == FAIL)
+		|| (get_double(words[4], &cy->height) == FAIL)
+		|| (get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
 	cy->radius = diameter / 2;
 	fill_cylinder_info(cy, 0);

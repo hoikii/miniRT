@@ -6,12 +6,12 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 11:18:13 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/02 23:53:34 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 16:19:27 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-void parser(char *filepath, t_mlx *rt);
+void	parser(char *filepath, t_mlx *rt);
 #endif
