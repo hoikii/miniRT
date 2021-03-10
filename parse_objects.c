@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 21:19:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 14:31:48 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "vec.h"
 #include "color.h"
 #include "exit.h"
+#include "math_utils.h"
 
 void	parse_sphere(char *line, t_mlx *rt, int linenum)
 {
@@ -58,6 +59,8 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 			each x,y,z", rt, linenum);
 	if (get_color(words[3], &pl->color) == FAIL)
 		exit_error_ln("Plane: Invalid color value", rt, linenum);
+	pl->anglex = rtod(asin(pl->normal.y));
+	pl->angley = 0 - rtod(atan2(pl->normal.x, pl->normal.z));
 	append_object(pl, TYPE_PLANE, rt);
 	free_words(words);
 	return ;
@@ -104,7 +107,7 @@ void	parse_square(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &sq->normal) == FAIL)
 		exit_error_ln("Square: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	fill_square_info(sq);
+	fill_square_info(sq, 0);
 	append_object(sq, TYPE_SQUARE, rt);
 	free_words(words);
 	return ;
@@ -132,7 +135,7 @@ void	parse_cylinder(char *line, t_mlx *rt, int linenum)
 		(get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
 	cy->radius = diameter / 2;
-	fill_cylinder_info(cy);
+	fill_cylinder_info(cy, 0);
 	append_object(cy, TYPE_CYLINDER, rt);
 	free_words(words);
 	return ;

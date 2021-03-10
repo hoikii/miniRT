@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 03:56:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 21:59:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:46:57 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void		rotate_yaw(t_mlx *rt, int amount)
 		cam->angley = remainder(cam->angley + 360, 360);
 		calc_cam_direction(cam);
 	}
+	else
+		rotate_object(rt, 0, amount);
 	return ;
 }
 
@@ -77,5 +79,7 @@ void		rotate_pitch(t_mlx *rt, int amount)
 		cam->anglex = remainder(cam->anglex + 360, 360);
 		calc_cam_direction(cam);
 	}
+	else
+		rotate_object(rt, amount, 0);
 	return ;
 }

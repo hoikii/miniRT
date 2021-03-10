@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 00:12:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/10 12:46:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,19 @@ void resize_object(t_mlx *rt, double amount)
 		resize_square(obj.data, amount);
 	if (obj.type == TYPE_CYLINDER)
 		resize_cylinder(obj.data, amount);
+}
+
+void rotate_object(t_mlx *rt, double dx, double dy)
+{
+	t_objects obj;
+
+	obj = rt->objects_array[rt->obj_selected_idx];
+	if (obj.type == TYPE_PLANE)
+		rotate_plane(obj.data, dx, dy);
+	if (obj.type == TYPE_SQUARE)
+		rotate_square(obj.data, dx, dy);
+	if (obj.type == TYPE_CYLINDER)
+		rotate_cylinder(obj.data, dx, dy);
 }
 
 void show_object_info(int idx, t_mlx *rt)
