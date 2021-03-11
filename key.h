@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 17:56:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:39:39 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 #  define KEY_SPACE 32
 #  define KEY_O 111
 #  define KEY_C 99
+#  define KEY_Q -1
+#  define KEY_Z -1
 # else
 #  define KEYPRESS 2
 #  define KEYPRESSMASK 1
@@ -53,8 +55,10 @@
 #  define KEY_SPACE 49
 #  define KEY_O 31
 #  define KEY_C 8
+#  define KEY_Q 12
+#  define KEY_Z 6
 # endif
 
-int key_pressed(int keycode, t_mlx *param);
+int	key_pressed(int keycode, t_mlx *param);
 
 #endif

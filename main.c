@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 22:13:10 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/11 16:47:07 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,24 @@ static void	init_struct(t_mlx *rt)
 	rt->ambient_declared = 0;
 	rt->win = NULL;
 	rt->transform_mode = MODE_CAM;
-	rt->obj_selected_idx =0;
+	rt->obj_selected_idx = 0;
 	return ;
+}
+
+static long	get_kpressmask(void)
+{
+	if (LINUX_ENV_SWITCH)
+		return (1L << 0);
+	else
+		return (1L);
+}
+
+static void	prn_usage(void)
+{
+	printf("============================================\n");
+	printf("wasd: move    arrows: rotate     o:cam<->obj\n");
+	printf("+-: fov in cam mode, size in obj mode\n");
+	printf("============================================\n");
 }
 
 int			main(int ac, char **av)
@@ -49,18 +65,18 @@ int			main(int ac, char **av)
 		save_bmp = 1;
 	else
 	{
-		rt.win = mlx_new_window(rt.mlx, rt.screen_width, rt.screen_height, "raytracer");
-		printf("============================================\n");
-		printf("wasd: move    arrows: rotate     o:cam<->obj\n");
-		printf("+-: fov in cam mode, size in obj mode\n");
-		printf("============================================\n");
+		rt.win = mlx_new_window(rt.mlx,
+				rt.screen_width, rt.screen_height, "miniRT");
+		prn_usage();
 	}
 	render_scene(&rt, save_bmp);
-#ifdef LINUX
-	mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
-#else
-	mlx_hook(rt.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, &rt);
+#if 0
+	if (LINUX_ENV_SWITCH)
+		mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
+	else
 #endif
+		mlx_hook(rt.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, &rt);
+//	mlx_hook(rt.win, KEYPRESS, get_kpressmask(), key_pressed, &rt);
 	mlx_hook(rt.win, KEYPRESS, KEYPRESSMASK, key_pressed, &rt);
 	mlx_loop(rt.mlx);
 	return (0);

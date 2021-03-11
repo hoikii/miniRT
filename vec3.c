@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   transform.h                                        :+:      :+:    :+:   */
+/*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 03:57:25 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 01:51:56 by kanlee           ###   ########.fr       */
+/*   Created: 2020/11/19 14:09:53 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/11 02:43:17 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TRANSFORM_H
-# define TRANSFORM_H
+#include <math.h>
+#include "vec.h"
 
-# include "minirt.h"
+t_vec	v_rotate_x(t_vec a, double rad)
+{
+	t_vec	ret;
 
-void move(t_mlx *rt, double dx, double dy, double dz);
-void rotate_pitch(t_mlx *rt, int amount);
-void rotate_yaw(t_mlx *rt, int amount);
+	ret.x = a.x;
+	ret.z = a.z * cos(rad) - a.y * sin(rad);
+	ret.y = a.z * sin(rad) + a.y * cos(rad);
+	return (ret);
+}
 
-#endif
+t_vec	v_rotate_y(t_vec a, double rad)
+{
+	t_vec	ret;
+
+	ret.x = a.x * cos(rad) - a.z * sin(rad);
+	ret.y = a.y;
+	ret.z = a.x * sin(rad) + a.z * cos(rad);
+	return (ret);
+}

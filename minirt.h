@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 21:58:07 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/11 03:04:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@
 # define MV_DEC -0.2
 # define ROTATE_INC 10
 # define ROTATE_DEC -10
+
+# ifdef LINUX
+#  define LINUX_ENV_SWITCH 1
+# else
+#  define LINUX_ENV_SWITCH 0
+# endif
 
 # ifdef BONUS
 #  undef BONUS

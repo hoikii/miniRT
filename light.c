@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 18:22:00 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/11 03:24:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_color	apply_light(t_rec rec, t_list *lights_list, t_mlx *rt)
 		lights_list = lights_list->next;
 		lightdir = v_unit(v_sub(light->position, rec.point));
 		if (is_shadow(rec.point, lightdir, rt, light))
-			continue;
+			continue ;
 		diff = clamp(v_dot(rec.normal, lightdir), 0, 1);
 		result = c_add(result, c_mul(light->color, diff * light->brightness));
 		specular = c_add(specular, calc_specular(rec, lightdir, diff, light));

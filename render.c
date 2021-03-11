@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/09 22:18:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/11 02:50:25 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 static void	print_progress(int tid, int current)
 {
-	int i;
+	int	i;
 
 	if (tid == -1)
 	{
@@ -72,7 +72,7 @@ static void	draw_thread(t_mlx *rt, int tid)
 	while (++i < rt->screen_height)
 	{
 		if (i % THREADS_CNT != tid)
-			continue;
+			continue ;
 		j = -1;
 		while (++j < rt->screen_width)
 		{
@@ -80,7 +80,7 @@ static void	draw_thread(t_mlx *rt, int tid)
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
 			set_pixel_color(rt, i, j,
-					trace_ray(ray, REFLECTION_DEPTH, rt));
+				trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
 		print_progress(tid, (i + 1) * 100 / rt->screen_height);
 	}
@@ -95,7 +95,7 @@ static void	*thread_entry(void *arg)
 	rt = ((t_thread *)arg)->mlx;
 	tid = ((t_thread *)arg)->tid;
 	draw_thread(rt, tid);
-	pthread_exit((void *)0);
+	pthread_exit((void *)(0));
 }
 
 static void	draw(t_mlx *rt)
@@ -117,7 +117,7 @@ static void	draw(t_mlx *rt)
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
 			set_pixel_color(rt, i, j,
-					trace_ray(ray, REFLECTION_DEPTH, rt));
+				trace_ray(ray, REFLECTION_DEPTH, rt));
 		}
 		print_progress(-1, (i + 1) * 100 / rt->screen_height);
 	}
@@ -148,9 +148,7 @@ void		render_scene(t_mlx *rt, int save_bmp)
 	camera = rt->cam_list->content;
 	if (save_bmp)
 		create_bmp_image(camera->image, rt);
-	else
-		mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 	if (rt->transform_mode == MODE_OBJ)
 		show_object_info(rt->obj_selected_idx, rt);
-	return ;
 }

@@ -6,11 +6,10 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 18:10:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/11 02:30:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <math.h>
 #include "cylinder.h"
 #include "math_utils.h"
@@ -25,35 +24,15 @@ void		fill_cylinder_info(t_cylinder *cy, int rotate)
 		cy->angley = 0 - rtod(atan2(cy->direction.x, cy->direction.z));
 	}
 }
-/*
-t_cylinder	*new_cylinder(t_vec center, t_vec direction, double diameter, double height, t_color color)
-{
-	t_cylinder	*cy;
 
-	if (!(cy = malloc(sizeof(t_cylinder))))
-		return (NULL);
-	cy->center = center;
-	cy->direction = v_unit(direction);
-	cy->radius = diameter / 2;
-	cy->height = height;
-	cy->color = color;
-	fill_cylinder_info(cy, 0);
-
-	return (cy);
-}
-
-void		free_cylinder(t_cylinder *cy)
-{
-	free(cy);
-	return ;
-}
-*/
-void	move_cylinder(t_cylinder *cy, double dx, double dz)
+void		move_cylinder(t_cylinder *cy, double dx, double dy, double dz)
 {
 	if (dx != 0)
-		cy->center = v_add(cy->center, v_mul(v_new(1, 0, 0), dx));
+		cy->center = v_add(cy->center, v_new(dx, 0, 0));
+	if (dy != 0)
+		cy->center = v_add(cy->center, v_new(0, dy, 0));
 	if (dz != 0)
-		cy->center = v_add(cy->center, v_mul(v_new(0, 0, 1), dz));
+		cy->center = v_add(cy->center, v_new(0, 0, dz));
 	fill_cylinder_info(cy, 0);
 }
 
@@ -64,7 +43,7 @@ void		resize_cylinder(t_cylinder *cy, double amount)
 	fill_cylinder_info(cy, 0);
 }
 
-void	rotate_cylinder(t_cylinder *cy, double dx, double dy)
+void		rotate_cylinder(t_cylinder *cy, double dx, double dy)
 {
 	cy->anglex = remainder(cy->anglex + dx + 360, 360);
 	cy->angley = remainder(cy->angley + dy + 360, 360);
