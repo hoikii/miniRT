@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/13 00:32:10 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 01:24:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	init_struct(t_mlx *rt)
 **
 ** On Linux, window goes blank when minimized and then restored.
 ** Redraw an image again when detects VisibilityNotify (15) and
-** VisibilityChangeMask (1L<<16) 
+** VisibilityChangeMask (1L<<16)
 */
 
 #ifdef LINUX
@@ -49,22 +49,11 @@ static void	init_mlx_hook(t_mlx *rt)
 
 #else
 
-static int	prn_again(t_mlx *rt)
-{
-	t_cam	*camera;
-
-	camera = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
-	if (rt->transform_mode == MODE_OBJ)
-		show_object_info(rt->obj_selected_idx, rt);
-	return 0;
-}
-
 static void	init_mlx_hook(t_mlx *rt)
 {
 	mlx_hook(rt->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, rt);
 	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
-	mlx_hook(rt->win, 15, (1L << 16), prn_again, rt);
+	mlx_hook(rt->win, 15, (1L << 16), put_img_to_window, rt);
 }
 
 #endif

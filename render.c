@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:50:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 01:13:36 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,17 @@
 #include "vec.h"
 #include "bmp.h"
 #include "trace_ray.h"
-#include "libft/libft.h"
+#include "progress.h"
 
-/*
-** Use write() instead of printf() because flusing buffer is needed but
-** fflush() or setbuf() isn't allowed.
-*/
-
-static void	print_progress(int tid, int current)
+int			put_img_to_window(t_mlx *rt)
 {
-	int	i;
+	t_cam	*camera;
 
-	if (tid == -1)
-	{
-		ft_putstr_fd("\rrenndering ", STDOUT);
-		ft_putnbr_fd(current, STDOUT);
-		ft_putchar_fd('%', STDOUT);
-		return ;
-	}
-	if (g_threads_progress[THREADS_CNT] == 1)
-		return ;
-	g_threads_progress[THREADS_CNT] = 1;
-	ft_putchar_fd('\r', STDOUT);
-	g_threads_progress[tid] = current;
-	i = -1;
-	while (++i < THREADS_CNT)
-	{
-		ft_putchar_fd('t', STDOUT);
-		ft_putnbr_fd(i, STDOUT);
-		ft_putstr_fd(": ", STDOUT);
-		ft_putnbr_fd(g_threads_progress[i], STDOUT);
-		ft_putstr_fd("%   ", STDOUT);
-	}
-	g_threads_progress[THREADS_CNT] = 0;
+	camera = rt->cam_list->content;
+	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	if (rt->transform_mode == MODE_OBJ)
+		show_object_info(rt->obj_selected_idx, rt);
+	return (0);
 }
 
 static void	draw_thread(t_mlx *rt, int tid)
