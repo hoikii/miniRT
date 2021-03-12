@@ -6,19 +6,14 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 16:47:07 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 00:32:10 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "ray.h"
-#include "camera.h"
-#include "objects.h"
-#include "light.h"
 #include "key.h"
-#include "math_utils.h"
 #include "parser.h"
-#include "error.h"
+#include "objects.h"
 #include "exit.h"
 
 static void	init_struct(t_mlx *rt)
@@ -34,13 +29,45 @@ static void	init_struct(t_mlx *rt)
 	return ;
 }
 
-static long	get_kpressmask(void)
+/*
+** watch WM_DELETE_WINDOW event on Linux and DestroyNotify on MacOS
+** to detect closing a window.
+**
+** On Linux, window goes blank when minimized and then restored.
+** Redraw an image again when detects VisibilityNotify (15) and
+** VisibilityChangeMask (1L<<16) 
+*/
+
+#ifdef LINUX
+
+static void	init_mlx_hook(t_mlx *rt)
 {
-	if (LINUX_ENV_SWITCH)
-		return (1L << 0);
-	else
-		return (1L);
+	mlx_hook(rt->win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, rt);
+	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
+	mlx_hook(rt->win, VISIBILITYNOTIFY, (1L << 16), prn_again, rt);
 }
+
+#else
+
+static int	prn_again(t_mlx *rt)
+{
+	t_cam	*camera;
+
+	camera = rt->cam_list->content;
+	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	if (rt->transform_mode == MODE_OBJ)
+		show_object_info(rt->obj_selected_idx, rt);
+	return 0;
+}
+
+static void	init_mlx_hook(t_mlx *rt)
+{
+	mlx_hook(rt->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, rt);
+	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
+	mlx_hook(rt->win, 15, (1L << 16), prn_again, rt);
+}
+
+#endif
 
 static void	prn_usage(void)
 {
@@ -70,14 +97,7 @@ int			main(int ac, char **av)
 		prn_usage();
 	}
 	render_scene(&rt, save_bmp);
-#if 0
-	if (LINUX_ENV_SWITCH)
-		mlx_hook(rt.win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, &rt);
-	else
-#endif
-		mlx_hook(rt.win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, &rt);
-//	mlx_hook(rt.win, KEYPRESS, get_kpressmask(), key_pressed, &rt);
-	mlx_hook(rt.win, KEYPRESS, KEYPRESSMASK, key_pressed, &rt);
+	init_mlx_hook(&rt);
 	mlx_loop(rt.mlx);
 	return (0);
 }

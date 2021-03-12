@@ -21,7 +21,8 @@ CFLAGS		= -Wall -Wextra
 ####################################
 RM			= rm -rf
 
-CCBLUE		= \033[1;34m
+CCBLUE		= \033[34m
+CCBLUE_BOLD	= \033[1;34m
 CCEND		= \033[0m
 
 UNAME		:= $(shell uname)
@@ -58,7 +59,7 @@ $(NAME): $(OBJS)
 	cp $(LIBXDIR)/$(LIBXFILE) ./
 	@echo "$(CCBLUE) >>> linking obj files.  <<< $(CCEND)"
 	$(CC) $(OBJS) $(CFLAGS) $(LDLIBS) -o $(NAME)
-	@echo "$(CCBLUE) >>> make $(NAME) done!  <<< $(CCEND)"
+	@echo "$(CCBLUE_BOLD) >>> make $(NAME) done!  <<< $(CCEND)"
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
