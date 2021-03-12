@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 15:01:50 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/04 16:51:56 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:30:26 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strnstr(const char *hay, const char *needle, size_t len)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	if (*needle == 0)
 		return ((char *)hay);
@@ -26,7 +26,7 @@ char	*ft_strnstr(const char *hay, const char *needle, size_t len)
 		{
 			j = 0;
 			while (*(hay + j) && *(needle + j) && (*(hay + j) == *(needle + j))
-					&& (i + j < len))
+				&& (i + j < len))
 				j++;
 			if (*(needle + j) == 0)
 				return ((char *)hay);

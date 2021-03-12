@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 19:19:29 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/10 01:43:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:28:41 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_strdup(const char *s)
 	len = 0;
 	while (s[len++])
 		;
-	if (!(ptr = malloc(sizeof(char) * len)))
+	ptr = malloc(sizeof(char) * len);
+	if (!ptr)
 		return (NULL);
 	while (len--)
 		ptr[len] = s[len];

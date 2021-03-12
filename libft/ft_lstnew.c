@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:30:36 by kanlee            #+#    #+#             */
-/*   Updated: 2020/11/27 14:18:55 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:23:34 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 t_list	*ft_lstnew(void *content, int type)
 {
-	t_list *node;
+	t_list	*node;
 
-	if (!(node = (t_list *)(malloc(sizeof(t_list)))))
+	node = (t_list *)(malloc(sizeof(t_list)));
+	if (!node)
 		return (NULL);
 	node->content = content;
 	node->type = type;

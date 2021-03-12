@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 00:26:33 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/08 17:07:45 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:24:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	if (dest == 0 && src == 0)
 		return (0);

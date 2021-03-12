@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 00:01:07 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/10 00:28:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:32:37 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	match(char ch, char const *set)
 {
-	size_t idx;
+	size_t	idx;
 
 	idx = 0;
 	while (set[idx])
@@ -46,7 +46,8 @@ char		*ft_strtrim(char const *s1, char const *set)
 		rpos--;
 	if (lpos > rpos)
 		return (ft_strdup(""));
-	if (!(dst = malloc(sizeof(char) * (rpos - lpos + 2))))
+	dst = malloc(sizeof(char) * (rpos - lpos + 2));
+	if (!dst)
 		return (NULL);
 	ft_memcpy(dst, s1 + lpos, (rpos - lpos + 1));
 	dst[rpos - lpos + 1] = '\0';

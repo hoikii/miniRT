@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 09:22:51 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/07 12:39:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:27:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int		free_all(char **ret, size_t cnt)
 
 static size_t	cnt_word(const char *s, char c)
 {
-	size_t cnt;
-	size_t from;
-	size_t i;
+	size_t	cnt;
+	size_t	from;
+	size_t	i;
 
 	cnt = 0;
 	i = 0;
@@ -46,9 +46,9 @@ static size_t	cnt_word(const char *s, char c)
 
 static int		ft_split_str(char const *s, char c, char **ret)
 {
-	size_t cnt;
-	size_t from;
-	size_t to;
+	size_t	cnt;
+	size_t	from;
+	size_t	to;
 
 	cnt = 0;
 	from = 0;
@@ -59,7 +59,8 @@ static int		ft_split_str(char const *s, char c, char **ret)
 		{
 			if (to - from > 0)
 			{
-				if (!(ret[cnt++] = ft_substr(s, from, to - from)))
+				ret[cnt] = ft_substr(s, from, to - from);
+				if (!(ret[cnt++]))
 					return (free_all(ret, --cnt));
 			}
 			if (s[to] == '\0')
@@ -80,7 +81,8 @@ char			**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	cnt = cnt_word(s, c);
-	if (!(ret = malloc(sizeof(char *) * (cnt + 1))))
+	ret = malloc(sizeof(char *) * (cnt + 1));
+	if (!ret)
 		return (NULL);
 	if (ft_split_str(s, c, ret))
 		return (ret);

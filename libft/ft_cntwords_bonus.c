@@ -6,15 +6,15 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 13:21:05 by kanlee            #+#    #+#             */
-/*   Updated: 2021/02/23 13:22:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:19:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_cntwords(const char *str, char sep)
+int	ft_cntwords(const char *str, char sep)
 {
-	int cnt;
+	int	cnt;
 
 	cnt = 0;
 	while (*str == sep)
@@ -24,7 +24,7 @@ int ft_cntwords(const char *str, char sep)
 		if (!(*str == sep || *str == '\0'))
 		{
 			str++;
-			continue;
+			continue ;
 		}
 		while (*str == sep)
 			str++;

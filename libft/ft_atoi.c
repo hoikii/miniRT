@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 17:54:52 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/06 02:21:38 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:17:38 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static int	is_space(char ch)
 {
-	return (ch == '\t' || ch == '\n' || ch == ' ' ||
-			ch == '\v' || ch == '\r' || ch == '\f');
+	return (ch == '\t' || ch == '\n' || ch == ' '
+		|| ch == '\v' || ch == '\r' || ch == '\f');
 }
 
 int			ft_atoi(const char *nptr)
@@ -26,7 +26,9 @@ int			ft_atoi(const char *nptr)
 
 	while (is_space(*nptr))
 		nptr++;
-	sign = (*nptr == '-') ? -1 : 1;
+	sign = 1;
+	if (*nptr == '-')
+		sign = -1;
 	if (*nptr == '-' || *nptr == '+')
 		nptr++;
 	result = 0;

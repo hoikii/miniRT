@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 00:44:20 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/06 22:04:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:20:41 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 static char	*i_to_a(char *ret, int n, int len)
 {
-	int sign;
-	int i;
+	int	sign;
+	int	i;
 
-	sign = (n < 0) ? -1 : 1;
+	sign = 1;
+	if (n < 0)
+		sign = -1;
 	ret[len] = '\0';
 	i = 0;
 	if (n < 0)
@@ -50,7 +52,8 @@ char		*ft_itoa(int n)
 		len++;
 		n /= 10;
 	}
-	if (!(ret = malloc(sizeof(char) * (len + 1))))
+	ret = malloc(sizeof(char) * (len + 1));
+	if (!ret)
 		return (NULL);
 	return (i_to_a(ret, n_tmp, len));
 }

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 19:55:36 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/07 12:39:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:31:07 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	while (*s++)
 		len++;
 	s -= len + 1;
-	if (!(ret = malloc(sizeof(char) * (len + 1))))
+	ret = malloc(sizeof(char) * (len + 1));
+	if (!ret)
 		return (NULL);
 	i = 0;
 	while (i < len)

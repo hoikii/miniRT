@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 18:37:33 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/08 15:42:50 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:29:44 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t srclen;
+	size_t	i;
+	size_t	srclen;
 
 	if (!src)
 		return (0);

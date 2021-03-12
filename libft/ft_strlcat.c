@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 23:35:28 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/08 16:04:01 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:29:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t i;
-	size_t srclen;
-	size_t dstlen;
+	size_t	i;
+	size_t	srclen;
+	size_t	dstlen;
 
 	srclen = ft_strlen(src);
 	dstlen = ft_strlen(dst);

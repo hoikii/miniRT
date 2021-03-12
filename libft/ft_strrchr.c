@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 14:15:41 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/04 16:52:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:32:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ char	*ft_strrchr(const char *s, int c)
 			break ;
 		i++;
 	}
-	return ((found) ? ((char *)s + last_idx) : 0);
+	if (found)
+		return ((char *)s + last_idx);
+	else
+		return (0);
 }

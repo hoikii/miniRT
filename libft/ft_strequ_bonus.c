@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/04 16:24:36 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/03 00:14:56 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:37:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strequ(const char *s1, const char *s2)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s1[i] && s2[i] && (s1[i] == s2[i]))

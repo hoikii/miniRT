@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 23:09:40 by kanlee            #+#    #+#             */
-/*   Updated: 2020/10/04 00:15:46 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/13 03:23:48 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)
