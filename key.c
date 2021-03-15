@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 16:38:24 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:55:45 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,23 @@ static void	key_arrow_pressed(int keycode, t_mlx *rt)
 
 static void	key_sign_pressed(int keycode, t_mlx *rt)
 {
-	if (keycode == KEY_PLUS)
+	if (rt->transform_mode == MODE_CAM)
 	{
-		if (rt->transform_mode == MODE_CAM)
+		if (keycode == KEY_NP_PLUS || keycode == KEY_PLUS)
 			modify_fov(rt->cam_list->content, -5.0);
-		else if (rt->transform_mode == MODE_OBJ)
-			resize_object(rt, 0.1);
-	}
-	else if (keycode == KEY_MINUS)
-	{
-		if (rt->transform_mode == MODE_CAM)
+		else if (keycode == KEY_NP_MINUS || keycode == KEY_MINUS)
 			modify_fov(rt->cam_list->content, +5.0);
-		else if (rt->transform_mode == MODE_OBJ)
-			resize_object(rt, -0.1);
+	}
+	else if (rt->transform_mode == MODE_OBJ)
+	{
+		if (keycode == KEY_NP_PLUS || keycode == KEY_PLUS)
+			resize_object(rt, 0.1, 0);
+		else if (keycode == KEY_NP_MINUS || keycode == KEY_MINUS)
+			resize_object(rt, -0.1, 0);
+		else if (keycode == KEY_NP_MUL || keycode == KEY_MUL)
+			resize_object(rt, 0.1, 1);
+		else if (keycode == KEY_NP_DIV || keycode == KEY_DIV)
+			resize_object(rt, -0.1, 1);
 	}
 	render_scene(rt, 0);
 }
@@ -100,7 +104,9 @@ int			key_pressed(int keycode, t_mlx *rt)
 	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT
 		|| keycode == KEY_UP || keycode == KEY_DOWN)
 		key_arrow_pressed(keycode, rt);
-	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+	else if (keycode == KEY_PLUS || keycode == KEY_MINUS || keycode == KEY_MUL
+		|| keycode == KEY_NP_PLUS || keycode == KEY_NP_MINUS
+		|| keycode == KEY_NP_MUL || keycode == KEY_DIV || keycode == KEY_NP_DIV)
 		key_sign_pressed(keycode, rt);
 	else if (keycode == KEY_SPACE)
 	{

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:43:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:50:47 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	move_object(t_mlx *rt, double dx, double dy, double dz)
 		move_cylinder(obj.data, dx, dy, dz);
 }
 
-void	resize_object(t_mlx *rt, double amount)
+void	resize_object(t_mlx *rt, double amount, int flag)
 {
 	t_objects	obj;
 
@@ -64,7 +64,7 @@ void	resize_object(t_mlx *rt, double amount)
 	if (obj.type == TYPE_SQUARE)
 		resize_square(obj.data, amount);
 	if (obj.type == TYPE_CYLINDER)
-		resize_cylinder(obj.data, amount);
+		resize_cylinder(obj.data, amount, flag);
 }
 
 void	rotate_object(t_mlx *rt, double dx, double dy)

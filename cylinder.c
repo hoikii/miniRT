@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:30:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:52:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ void		move_cylinder(t_cylinder *cy, double dx, double dy, double dz)
 	fill_cylinder_info(cy, 0);
 }
 
-void		resize_cylinder(t_cylinder *cy, double amount)
+void		resize_cylinder(t_cylinder *cy, double amount, int flag)
 {
-	cy->radius += amount;
-	cy->height += amount;
+	if (flag == 0)
+		cy->radius += amount;
+	else if (flag == 1)
+		cy->height += amount;
 	fill_cylinder_info(cy, 0);
 }
 

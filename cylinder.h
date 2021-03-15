@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:49:36 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:30:58 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:51:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ typedef struct	s_cylinder {
 
 void			fill_cylinder_info(t_cylinder *cy, int rotate);
 void			move_cylinder(t_cylinder *cy, double dx, double dy, double dz);
-void			resize_cylinder(t_cylinder *cy, double amount);
+void			resize_cylinder(t_cylinder *cy, double amount, int flag);
 void			rotate_cylinder(t_cylinder *cy, double dx, double dy);
 #endif
