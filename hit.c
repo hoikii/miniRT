@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 18:17:49 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:12:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,26 @@ int	hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
+/*
+** Plane - Ray intersection
+**
+** suppose R(t) = P = P0 + td    ,  plane spot = A     ,     plane normal = n
+**
+** dot(AP, n) = 0
+** AP * n = 0
+** dot(P0 + td - OA, n) = 0
+** dot(P0 - OA, n) +t * dot(d, n) = 0
+** t = dot(OA - P0, n) / dot(d, n)
+*/
+
 int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 {
-	double t;
+	double	t;
 
 	if (fabs(v_dot(ray.direction, pl->normal)) <= EPSILON)
 		return (0);
-	t = v_dot(v_sub(pl->point, ray.origin), pl->normal) /
-			v_dot(ray.direction, pl->normal);
+	t = v_dot(v_sub(pl->point, ray.origin), pl->normal)
+		/ v_dot(ray.direction, pl->normal);
 	if (EPSILON <= t && t < tmax)
 	{
 		rec->color = pl->color;
@@ -59,12 +71,6 @@ int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-/*
-**	A+tb = L;
-**	tb = L-A;
-**	(L-A)/b
-*/
-
 int	hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
 {
 	t_plane	pl;
@@ -75,11 +81,9 @@ int	hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
 	pl.color = tri->color;
 	if (!hit_plane(&pl, ray, tmax, &r))
 		return (0);
-//	if (r.t < EPSILON || r.t >= tmax)
-//		return (0);
-	if (check_edge(tri->p1, tri->p2, r.point, tri->normal) &&
-			check_edge(tri->p2, tri->p3, r.point, tri->normal) &&
-			check_edge(tri->p3, tri->p1, r.point, tri->normal))
+	if (check_edge(tri->p1, tri->p2, r.point, tri->normal)
+		&& check_edge(tri->p2, tri->p3, r.point, tri->normal)
+		&& check_edge(tri->p3, tri->p1, r.point, tri->normal))
 	{
 		rec->color = r.color;
 		rec->t = r.t;
@@ -103,26 +107,10 @@ int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
 	pl.color = sq->color;
 	if (!hit_plane(&pl, ray, tmax, &r))
 		return (0);
-#if 0
-	t_vec	dist;
-	dist = v_sub(r.point, sq->center);
-	if ((fabs(dist.x) <= sq->size / 2) && (fabs(dist.y) <= sq->size / 2) &&
-		(fabs(dist.z) <= sq->size / 2))
-	{
-		rec->color = r.color;
-		rec->t = r.t;
-		if (v_dot(ray.direction, r.normal) < 0)
-			rec->normal = r.normal;
-		else
-			rec->normal = v_mul(r.normal, -1);
-		rec->point = r.point;
-		return (1);
-	}
-#endif
-	if (check_edge(sq->p1, sq->p2, r.point, sq->normal) &&
-			check_edge(sq->p2, sq->p3, r.point, sq->normal) &&
-			check_edge(sq->p3, sq->p4, r.point, sq->normal) &&
-			check_edge(sq->p4, sq->p1, r.point, sq->normal))
+	if (check_edge(sq->p1, sq->p2, r.point, sq->normal)
+		&& check_edge(sq->p2, sq->p3, r.point, sq->normal)
+		&& check_edge(sq->p3, sq->p4, r.point, sq->normal)
+		&& check_edge(sq->p4, sq->p1, r.point, sq->normal))
 	{
 		rec->color = r.color;
 		rec->t = r.t;
@@ -136,59 +124,26 @@ int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-/*     cylinder surface --- ray intersection
-** bottom + u*h*dir + r  = P0 + td   ( 0<=u<=1) .....1
-** bottom*dir + u*h*dir*dir = P0*dir + t*d*dir  (since dir*r=0)
-** u = (P0*dir + t*d*dir - bottom*dir) / (h*dir*dir) .....2
-** r = P0 + td - bottom - ((P0*dir + t*d*dir - bottom*dir) / (h*dir*dir)) * h*dir
-** r*r = radius^2
-** so we obtain quadratic equation for t:
-** 
-*/
-
-/* R(t) = P0 + td
-** x1 = bottom, x2 = top
-** |(R(t)-x1) X (R(t)-x2)|^2 / |(x1-x2)|^2 = r^2
-**
-** 0 <= (P-x1)(x2-x1) <= (x2-x1)(x2-x1)
-*/
-
 /*
-static t_vec pre_compute_coef(t_vec v1, t_vec v2)
-{
-	return (v_sub(v1, v_mul(v2, v_dot(v1, v2))));
-}
+**      cylinder surface --- ray intersection
+**
+** P = P0 + t*d   ,     vh = top-btm
+**
+** | (P-btm) X vh |^2 = (r*h)^2
+** | (P0+t*d-btm) X vh |^2 = (r*h)^2
+** | (d X vh)*t + (P0-btm) X vh |^2 = (r*h)^2
 */
 
 int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 {
-#if 0
-	t_vec	oc;
-	t_vec	aa;
-	t_vec	bb;
-	double	a;
-	double	b;
-	double	c;
+	double	root1;
+	double	root2;
 	double	t;
+	t_coef	coef;
 
-	oc = v_sub(ray.origin, cy->bottom);
-	aa = pre_compute_coef(ray.direction, cy->direction);
-	bb = pre_compute_coef(oc, cy->direction);
-	a = v_dot(aa, aa);
-	b = 2 * v_dot(aa, bb);
-	c = v_dot(oc, oc) - cy->radius * cy->radius;
-#endif
-	t_vec BT = v_sub(cy->top, cy->bottom);
-	t_vec A = v_sub(v_cross(ray.origin, BT), v_cross(cy->bottom, BT));
-	t_vec B = v_cross(ray.direction, BT);
-	double root1, root2, t;
-	t_coef coef;
-	coef.a = v_len_squared(B);
-	coef.b = 2 * v_dot(A, B);
-	coef.c = v_len_squared(A) - cy->radius * cy->radius * cy->height * cy->height;
+	prepare_cylinder_coef(cy, ray, &coef);
 	if (quadratic_solve2(&root1, &root2, coef) == 0)
 		return (0);
-	t_vec aa; double aaa;
 	if (EPSILON < root1 && is_cylinder_range(cy, ray, root1))
 		t = root1;
 	else if (EPSILON < root2 && is_cylinder_range(cy, ray, root2))
@@ -198,16 +153,11 @@ int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 	if (EPSILON <= t && t < tmax)
 	{
 		rec->color = cy->color;
-		rec->t = root1;
-		aa = v_sub(ray_at(ray, root1), cy->bottom);
-		aaa = v_dot(aa, cy->direction);
-//		t_vec res = v_sub(aa, v_mul(cy->direction, v_dot(aa, cy->direction)));
-		t_vec res = v_sub(aa, v_mul(cy->direction, aaa));
-		if (t == root1)
-			rec->normal = v_unit(res);
-		else
-			rec->normal = v_mul(v_unit(res), -1);
+		rec->t = t;
 		rec->point = ray_at(ray, t);
+		rec->normal = cylinder_normal(cy, ray, t);
+		if (t == root2)
+			rec->normal = v_mul(rec->normal, -1);
 		return (1);
 	}
 	return (0);

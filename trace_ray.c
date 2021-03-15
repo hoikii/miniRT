@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 02:17:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:42:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void		set_viewport(t_mlx *rt, t_viewport *vp)
 	vp->horizontal = v_mul(cam->u, vp_width);
 	vp->vertical = v_mul(cam->v, -vp_height);
 	vp->upper_left_corner = v_sub(v_sub(v_add(cam->origin, cam->direction),
-		v_div(vp->horizontal, 2)), v_div(vp->vertical, 2));
+				v_div(vp->horizontal, 2)), v_div(vp->vertical, 2));
 	return ;
 }
 
 t_vec		set_ray_direction(t_ray ray, t_viewport vp, double y, double x)
 {
-	t_vec direction;
+	t_vec	direction;
 
 	direction = v_add(vp.upper_left_corner, v_mul(vp.horizontal, x));
 	direction = v_add(direction, v_mul(vp.vertical, y));

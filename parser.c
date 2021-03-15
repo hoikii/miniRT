@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 16:27:58 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/14 02:37:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "minirt.h"
-#include "error.h"
 #include "parser_utils.h"
 #include "parse_info.h"
 #include "parse_objects.h"
@@ -23,7 +22,6 @@
 #include "vec.h"
 #include "libft/libft.h"
 #include "gnl/get_next_line.h"
-#include "libft/libft.h"
 #include "camera.h"
 #include "light.h"
 #include "exit.h"

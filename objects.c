@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 01:57:34 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:43:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 #include "hit.h"
 #include "math_utils.h"
 
-int	hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
+char	*g_obj_type_string[5] = {
+	"Sphere",
+	"Plane",
+	"Triangle",
+	"Square",
+	"Cylinder"};
+
+int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 {
 	if (obj.type == TYPE_SPHERE)
 		return (hit_sphere(obj.data, ray, tmax, rec));
@@ -30,9 +37,9 @@ int	hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-void move_object(t_mlx *rt, double dx, double dy, double dz)
+void	move_object(t_mlx *rt, double dx, double dy, double dz)
 {
-	t_objects obj;
+	t_objects	obj;
 
 	obj = rt->objects_array[rt->obj_selected_idx];
 	if (obj.type == TYPE_SPHERE)
@@ -47,9 +54,9 @@ void move_object(t_mlx *rt, double dx, double dy, double dz)
 		move_cylinder(obj.data, dx, dy, dz);
 }
 
-void resize_object(t_mlx *rt, double amount)
+void	resize_object(t_mlx *rt, double amount)
 {
-	t_objects obj;
+	t_objects	obj;
 
 	obj = rt->objects_array[rt->obj_selected_idx];
 	if (obj.type == TYPE_SPHERE)
@@ -60,9 +67,9 @@ void resize_object(t_mlx *rt, double amount)
 		resize_cylinder(obj.data, amount);
 }
 
-void rotate_object(t_mlx *rt, double dx, double dy)
+void	rotate_object(t_mlx *rt, double dx, double dy)
 {
-	t_objects obj;
+	t_objects	obj;
 
 	obj = rt->objects_array[rt->obj_selected_idx];
 	if (obj.type == TYPE_PLANE)
@@ -73,25 +80,16 @@ void rotate_object(t_mlx *rt, double dx, double dy)
 		rotate_cylinder(obj.data, dx, dy);
 }
 
-void show_object_info(int idx, t_mlx *rt)
+void	show_object_info(int idx, t_mlx *rt)
 {
 	t_cam	*cam;
-	char	*msg[10];
+	char	*msg[3];
 	int		i;
 	char	*idxstring;
 
 	idxstring = ft_itoa(idx);
 	msg[0] = ft_strjoin("object selected idx:", idxstring);
-	if (rt->objects_array[idx].type == TYPE_SPHERE)
-		msg[1] = "Sphere";
-	if (rt->objects_array[idx].type == TYPE_PLANE)
-		msg[1] = "Plane";
-	if (rt->objects_array[idx].type == TYPE_TRIANGLE)
-		msg[1] = "Triangle";
-	if (rt->objects_array[idx].type == TYPE_SQUARE)
-		msg[1] = "Square";
-	if (rt->objects_array[idx].type == TYPE_CYLINDER)
-		msg[1] = "Cylinder";
+	msg[1] = g_obj_type_string[rt->objects_array[idx].type];
 	msg[2] = NULL;
 	cam = rt->cam_list->content;
 	mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
@@ -104,4 +102,4 @@ void show_object_info(int idx, t_mlx *rt)
 	}
 	free(idxstring);
 	free(msg[0]);
-}	
+}

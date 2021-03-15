@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:01:49 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/09 11:09:55 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:40:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_color	color(double r, double g, double b)
 {
-	t_color c;
+	t_color	c;
 
 	c.r = r;
 	c.g = g;
@@ -49,9 +49,9 @@ t_color	c_mul(t_color a, double b)
 
 int		color_to_int(t_color c)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = (int)clamp(c.r * 255, 0, 255);
 	g = (int)clamp(c.g * 255, 0, 255);

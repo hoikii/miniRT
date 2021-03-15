@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:12:59 by kanlee            #+#    #+#             */
-/*   Updated: 2020/12/12 02:57:01 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:39:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_ray	new_ray(t_vec origin, t_vec direction)
 {
-	t_ray ray;
+	t_ray	ray;
 
 	ray.origin = origin;
 	ray.direction = direction;

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/07 00:02:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:41:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,10 @@
 
 static void	destroy_img(t_mlx *rt)
 {
-	t_list *tmp;
-	t_list *head;
-	t_cam *cam;
-/*
-	tmp = param->cam_list;
-	while (tmp)
-	{
-		cam = tmp->content;
-		if (cam->image.img_ptr)
-			mlx_destroy_image(param->mlx, cam->image.img_ptr);
-		tmp = tmp->next;
-	}*/
+	t_list	*tmp;
+	t_list	*head;
+	t_cam	*cam;
+
 	head = rt->cam_list;
 	tmp = head;
 	while (tmp)
@@ -40,9 +32,9 @@ static void	destroy_img(t_mlx *rt)
 	}
 }
 
-int		close_window(t_mlx *param)
+int			close_window(t_mlx *param)
 {
-	int i;
+	int	i;
 
 	if (param->win)
 		mlx_destroy_window(param->mlx, param->win);
@@ -55,7 +47,7 @@ int		close_window(t_mlx *param)
 	exit(0);
 }
 
-void	exit_error(char *str, t_mlx *rt)
+void		exit_error(char *str, t_mlx *rt)
 {
 	printf("Error\n");
 	printf("%s\n", str);
@@ -63,7 +55,7 @@ void	exit_error(char *str, t_mlx *rt)
 	return ;
 }
 
-void	exit_error_ln(char *str, t_mlx *rt, int linenumber)
+void		exit_error_ln(char *str, t_mlx *rt, int linenumber)
 {
 	printf("Error\n");
 	printf("line #%d: %s\n", linenumber, str);

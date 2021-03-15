@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 11:31:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:08:47 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:40:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 
 t_cam		*new_camera(t_vec origin, t_vec direction, double fov)
 {
-	t_cam *cam;
+	t_cam	*cam;
 
-	if (!(cam = malloc(sizeof(t_cam))))
+	cam = malloc(sizeof(t_cam));
+	if (!cam)
 		return (NULL);
 	cam->origin = origin;
 	cam->direction = direction;

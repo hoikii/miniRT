@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 01:05:03 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/13 01:07:43 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:34:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 #include "minirt.h"
 #include "libft/libft.h"
+
+int		g_threads_progress[THREADS_CNT + 1];
 
 void	print_progress(int tid, int current)
 {
