@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects.h                                          :+:      :+:    :+:   */
+/*   show_transform_info.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/29 21:29:05 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:23:28 by kanlee           ###   ########.fr       */
+/*   Created: 2021/03/15 23:23:45 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/15 23:32:59 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECTS_H
-# define OBJECTS_H
+#ifndef SHOW_TRANSFORM_INFO_H
+# define SHOW_TRANSFORM_INFO_H
 
 # include "minirt.h"
-# include "ray.h"
-# include "sphere.h"
-# include "plane.h"
-# include "triangle.h"
-# include "square.h"
-# include "cylinder.h"
 
-int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec);
+void	show_transform_info(int idx, t_mlx *rt);
 
-void	move_object(t_mlx *rt, double dx, double dy, double dz);
-void	resize_object(t_mlx *rt, double amount, int flag);
-void	rotate_object(t_mlx *rt, double dx, double dy);
 #endif

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 22:33:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:43:00 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	parse_line(char *line, t_mlx *rt, int linenum)
 
 static void	light_list_to_array(t_mlx *rt, t_list *lst)
 {
-	int i;
+	int	i;
 
 	rt->lights_cnt = ft_lstsize(lst);
 	rt->lights_array = malloc(sizeof(t_light) * rt->lights_cnt);

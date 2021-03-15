@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 15:50:47 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:33:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 #include "objects.h"
 #include "hit.h"
 #include "math_utils.h"
-
-char	*g_obj_type_string[5] = {
-	"Sphere",
-	"Plane",
-	"Triangle",
-	"Square",
-	"Cylinder"};
 
 int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 {
@@ -78,28 +71,4 @@ void	rotate_object(t_mlx *rt, double dx, double dy)
 		rotate_square(obj.data, dx, dy);
 	if (obj.type == TYPE_CYLINDER)
 		rotate_cylinder(obj.data, dx, dy);
-}
-
-void	show_object_info(int idx, t_mlx *rt)
-{
-	t_cam	*cam;
-	char	*msg[3];
-	int		i;
-	char	*idxstring;
-
-	idxstring = ft_itoa(idx);
-	msg[0] = ft_strjoin("object selected idx:", idxstring);
-	msg[1] = g_obj_type_string[rt->objects_array[idx].type];
-	msg[2] = NULL;
-	cam = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
-	i = -1;
-	while (msg[++i] != NULL)
-	{
-		mlx_string_put(rt->mlx, rt->win, 11, 20 * i + 21, 0, msg[i]);
-		mlx_string_put(rt->mlx, rt->win, 10, 20 * i + 20,
-			255 << 16 | 255 << 8 | 255, msg[i]);
-	}
-	free(idxstring);
-	free(msg[0]);
 }

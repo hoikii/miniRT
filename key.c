@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 22:52:58 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:28:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "objects.h"
 #include "transform.h"
 #include "exit.h"
+#include "show_transform_info.h"
 
 static void	key_wasd_pressed(int keycode, t_mlx *rt)
 {
@@ -96,29 +97,6 @@ static int	key_pressed2(int keycode, t_mlx *rt)
 	return (0);
 }
 
-void	show_light_info(int idx, t_mlx *rt)
-{
-	t_cam	*cam;
-	char	*msg[3];
-	int		i;
-	char	*idxstring;
-
-	idxstring = ft_itoa(idx);
-	msg[0] = ft_strjoin("light selected idx:", idxstring);
-	msg[1] = NULL;
-	cam = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
-	i = -1;
-	while (msg[++i] != NULL)
-	{
-		mlx_string_put(rt->mlx, rt->win, 11, 20 * i + 21, 0, msg[i]);
-		mlx_string_put(rt->mlx, rt->win, 10, 20 * i + 20,
-			255 << 16 | 255 << 8 | 255, msg[i]);
-	}
-	free(idxstring);
-	free(msg[0]);
-}
-
 int			key_pressed(int keycode, t_mlx *rt)
 {
 	if (keycode == KEY_W || keycode == KEY_A || keycode == KEY_S
@@ -142,7 +120,7 @@ int			key_pressed(int keycode, t_mlx *rt)
 			rt->obj_selected_idx = (rt->obj_selected_idx + 1) % rt->objs_cnt;
 		else
 			rt->transform_mode = MODE_OBJ;
-		show_object_info(rt->obj_selected_idx, rt);
+		show_transform_info(rt->obj_selected_idx, rt);
 	}
 	else if (keycode == KEY_L && rt->lights_cnt > 0)
 	{
@@ -150,7 +128,7 @@ int			key_pressed(int keycode, t_mlx *rt)
 			rt->light_sel_idx = (rt->light_sel_idx + 1) % rt->lights_cnt;
 		else
 			rt->transform_mode = MODE_LIGHT;
-		show_light_info(rt->light_sel_idx, rt);
+		show_transform_info(rt->light_sel_idx, rt);
 	}
 
 	else

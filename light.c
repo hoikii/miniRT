@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:11:55 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:44:13 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,6 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 		result = c_add(result, c_mul(light.color, diff * light.brightness));
 		specular = c_add(specular, calc_specular(rec, lightdir, diff, &light));
 	}
-/*
-	while (lights_list != NULL)
-	{
-		light = (t_light *)(lights_list->content);
-		lights_list = lights_list->next;
-		lightdir = v_unit(v_sub(light->position, rec.point));
-		if (is_shadow(rec.point, lightdir, rt, light))
-			continue ;
-		diff = clamp(v_dot(rec.normal, lightdir), 0, 1);
-		result = c_add(result, c_mul(light->color, diff * light->brightness));
-		specular = c_add(specular, calc_specular(rec, lightdir, diff, light));
-	}
-*/
 	return (c_add(c_mix(rec.color, result), specular));
 }
 
@@ -108,5 +95,5 @@ void	move_light(t_mlx *rt, double dx, double dy, double dz)
 	if (dy != 0)
 		light->position = v_add(light->position, v_new(0, dy, 0));
 	if (dz != 0)
-		light->position = v_add(light->position,  v_new(0, 0, dz));
+		light->position = v_add(light->position, v_new(0, 0, dz));
 }

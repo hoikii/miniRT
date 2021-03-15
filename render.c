@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/13 01:13:36 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:39:56 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "minirt.h"
 #include "ray.h"
 #include "camera.h"
-#include "sphere.h"
-#include "plane.h"
 #include "light.h"
 #include "key.h"
 #include "math_utils.h"
@@ -25,6 +23,7 @@
 #include "bmp.h"
 #include "trace_ray.h"
 #include "progress.h"
+#include "show_transform_info.h"
 
 int			put_img_to_window(t_mlx *rt)
 {
@@ -33,7 +32,9 @@ int			put_img_to_window(t_mlx *rt)
 	camera = rt->cam_list->content;
 	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
 	if (rt->transform_mode == MODE_OBJ)
-		show_object_info(rt->obj_selected_idx, rt);
+		show_transform_info(rt->obj_selected_idx, rt);
+	else if (rt->transform_mode == MODE_LIGHT)
+		show_transform_info(rt->light_sel_idx, rt);
 	return (0);
 }
 
@@ -126,7 +127,7 @@ void		render_scene(t_mlx *rt, int save_bmp)
 	camera = rt->cam_list->content;
 	if (save_bmp)
 		create_bmp_image(camera->image, rt);
-	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
-	if (rt->transform_mode == MODE_OBJ)
-		show_object_info(rt->obj_selected_idx, rt);
+	else
+		put_img_to_window(rt);
+	return ;
 }
