@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/14 02:37:46 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 22:33:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,23 @@ static void	parse_line(char *line, t_mlx *rt, int linenum)
 	return ;
 }
 
+static void	light_list_to_array(t_mlx *rt, t_list *lst)
+{
+	int i;
+
+	rt->lights_cnt = ft_lstsize(lst);
+	rt->lights_array = malloc(sizeof(t_light) * rt->lights_cnt);
+	if (!rt->lights_array)
+		exit_error("Memory Allocation Failed.", rt);
+	i = -1;
+	while (++i < rt->lights_cnt)
+	{
+		rt->lights_array[i] = *(t_light *)(lst->content);
+		lst = lst->next;
+	}
+	return ;
+}
+
 static void	check_mandatory(t_mlx *rt)
 {
 	if (rt->resolution_declared == 0)
@@ -68,6 +85,7 @@ static void	check_mandatory(t_mlx *rt)
 	if (ft_lstsize(rt->cam_list) == 0)
 		exit_error("No Camera", rt);
 	ft_lstadd_back(&(rt->cam_list), rt->cam_list);
+	light_list_to_array(rt, rt->lights_list);
 	return ;
 }
 

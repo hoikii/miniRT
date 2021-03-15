@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:42:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 22:58:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 
 	if (!hit_nearest_object(rt, ray, &rec))
 		return (color(0, 0, 0));
-	local_color = apply_light(rec, rt->lights_list, rt);
+	local_color = apply_light(rec, -1, rt);
 	r = 0.1;
 	if (depth <= 0 || r <= 0)
 		return (local_color);

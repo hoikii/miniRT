@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 03:24:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 23:11:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_color	calc_specular(t_rec rec, t_vec lightdir, double diff, t_light *light)
 	return (color(0, 0, 0));
 }
 
-t_color	apply_light(t_rec rec, t_list *lights_list, t_mlx *rt)
+t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 {
-	t_light	*light;
+	t_light	light;
 	t_vec	lightdir;
 	t_color	result;
 	t_color	specular;
@@ -71,6 +71,18 @@ t_color	apply_light(t_rec rec, t_list *lights_list, t_mlx *rt)
 
 	specular = color(0, 0, 0);
 	result = c_mul(rt->ambient.color, rt->ambient.brightness);
+	idx = -1;
+	while (++idx < rt->lights_cnt)
+	{
+		light = rt->lights_array[idx];
+		lightdir = v_unit(v_sub(light.position, rec.point));
+		if (is_shadow(rec.point, lightdir, rt, &light))
+			continue ;
+		diff = clamp(v_dot(rec.normal, lightdir), 0, 1);
+		result = c_add(result, c_mul(light.color, diff * light.brightness));
+		specular = c_add(specular, calc_specular(rec, lightdir, diff, &light));
+	}
+/*
 	while (lights_list != NULL)
 	{
 		light = (t_light *)(lights_list->content);
@@ -82,5 +94,19 @@ t_color	apply_light(t_rec rec, t_list *lights_list, t_mlx *rt)
 		result = c_add(result, c_mul(light->color, diff * light->brightness));
 		specular = c_add(specular, calc_specular(rec, lightdir, diff, light));
 	}
+*/
 	return (c_add(c_mix(rec.color, result), specular));
+}
+
+void	move_light(t_mlx *rt, double dx, double dy, double dz)
+{
+	t_light	*light;
+
+	light = &(rt->lights_array[rt->light_sel_idx]);
+	if (dx != 0)
+		light->position = v_add(light->position, v_new(dx, 0, 0));
+	if (dy != 0)
+		light->position = v_add(light->position, v_new(0, dy, 0));
+	if (dz != 0)
+		light->position = v_add(light->position,  v_new(0, 0, dz));
 }

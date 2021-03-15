@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:29:54 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/15 22:35:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <math.h>
 # include "minilibx/mlx.h"
 # include "vec.h"
-# include "camera.h"
 # include "color.h"
+# include "camera.h"
+# include "light_def.h"
 # include "libft/libft.h"
 
 # define STDOUT 1
@@ -107,10 +108,13 @@ typedef struct	s_mlx {
 	int			ambient_declared;
 	t_list		*cam_list;
 	t_list		*lights_list;
+	t_light		*lights_array;
+	int			lights_cnt;
 	int			objs_cnt;
 	t_objects	*objects_array;
 	int			transform_mode;
 	int			obj_selected_idx;
+	int			light_sel_idx;
 }				t_mlx;
 
 typedef struct	s_thread {
