@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:15:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/16 01:01:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@
 #  define KEY_NP_MINUS 65453
 #  define KEY_NP_MUL 65450
 #  define KEY_NP_DIV 65455
-#  define KEY_PLUS -1
-#  define KEY_MINUS -1
-#  define KEY_MUL -1
-#  define KEY_DIV -1
+#  define KEY_PLUS 61
+#  define KEY_MINUS 45
+#  define KEY_MUL 56
+#  define KEY_DIV 47
 #  define KEY_SPACE 32
 #  define KEY_O 111
 #  define KEY_C 99
-#  define KEY_L -1
+#  define KEY_L 108
+#  define KEY_1 49
 # else
 #  define DESTROYNOTIFY 17
 #  define STRUCTURENOTIFYMASK 131072

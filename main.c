@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:34:19 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/16 01:00:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	init_struct(t_mlx *rt)
 	rt->win = NULL;
 	rt->transform_mode = MODE_CAM;
 	rt->obj_selected_idx = 0;
+	rt->light_sel_idx = 0;
 	return ;
 }
 
@@ -44,7 +45,7 @@ static void	init_mlx_hook(t_mlx *rt)
 {
 	mlx_hook(rt->win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, rt);
 	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
-	mlx_hook(rt->win, VISIBILITYNOTIFY, (1L << 16), prn_again, rt);
+	mlx_hook(rt->win, VISIBILITYNOTIFY, (1L << 16), put_img_to_window, rt);
 }
 
 #else
@@ -53,7 +54,6 @@ static void	init_mlx_hook(t_mlx *rt)
 {
 	mlx_hook(rt->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, rt);
 	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
-	mlx_hook(rt->win, 15, (1L << 16), put_img_to_window, rt);
 }
 
 #endif
