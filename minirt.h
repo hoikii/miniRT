@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 22:35:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 01:44:04 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,19 @@ typedef enum	e_transform_mode {
 	MODE_LIGHT
 }				t_transform_mode;
 
+typedef enum	e_color_filter {
+	FILTER_NONE = 0,
+	FILTER_RED,
+	FILTER_GREEN,
+	FILTER_BLUE,
+	FILTER_GREY,
+	FILTER_SEPIA,
+	FILTER_SEPIA2,
+	FILTER_INVERSE
+}				t_color_filter;
+
+# define FILTER_CNT 8
+
 typedef struct	s_mlx {
 	void		*mlx;
 	void		*win;
@@ -115,6 +128,7 @@ typedef struct	s_mlx {
 	int			transform_mode;
 	int			obj_selected_idx;
 	int			light_sel_idx;
+	int			color_filter;
 }				t_mlx;
 
 typedef struct	s_thread {

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:39:56 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/16 13:49:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@
 #include "trace_ray.h"
 #include "progress.h"
 #include "show_transform_info.h"
+#include "color_filter.h"
 
 int			put_img_to_window(t_mlx *rt)
 {
-	t_cam	*camera;
+	t_img	image;
 
-	camera = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, camera->image.img_ptr, 0, 0);
+	image = ((t_cam *)(rt->cam_list->content))->image;
+	if (rt->color_filter == FILTER_NONE)
+		mlx_put_image_to_window(rt->mlx, rt->win, image.img_ptr, 0, 0);
+	else
+		apply_color_filter(rt);
 	if (rt->transform_mode == MODE_OBJ)
 		show_transform_info(rt->obj_selected_idx, rt);
 	else if (rt->transform_mode == MODE_LIGHT)

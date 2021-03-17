@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 23:22:10 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:33:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 08:03:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,24 @@ char		*g_obj_type_string[5] = {
 	"Square",
 	"Cylinder"};
 
+void		show_keycode(int keycode, t_mlx *rt)
+{
+	t_cam	*cam;
+	char	*msg;
+	char	*str_keycode;
+
+	cam = rt->cam_list->content;
+	//mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
+	put_img_to_window(rt);
+	str_keycode = ft_itoa(keycode);
+	msg = ft_strjoin("keycode = ", str_keycode);
+	free(str_keycode);
+	mlx_string_put(rt->mlx, rt->win, 11, 21, 0, msg);
+	mlx_string_put(rt->mlx, rt->win, 10, 20,
+		255 << 16 | 255 << 8 | 255, msg);
+	free(msg);
+}
+
 static void	show_object_info(int idx, t_mlx *rt)
 {
 	t_cam	*cam;
@@ -33,7 +51,6 @@ static void	show_object_info(int idx, t_mlx *rt)
 	msg[1] = g_obj_type_string[rt->objects_array[idx].type];
 	msg[2] = NULL;
 	cam = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
 	i = -1;
 	while (msg[++i] != NULL)
 	{
@@ -56,7 +73,6 @@ static void	show_light_info(int idx, t_mlx *rt)
 	msg[0] = ft_strjoin("light selected idx:", idxstring);
 	msg[1] = NULL;
 	cam = rt->cam_list->content;
-	mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
 	i = -1;
 	while (msg[++i] != NULL)
 	{

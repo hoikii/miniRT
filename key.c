@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:28:55 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 02:20:26 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,32 +69,33 @@ static void	key_sign_pressed(int keycode, t_mlx *rt)
 	render_scene(rt, 0);
 }
 
-static int	key_pressed2(int keycode, t_mlx *rt)
+static void	key_pressed2(int keycode, t_mlx *rt)
 {
-	char	*msg;
-	char	*str_keycode;
-	t_cam	*cam;
-
-	cam = rt->cam_list->content;
 	if (keycode == KEY_ESC)
 		close_window(rt);
-	else if (keycode == KEY_C)
+	else if (keycode == KEY_SPACE)
 	{
-		rt->transform_mode = MODE_CAM;
-		mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
+		rt->cam_list = rt->cam_list->next;
+		render_scene(rt, 0);
+	}
+	else if (keycode == KEY_O && rt->objs_cnt > 0)
+	{
+		if (rt->transform_mode == MODE_OBJ)
+			rt->obj_selected_idx = (rt->obj_selected_idx + 1) % rt->objs_cnt;
+		else
+			rt->transform_mode = MODE_OBJ;
+		put_img_to_window(rt);
+	}
+	else if (keycode == KEY_L && rt->lights_cnt > 0)
+	{
+		if (rt->transform_mode == MODE_LIGHT)
+			rt->light_sel_idx = (rt->light_sel_idx + 1) % rt->lights_cnt;
+		else
+			rt->transform_mode = MODE_LIGHT;
+		put_img_to_window(rt);
 	}
 	else
-	{
-		mlx_put_image_to_window(rt->mlx, rt->win, cam->image.img_ptr, 0, 0);
-		str_keycode = ft_itoa(keycode);
-		msg = ft_strjoin("keycode = ", str_keycode);
-		free(str_keycode);
-		mlx_string_put(rt->mlx, rt->win, 11, 21, 0, msg);
-		mlx_string_put(rt->mlx, rt->win, 10, 20,
-			255 << 16 | 255 << 8 | 255, msg);
-		free(msg);
-	}
-	return (0);
+		show_keycode(keycode, rt);
 }
 
 int			key_pressed(int keycode, t_mlx *rt)
@@ -109,29 +110,17 @@ int			key_pressed(int keycode, t_mlx *rt)
 		|| keycode == KEY_NP_PLUS || keycode == KEY_NP_MINUS
 		|| keycode == KEY_NP_MUL || keycode == KEY_DIV || keycode == KEY_NP_DIV)
 		key_sign_pressed(keycode, rt);
-	else if (keycode == KEY_SPACE)
+	else if (keycode == KEY_C || keycode == KEY_1 || keycode == KEY_2)
 	{
-		rt->cam_list = rt->cam_list->next;
-		render_scene(rt, 0);
+		if (keycode == KEY_2)
+			rt->color_filter = (rt->color_filter + 1) % FILTER_CNT;
+		else if (keycode == KEY_1)
+			rt->color_filter = (rt->color_filter + FILTER_CNT - 1) % FILTER_CNT;
+		else if (keycode == KEY_C)
+			rt->transform_mode = MODE_CAM;
+		put_img_to_window(rt);
 	}
-	else if (keycode == KEY_O && rt->objs_cnt > 0)
-	{
-		if (rt->transform_mode == MODE_OBJ)
-			rt->obj_selected_idx = (rt->obj_selected_idx + 1) % rt->objs_cnt;
-		else
-			rt->transform_mode = MODE_OBJ;
-		show_transform_info(rt->obj_selected_idx, rt);
-	}
-	else if (keycode == KEY_L && rt->lights_cnt > 0)
-	{
-		if (rt->transform_mode == MODE_LIGHT)
-			rt->light_sel_idx = (rt->light_sel_idx + 1) % rt->lights_cnt;
-		else
-			rt->transform_mode = MODE_LIGHT;
-		show_transform_info(rt->light_sel_idx, rt);
-	}
-
 	else
-		return (key_pressed2(keycode, rt));
+		key_pressed2(keycode, rt);
 	return (0);
 }

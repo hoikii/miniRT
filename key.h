@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/16 01:01:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 01:56:20 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 #  define KEY_C 99
 #  define KEY_L 108
 #  define KEY_1 49
+#  define KEY_2 50
 # else
 #  define DESTROYNOTIFY 17
 #  define STRUCTURENOTIFYMASK 131072
@@ -71,6 +72,8 @@
 #  define KEY_O 31
 #  define KEY_C 8
 #  define KEY_L 37
+#  define KEY_1 18
+#  define KEY_2 19
 # endif
 
 int	key_pressed(int keycode, t_mlx *param);

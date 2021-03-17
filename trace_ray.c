@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 22:58:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 08:04:57 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 }
 
 /*
+** normal disruption
 **	t_vec unit = v_unit(ray.direction);
 **	double t = 0.5 * (unit.y + 1.0);
 **	rgb.r = 255 * ((1.0 - t) * 0.5 + t * 1.0);

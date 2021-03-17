@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/16 01:00:19 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 01:48:15 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_struct(t_mlx *rt)
 	rt->transform_mode = MODE_CAM;
 	rt->obj_selected_idx = 0;
 	rt->light_sel_idx = 0;
+	rt->color_filter = 0;
 	return ;
 }
 
@@ -60,10 +61,12 @@ static void	init_mlx_hook(t_mlx *rt)
 
 static void	prn_usage(void)
 {
-	printf("============================================\n");
-	printf("wasd: move    arrows: rotate     o:cam<->obj\n");
-	printf("+-: fov in cam mode, size in obj mode\n");
-	printf("============================================\n");
+	printf("=============================================================\n");
+	printf("wasdqz: move    arrows: rotate     o,l,c: cam<->obj<->light\n");
+	printf("space: change camera\n");
+	printf("+-: fov in cam mode, resize in obj mode( */: cylinder radius)\n");
+	printf("1, 2: change color filter\n");
+	printf("=============================================================\n");
 }
 
 int			main(int ac, char **av)
