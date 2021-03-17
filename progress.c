@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 01:05:03 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:34:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 01:40:20 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ void	print_progress(int tid, int current)
 		ft_putchar_fd('%', STDOUT);
 		return ;
 	}
-	if (g_threads_progress[THREADS_CNT] == 1)
-		return ;
-	g_threads_progress[THREADS_CNT] = 1;
-	ft_putchar_fd('\r', STDOUT);
 	g_threads_progress[tid] = current;
+	if (tid != THREADS_CNT - 1)
+		return ;
+	ft_putchar_fd('\r', STDOUT);
 	i = -1;
 	while (++i < THREADS_CNT)
 	{
@@ -45,5 +44,4 @@ void	print_progress(int tid, int current)
 		ft_putnbr_fd(g_threads_progress[i], STDOUT);
 		ft_putstr_fd("%   ", STDOUT);
 	}
-	g_threads_progress[THREADS_CNT] = 0;
 }
