@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:34:35 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 01:57:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 08:16:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,19 @@ static int	apply_sepia2(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
+static int	apply_greyscale(int r, int g, int b)
+{
+	double	grey;
+
+	grey = clamp(r * 0.299 + g * 0.587 + b * 0.114, 0, 255);
+	return (grey << 16 | grey << 8 | grey);
+}
+
 static int	apply_filter(int filter_type, unsigned int color)
 {
 	int	r;
 	int	g;
 	int	b;
-	int	grey;
 
 	r = color << 8 >> 24;
 	g = color << 16 >> 24;
@@ -87,10 +94,7 @@ static int	apply_filter(int filter_type, unsigned int color)
 	if (filter_type == FILTER_BLUE)
 		return (0 << 16 | 0 << 8 | b);
 	if (filter_type == FILTER_GREY)
-	{
-		grey = clamp(r * 0.299 + g * 0.587 + b * 0.114, 0, 255);
-		return (grey << 16 | grey << 8 | grey);
-	}
+		return (apply_greyscale(r, g, b));
 	if (filter_type == FILTER_SEPIA)
 		return (apply_sepia(r, g, b));
 	if (filter_type == FILTER_INVERSE)
