@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 13:34:40 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:26:43 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	parse_objects(char *line, t_mlx *rt, int linenum)
 		parse_cylinder(line, rt, linenum);
 	else if (*line == 'c' && *(line + 1) == 'c')
 		parse_cylinder_caps(line, rt, linenum);
+	else if (*line == 'c' && *(line + 1) == 'u')
+		parse_cube(line, rt, linenum);
 	else if (*line != '\0')
 		exit_error_ln("Unknown element", rt, linenum);
 	return ;

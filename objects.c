@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 09:35:58 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:26:16 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 		return (hit_cylinder(obj.data, ray, tmax, rec));
 	if (obj.type == TYPE_CYLINDER_CAPS)
 		return (hit_cylinder_caps(obj.data, ray, tmax, rec));
+	if (obj.type == TYPE_CUBE)
+		return (hit_cube(obj.data, ray, tmax, rec));
 	return (0);
 }
 
@@ -47,6 +49,8 @@ void	move_object(t_mlx *rt, double dx, double dy, double dz)
 		move_square(obj.data, dx, dy, dz);
 	if (obj.type == TYPE_CYLINDER || obj.type == TYPE_CYLINDER_CAPS)
 		move_cylinder(obj.data, dx, dy, dz);
+	if (obj.type == TYPE_CUBE)
+		move_cube(obj.data, dx, dy, dz);
 }
 
 void	resize_object(t_mlx *rt, double amount, int flag)
@@ -60,6 +64,8 @@ void	resize_object(t_mlx *rt, double amount, int flag)
 		resize_square(obj.data, amount);
 	if (obj.type == TYPE_CYLINDER || obj.type == TYPE_CYLINDER_CAPS)
 		resize_cylinder(obj.data, amount, flag);
+	if (obj.type == TYPE_CUBE)
+		resize_cube(obj.data, amount);
 }
 
 void	rotate_object(t_mlx *rt, double dx, double dy)
@@ -73,4 +79,6 @@ void	rotate_object(t_mlx *rt, double dx, double dy)
 		rotate_square(obj.data, dx, dy);
 	if (obj.type == TYPE_CYLINDER || obj.type == TYPE_CYLINDER_CAPS)
 		rotate_cylinder(obj.data, dx, dy);
+	if (obj.type == TYPE_CUBE)
+		rotate_cube(obj.data, dx, dy);
 }

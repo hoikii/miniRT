@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 13:33:56 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 01:40:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	hit_top_cap(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-int	hit_cylinder_caps(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
+int			hit_cylinder_caps(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 {
 	int		is_hit_caps;
 	t_rec	rec_caps;
@@ -84,4 +84,27 @@ int	hit_cylinder_caps(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 	if (!hit_cylinder(cy, ray, tmax, rec) && is_hit_caps == 0)
 		return (0);
 	return (1);
+}
+
+int			hit_cube(t_cube *cu, t_ray ray, double tmax, t_rec *rec)
+{
+	int	is_hit_face;
+
+	is_hit_face = 0;
+	rec->t = tmax;
+	if (hit_square(&(cu->face[0]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_square(&(cu->face[1]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_square(&(cu->face[2]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_square(&(cu->face[3]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_square(&(cu->face[4]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_square(&(cu->face[5]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (is_hit_face)
+		return (1);
+	return (0);
 }

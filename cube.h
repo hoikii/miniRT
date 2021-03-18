@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects.h                                          :+:      :+:    :+:   */
+/*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/29 21:29:05 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 14:13:16 by kanlee           ###   ########.fr       */
+/*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
+/*   Updated: 2021/03/18 14:48:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECTS_H
-# define OBJECTS_H
+#ifndef CUBE_H
+# define CUBE_H
 
-# include "minirt.h"
-# include "ray.h"
-# include "sphere.h"
-# include "plane.h"
-# include "triangle.h"
+# include "vec.h"
+# include "color.h"
 # include "square.h"
-# include "cylinder.h"
-# include "cube.h"
 
-int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec);
+typedef struct	s_cube {
+	t_vec		center;
+	t_vec		normal;
+	double		size;
+	t_color		color;
+	t_square	face[6];
+	double		anglex;
+	double		angley;
+}				t_cube;
 
-void	move_object(t_mlx *rt, double dx, double dy, double dz);
-void	resize_object(t_mlx *rt, double amount, int flag);
-void	rotate_object(t_mlx *rt, double dx, double dy);
+void			fill_cube_info(t_cube *cu, int rotate);
+void			move_cube(t_cube *cu, double dx, double dy, double dz);
+void			resize_cube(t_cube *cu, double amount);
+void			rotate_cube(t_cube *cu, double dx, double dy);
+
 #endif
