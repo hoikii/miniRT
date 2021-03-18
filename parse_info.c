@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/14 02:38:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 09:00:01 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,7 @@ void		parse_camera(char *line, t_mlx *rt, int linenum)
 	cam = new_camera(pos, direction, fov);
 	if (!cam)
 		exit_error("Memory allocation failed.", rt);
-	cam->image.img_ptr = mlx_new_image(rt->mlx,
-			rt->screen_width, rt->screen_height);
-	cam->image.imgdata = mlx_get_data_addr(cam->image.img_ptr,
-			&cam->image.bpp, &cam->image.size_line, &cam->image.endian);
+	cam->image.img_ptr = NULL;
 	ft_lstadd_back(&(rt->cam_list), ft_lstnew(cam, 0));
 	free_words(words);
 }

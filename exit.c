@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:41:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 09:05:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	destroy_img(t_mlx *rt)
 	while (tmp)
 	{
 		cam = tmp->content;
-		if (cam->image.img_ptr)
+		if (cam->image.img_ptr != NULL)
 			mlx_destroy_image(rt->mlx, cam->image.img_ptr);
 		tmp = tmp->next;
 		if (tmp == head)

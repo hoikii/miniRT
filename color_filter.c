@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:34:35 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 08:16:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 08:24:19 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	apply_sepia2(int r, int g, int b)
 
 static int	apply_greyscale(int r, int g, int b)
 {
-	double	grey;
+	int	grey;
 
 	grey = clamp(r * 0.299 + g * 0.587 + b * 0.114, 0, 255);
 	return (grey << 16 | grey << 8 | grey);

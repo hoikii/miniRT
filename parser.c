@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:43:00 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 09:05:39 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,25 @@ static void	light_list_to_array(t_mlx *rt, t_list *lst)
 
 static void	check_mandatory(t_mlx *rt)
 {
+	t_list	*cam_list;
+	t_cam	*cam;
+
 	if (rt->resolution_declared == 0)
 		exit_error("No Resolution.", rt);
 	if (rt->ambient_declared == 0)
 		exit_error("No Ambient.", rt);
 	if (ft_lstsize(rt->cam_list) == 0)
 		exit_error("No Camera", rt);
+	cam_list = rt->cam_list;
+	while (cam_list)
+	{
+		cam = cam_list->content;
+		cam->image.img_ptr = mlx_new_image(rt->mlx,
+			rt->screen_width, rt->screen_height);
+		cam->image.imgdata = mlx_get_data_addr(cam->image.img_ptr,
+			&cam->image.bpp, &cam->image.size_line, &cam->image.endian);
+		cam_list = cam_list->next;
+	}
 	ft_lstadd_back(&(rt->cam_list), rt->cam_list);
 	light_list_to_array(rt, rt->lights_list);
 	return ;
