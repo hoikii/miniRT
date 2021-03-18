@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 23:22:10 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 08:08:27 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:52:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include "objects.h"
 #include "light.h"
 
-char		*g_obj_type_string[5] = {
+const char	*g_obj_type_string[] = {
 	"Sphere",
 	"Plane",
 	"Triangle",
 	"Square",
-	"Cylinder"};
+	"Cylinder",
+	"Cylinder with caps"};
 
 void		show_keycode(int keycode, t_mlx *rt)
 {
@@ -47,7 +48,7 @@ static void	show_object_info(int idx, t_mlx *rt)
 
 	idxstring = ft_itoa(idx);
 	msg[0] = ft_strjoin("object selected idx:", idxstring);
-	msg[1] = g_obj_type_string[rt->objects_array[idx].type];
+	msg[1] = (char *)g_obj_type_string[rt->objects_array[idx].type];
 	msg[2] = NULL;
 	cam = rt->cam_list->content;
 	i = -1;

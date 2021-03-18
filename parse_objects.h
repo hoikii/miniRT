@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:35 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 16:18:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/18 09:30:02 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	parse_plane(char *line, t_mlx *rt, int linenum);
 void	parse_triangle(char *line, t_mlx *rt, int linenum);
 void	parse_square(char *line, t_mlx *rt, int linenum);
 void	parse_cylinder(char *line, t_mlx *rt, int linenum);
+void	parse_cylinder_caps(char *line, t_mlx *rt, int linenum);
 
 #endif
