@@ -6,13 +6,14 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:31:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 01:34:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "square.h"
 #include "math_utils.h"
+#include <stdio.h>
 
 void		fill_square_info(t_square *sq, int rotate)
 {
@@ -23,10 +24,13 @@ void		fill_square_info(t_square *sq, int rotate)
 
 	normal = sq->normal;
 	center = sq->center;
-	if (normal.y != 1)
-		up = v_cross(v_new(0, 1, 0), normal);
-	else
-		up = v_cross(v_new(normal.x, normal.y, normal.z + 0.001), normal);
+	if (!rotate)
+	{
+		sq->anglex = rtod(asin(normal.y));
+		sq->angley = 0 - rtod(atan2(normal.x, normal.z));
+	}
+	up = v_rotate_x(v_new(0, 1, 0), degree_to_radian(sq->anglex));
+	up = v_rotate_y(up, degree_to_radian(sq->angley));
 	up = v_mul(v_unit(up), sq->size / 2);
 	right = v_cross(up, normal);
 	right = v_mul(v_unit(right), sq->size / 2);
@@ -34,11 +38,6 @@ void		fill_square_info(t_square *sq, int rotate)
 	sq->p2 = v_add(v_add(center, up), right);
 	sq->p3 = v_sub(v_add(center, up), right);
 	sq->p4 = v_sub(v_sub(center, up), right);
-	if (!rotate)
-	{
-		sq->anglex = rtod(asin(sq->normal.y));
-		sq->angley = 0 - rtod(atan2(sq->normal.x, sq->normal.z));
-	}
 }
 
 void		move_square(t_square *sq, double dx, double dy, double dz)
