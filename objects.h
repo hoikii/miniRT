@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:05 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 14:13:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 12:43:21 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "square.h"
 # include "cylinder.h"
 # include "cube.h"
+# include "pyramid.h"
 
 int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec);
 

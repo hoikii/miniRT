@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 14:10:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 12:40:15 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ typedef enum	e_obj_type {
 	TYPE_SQUARE,
 	TYPE_CYLINDER,
 	TYPE_CYLINDER_CAPS,
-	TYPE_CUBE
+	TYPE_CUBE,
+	TYPE_PYRAMID
 }				t_obj_type;
 
 typedef struct	s_objects {

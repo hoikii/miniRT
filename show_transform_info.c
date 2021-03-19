@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 23:22:10 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 15:09:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 12:40:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ const char	*g_obj_type_string[] = {
 	"Square",
 	"Cylinder",
 	"Cylinder with caps",
-	"Cube"};
+	"Cube",
+	"Pyramid"};
 
 void		show_keycode(int keycode, t_mlx *rt)
 {

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 14:16:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 14:35:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,31 @@ void	parse_cube(char *line, t_mlx *rt, int linenum)
 			each x,y,z", rt, linenum);
 	fill_cube_info(cu, 0);
 	append_object(cu, TYPE_CUBE, rt);
+	free_words(words);
+	return ;
+}
+
+void	parse_pyramid(char *line, t_mlx *rt, int linenum)
+{
+	t_pyramid	*py;
+	char		**words;
+
+	if (ft_cntwords(line, ' ') != 6)
+		exit_error_ln("Pyramid: py center norm size height R,G,B", rt, linenum);
+	py = malloc(sizeof(t_pyramid));
+	if (!py)
+		exit_error("Memory allocation failed.", rt);
+	words = ft_split(line, ' ');
+	if (get_vector(words[1], &py->center) == FAIL
+		|| get_double(words[3], &py->size) == FAIL
+		|| get_double(words[4], &py->height) == FAIL
+		|| get_color(words[5], &py->color) == FAIL)
+		exit_error_ln("Pyramid: Invalid parameters", rt, linenum);
+	if (get_vector_norm(words[2], &py->normal) == FAIL)
+		exit_error_ln("Pyramid: Direction vector must be in range [-1,1] for \
+			each x,y,z", rt, linenum);
+	fill_pyramid_info(py, 0);
+	append_object(py, TYPE_PYRAMID, rt);
 	free_words(words);
 	return ;
 }

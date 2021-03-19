@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 01:40:08 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/19 14:36:25 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,29 @@ int			hit_cube(t_cube *cu, t_ray ray, double tmax, t_rec *rec)
 	if (hit_square(&(cu->face[4]), ray, rec->t, rec))
 		is_hit_face = 1;
 	if (hit_square(&(cu->face[5]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (is_hit_face)
+		return (1);
+	return (0);
+}
+
+int			hit_pyramid(t_pyramid *py, t_ray ray, double tmax, t_rec *rec)
+{
+	int	is_hit_face;
+
+	is_hit_face = 0;
+	rec->t = tmax;
+	if (hit_triangle(&(py->face[0]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_triangle(&(py->face[1]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_triangle(&(py->face[2]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_triangle(&(py->face[3]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_triangle(&(py->face[4]), ray, rec->t, rec))
+		is_hit_face = 1;
+	if (hit_triangle(&(py->face[5]), ray, rec->t, rec))
 		is_hit_face = 1;
 	if (is_hit_face)
 		return (1);
