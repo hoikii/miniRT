@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 15:52:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:45:35 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,9 @@ void		fill_cylinder_info(t_cylinder *cy, int rotate)
 	}
 }
 
-void		move_cylinder(t_cylinder *cy, double dx, double dy, double dz)
+void		move_cylinder(t_cylinder *cy, t_vec mv)
 {
-	if (dx != 0)
-		cy->center = v_add(cy->center, v_new(dx, 0, 0));
-	if (dy != 0)
-		cy->center = v_add(cy->center, v_new(0, dy, 0));
-	if (dz != 0)
-		cy->center = v_add(cy->center, v_new(0, 0, dz));
+	cy->center = v_add(cy->center, mv);
 	fill_cylinder_info(cy, 0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:03:25 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:04:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:18:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ typedef struct	s_sphere {
 	t_color		color;
 }				t_sphere;
 
-void			move_sphere(t_sphere *sp, double dx, double dy, double dz);
+void			move_sphere(t_sphere *sp, t_vec mv);
 void			resize_sphere(t_sphere *sp, double amount);
 #endif

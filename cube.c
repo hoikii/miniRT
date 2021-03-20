@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 01:38:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:46:40 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,9 @@ void			fill_cube_info(t_cube *cu, int rotate)
 	cu->face[5] = fill_cube_face_info(cu, v_mul(right, -1), up, normal);
 }
 
-void			move_cube(t_cube *cu, double dx, double dy, double dz)
+void			move_cube(t_cube *cu, t_vec mv)
 {
-	if (dx != 0)
-		cu->center = v_add(cu->center, v_new(dx, 0, 0));
-	if (dy != 0)
-		cu->center = v_add(cu->center, v_new(0, dy, 0));
-	if (dz != 0)
-		cu->center = v_add(cu->center, v_new(0, 0, dz));
+	cu->center = v_add(cu->center, mv);
 	fill_cube_info(cu, 0);
 }
 

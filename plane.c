@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 15:14:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/11 02:15:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:43:14 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,9 @@
 #include "plane.h"
 #include "math_utils.h"
 
-void	move_plane(t_plane *pl, double dx, double dy, double dz)
+void	move_plane(t_plane *pl, t_vec mv)
 {
-	if (dx != 0)
-		pl->point = v_add(pl->point, v_new(dx, 0, 0));
-	if (dy != 0)
-		pl->point = v_add(pl->point, v_new(0, dy, 0));
-	if (dz != 0)
-		pl->point = v_add(pl->point, v_new(0, 0, dz));
+	pl->point = v_add(pl->point, mv);
 }
 
 void	rotate_plane(t_plane *pl, double dx, double dy)

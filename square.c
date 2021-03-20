@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 01:34:55 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:44:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,9 @@ void		fill_square_info(t_square *sq, int rotate)
 	sq->p4 = v_sub(v_sub(center, up), right);
 }
 
-void		move_square(t_square *sq, double dx, double dy, double dz)
+void		move_square(t_square *sq, t_vec mv)
 {
-	if (dx != 0)
-		sq->center = v_add(sq->center, v_new(dx, 0, 0));
-	if (dy != 0)
-		sq->center = v_add(sq->center, v_new(0, dy, 0));
-	if (dz != 0)
-		sq->center = v_add(sq->center, v_new(0, 0, dz));
+	sq->center = v_add(sq->center, mv);
 	fill_square_info(sq, 0);
 }
 

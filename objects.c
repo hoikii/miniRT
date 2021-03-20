@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 14:32:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 17:09:39 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,25 @@ int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-void	move_object(t_mlx *rt, double dx, double dy, double dz)
+void	move_object(t_mlx *rt, t_vec mv)
 {
 	t_objects	obj;
 
 	obj = rt->objects_array[rt->obj_selected_idx];
 	if (obj.type == TYPE_SPHERE)
-		move_sphere(obj.data, dx, dy, dz);
+		move_sphere(obj.data, mv);
 	if (obj.type == TYPE_PLANE)
-		move_plane(obj.data, dx, dy, dz);
+		move_plane(obj.data, mv);
 	if (obj.type == TYPE_TRIANGLE)
-		move_triangle(obj.data, dx, dy, dz);
+		move_triangle(obj.data, mv);
 	if (obj.type == TYPE_SQUARE)
-		move_square(obj.data, dx, dy, dz);
+		move_square(obj.data, mv);
 	if (obj.type == TYPE_CYLINDER || obj.type == TYPE_CYLINDER_CAPS)
-		move_cylinder(obj.data, dx, dy, dz);
+		move_cylinder(obj.data, mv);
 	if (obj.type == TYPE_CUBE)
-		move_cube(obj.data, dx, dy, dz);
+		move_cube(obj.data, mv);
 	if (obj.type == TYPE_PYRAMID)
-		move_pyramid(obj.data, dx, dy, dz);
+		move_pyramid(obj.data, mv);
 }
 
 void	resize_object(t_mlx *rt, double amount, int flag)

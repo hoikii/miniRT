@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 22:46:49 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 14:35:43 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 16:44:24 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,9 @@ t_triangle	new_triangle(t_vec p1, t_vec p2, t_vec p3, t_color color)
 	return (tri);
 }
 
-void		move_triangle(t_triangle *tri, double dx, double dy, double dz)
+void		move_triangle(t_triangle *tri, t_vec mv)
 {
-	t_vec	add;
-
-	if (dx != 0)
-		add = v_new(dx, 0, 0);
-	if (dy != 0)
-		add = v_new(0, dy, 0);
-	if (dz != 0)
-		add = v_new(0, 0, dz);
-	tri->p1 = v_add(tri->p1, add);
-	tri->p2 = v_add(tri->p2, add);
-	tri->p3 = v_add(tri->p3, add);
+	tri->p1 = v_add(tri->p1, mv);
+	tri->p2 = v_add(tri->p2, mv);
+	tri->p3 = v_add(tri->p3, mv);
 }
