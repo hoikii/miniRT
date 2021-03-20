@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 17:09:39 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:17:20 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	resize_object(t_mlx *rt, double amount, int flag)
 	if (obj.type == TYPE_CUBE)
 		resize_cube(obj.data, amount);
 	if (obj.type == TYPE_PYRAMID)
-		resize_pyramid(obj.data, amount);
+		resize_pyramid(obj.data, amount, flag);
 }
 
 void	rotate_object(t_mlx *rt, double dx, double dy)
