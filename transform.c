@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 03:56:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 17:04:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 17:33:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	move(t_mlx *rt, double dx, double dy, double dz)
 	if (dz != 0)
 		mv = v_mul(cam->direction, dz);
 	if (rt->transform_mode == MODE_CAM)
-		move_camera(cam, dx, dy, dz);
+		move_camera(cam, mv);
 	else if (rt->transform_mode == MODE_OBJ)
 		move_object(rt, mv);
 	else if (rt->transform_mode == MODE_LIGHT)
-		move_light(rt, dx, dy, dz);
+		move_light(rt, mv);
 	return ;
 }
 

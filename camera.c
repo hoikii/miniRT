@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 11:31:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 14:40:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 17:34:36 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,9 @@ t_cam		*new_camera(t_vec origin, t_vec direction, double fov)
 	return (cam);
 }
 
-void		move_camera(t_cam *cam, double dx, double dy, double dz)
+void		move_camera(t_cam *cam, t_vec mv)
 {
-	if (dx != 0)
-		cam->origin = v_add(cam->origin, v_mul(cam->u, dx));
-	if (dy != 0)
-		cam->origin = v_add(cam->origin, v_mul(cam->v, dy));
-	if (dz != 0)
-		cam->origin = v_add(cam->origin, v_mul(cam->direction, dz));
+	cam->origin = v_add(cam->origin, mv);
 }
 
 static void	calc_cam_direction(t_cam *cam)

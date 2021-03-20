@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 23:44:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/20 17:27:42 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,10 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 	return (c_add(c_mix(rec.color, result), specular));
 }
 
-void	move_light(t_mlx *rt, double dx, double dy, double dz)
+void	move_light(t_mlx *rt, t_vec mv)
 {
 	t_light	*light;
 
 	light = &(rt->lights_array[rt->light_sel_idx]);
-	if (dx != 0)
-		light->position = v_add(light->position, v_new(dx, 0, 0));
-	if (dy != 0)
-		light->position = v_add(light->position, v_new(0, dy, 0));
-	if (dz != 0)
-		light->position = v_add(light->position, v_new(0, 0, dz));
+	light->position = v_add(light->position, mv);
 }
