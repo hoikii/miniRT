@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 16:46:13 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:41:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,15 @@
 typedef struct	s_cube {
 	t_vec		center;
 	t_vec		normal;
+	t_vec		up;
 	double		size;
 	t_color		color;
 	t_square	face[6];
-	double		anglex;
-	double		angley;
 }				t_cube;
 
-void			fill_cube_info(t_cube *cu, int rotate);
+void			fill_cube_info(t_cube *cu, int is_init);
 void			move_cube(t_cube *cu, t_vec mv);
 void			resize_cube(t_cube *cu, double amount);
-void			rotate_cube(t_cube *cu, double dx, double dy);
+void			rotate_cube(t_cube *cu, t_vec axis, double angle);
 
 #endif

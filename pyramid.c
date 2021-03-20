@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 17:50:38 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:48:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	fill_pyramid_face(t_pyramid *py)
 	py->face[5] = new_triangle(py->p3, py->p4, py->p1, py->color);
 }
 
-void		fill_pyramid_info(t_pyramid *py, int rotate)
+void		fill_pyramid_info(t_pyramid *py, int is_init)
 {
 	t_vec	center;
 	t_vec	up;
@@ -33,14 +33,13 @@ void		fill_pyramid_info(t_pyramid *py, int rotate)
 
 	normal = py->normal;
 	center = py->center;
-	if (!rotate)
+	if (is_init)
 	{
-		py->anglex = rtod(asin(normal.y));
-		py->angley = 0 - rtod(atan2(normal.x, normal.z));
+		py->up = v_new(0, 1, 0);
+		if (normal.x == 0 && normal.z == 0)
+			py->up = v_new(0, 0, -1);
 	}
-	up = v_rotate_x(v_new(0, 1, 0), degree_to_radian(py->anglex));
-	up = v_rotate_y(up, degree_to_radian(py->angley));
-	up = v_mul(v_unit(up), py->size / 2);
+	up = v_mul(py->up, py->size / 2);
 	right = v_cross(up, normal);
 	right = v_mul(v_unit(right), py->size / 2);
 	py->p1 = v_add(v_sub(center, up), right);
@@ -66,12 +65,9 @@ void		resize_pyramid(t_pyramid *py, double amount, int flag)
 	fill_pyramid_info(py, 0);
 }
 
-void		rotate_pyramid(t_pyramid *py, double dx, double dy)
+void		rotate_pyramid(t_pyramid *py, t_vec axis, double angle)
 {
-	py->anglex = remainder(py->anglex + dx + 360, 360);
-	py->angley = remainder(py->angley + dy + 360, 360);
-	py->normal = v_rotate_x(v_new(0, 0, 1), degree_to_radian(py->anglex));
-	py->normal = v_rotate_y(py->normal, degree_to_radian(py->angley));
-	py->normal = v_unit(py->normal);
-	fill_pyramid_info(py, 1);
+	py->normal = v_rotate(py->normal, axis, angle);
+	py->up = v_rotate(py->up, axis, angle);
+	fill_pyramid_info(py, 0);
 }

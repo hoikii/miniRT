@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 16:45:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:41:47 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,16 @@ typedef struct	s_square {
 	t_vec		normal;
 	double		size;
 	t_color		color;
+	t_vec		up;
 	t_vec		p1;
 	t_vec		p2;
 	t_vec		p3;
 	t_vec		p4;
-	double		anglex;
-	double		angley;
 }				t_square;
 
-void			fill_square_info(t_square *sq, int rotate);
+void			fill_square_info(t_square *sq, int is_init);
 void			move_square(t_square *sq, t_vec mv);
 void			resize_square(t_square *sq, double amount);
-void			rotate_square(t_square *sq, double dx, double dy);
+void			rotate_square(t_square *sq, t_vec axis, double angle);
 
 #endif

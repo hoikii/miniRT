@@ -6,32 +6,30 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 16:44:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:48:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "square.h"
 #include "math_utils.h"
-#include <stdio.h>
 
-void		fill_square_info(t_square *sq, int rotate)
+void		fill_square_info(t_square *sq, int is_init)
 {
 	t_vec	center;
-	t_vec	up;
 	t_vec	right;
 	t_vec	normal;
+	t_vec	up;
 
 	normal = sq->normal;
 	center = sq->center;
-	if (!rotate)
+	if (is_init)
 	{
-		sq->anglex = rtod(asin(normal.y));
-		sq->angley = 0 - rtod(atan2(normal.x, normal.z));
+		sq->up = v_new(0, 1, 0);
+		if (normal.x == 0 && normal.z == 0)
+			sq->up = v_new(0, 0, -1);
 	}
-	up = v_rotate_x(v_new(0, 1, 0), degree_to_radian(sq->anglex));
-	up = v_rotate_y(up, degree_to_radian(sq->angley));
-	up = v_mul(v_unit(up), sq->size / 2);
+	up = v_mul(sq->up, sq->size / 2);
 	right = v_cross(up, normal);
 	right = v_mul(v_unit(right), sq->size / 2);
 	sq->p1 = v_add(v_sub(center, up), right);
@@ -52,12 +50,9 @@ void		resize_square(t_square *sq, double amount)
 	fill_square_info(sq, 0);
 }
 
-void		rotate_square(t_square *sq, double dx, double dy)
+void		rotate_square(t_square *sq, t_vec axis, double angle)
 {
-	sq->anglex = remainder(sq->anglex + dx + 360, 360);
-	sq->angley = remainder(sq->angley + dy + 360, 360);
-	sq->normal = v_rotate_x(v_new(0, 0, 1), degree_to_radian(sq->anglex));
-	sq->normal = v_rotate_y(sq->normal, degree_to_radian(sq->angley));
-	sq->normal = v_unit(sq->normal);
-	fill_square_info(sq, 1);
+	sq->normal = v_rotate(sq->normal, axis, angle);
+	sq->up = v_rotate(sq->up, axis, angle);
+	fill_square_info(sq, 0);
 }

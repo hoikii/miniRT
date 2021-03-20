@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 14:35:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:49:44 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	parse_cylinder_caps(char *line, t_mlx *rt, int linenum)
 		|| (get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
 	cy->radius = diameter / 2;
-	fill_cylinder_info(cy, 0);
+	fill_cylinder_info(cy);
 	append_object(cy, TYPE_CYLINDER_CAPS, rt);
 	free_words(words);
 	return ;
@@ -66,7 +66,7 @@ void	parse_cube(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &cu->normal) == FAIL)
 		exit_error_ln("Cube: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	fill_cube_info(cu, 0);
+	fill_cube_info(cu, 1);
 	append_object(cu, TYPE_CUBE, rt);
 	free_words(words);
 	return ;
@@ -91,7 +91,7 @@ void	parse_pyramid(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &py->normal) == FAIL)
 		exit_error_ln("Pyramid: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	fill_pyramid_info(py, 0);
+	fill_pyramid_info(py, 1);
 	append_object(py, TYPE_PYRAMID, rt);
 	free_words(words);
 	return ;

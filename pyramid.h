@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 17:47:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:49:17 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_pyramid {
 	double		size;
 	double		height;
 	t_color		color;
+	t_vec		up;
 	t_square	face_btm;
 	t_triangle	face[6];
 	t_vec		p1;
@@ -31,13 +32,11 @@ typedef struct	s_pyramid {
 	t_vec		p3;
 	t_vec		p4;
 	t_vec		top;
-	double		anglex;
-	double		angley;
 }				t_pyramid;
 
-void			fill_pyramid_info(t_pyramid *py, int rotate);
+void			fill_pyramid_info(t_pyramid *py, int is_init);
 void			move_pyramid(t_pyramid *py, t_vec mv);
 void			resize_pyramid(t_pyramid *py, double amount, int flag);
-void			rotate_pyramid(t_pyramid *py, double dx, double dy);
+void			rotate_pyramid(t_pyramid *py, t_vec axis, double angle);
 
 #endif

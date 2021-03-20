@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 16:46:40 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:41:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,20 @@ static t_square	fill_cube_face_info(t_cube *cu, t_vec dir, t_vec u, t_vec v)
 	return (sq);
 }
 
-void			fill_cube_info(t_cube *cu, int rotate)
+void			fill_cube_info(t_cube *cu, int is_init)
 {
 	t_vec	normal;
 	t_vec	up;
 	t_vec	right;
 
 	normal = cu->normal;
-	if (!rotate)
+	if (is_init)
 	{
-		cu->anglex = rtod(asin(cu->normal.y));
-		cu->angley = 0 - rtod(atan2(cu->normal.x, cu->normal.z));
+		cu->up = v_new(0, 1, 0);
+		if (normal.x == 0 && normal.z == 0)
+			cu->up = v_new(0, 0, -1);
 	}
-	up = v_rotate_x(v_new(0, 1, 0), degree_to_radian(cu->anglex));
-	up = v_rotate_y(up, degree_to_radian(cu->angley));
-	up = v_unit(up);
+	up = cu->up;
 	right = v_unit(v_cross(up, normal));
 	cu->face[0] = fill_cube_face_info(cu, normal, up, right);
 	cu->face[1] = fill_cube_face_info(cu, v_mul(normal, -1), right, up);
@@ -67,12 +66,9 @@ void			resize_cube(t_cube *cu, double amount)
 	fill_cube_info(cu, 0);
 }
 
-void			rotate_cube(t_cube *cu, double dx, double dy)
+void			rotate_cube(t_cube *cu, t_vec axis, double angle)
 {
-	cu->anglex = remainder(cu->anglex + dx + 360, 360);
-	cu->angley = remainder(cu->angley + dy + 360, 360);
-	cu->normal = v_rotate_x(v_new(0, 0, 1), degree_to_radian(cu->anglex));
-	cu->normal = v_rotate_y(cu->normal, degree_to_radian(cu->angley));
-	cu->normal = v_unit(cu->normal);
-	fill_cube_info(cu, 1);
+	cu->normal = v_rotate(cu->normal, axis, angle);
+	cu->up = v_rotate(cu->up, axis, angle);
+	fill_cube_info(cu, 0);
 }

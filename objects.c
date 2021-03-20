@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:17:20 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/21 02:54:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ void	resize_object(t_mlx *rt, double amount, int flag)
 		resize_pyramid(obj.data, amount, flag);
 }
 
-void	rotate_object(t_mlx *rt, double dx, double dy)
+void	rotate_object(t_mlx *rt, t_vec axis, double angle)
 {
 	t_objects	obj;
 
 	obj = rt->objects_array[rt->obj_selected_idx];
 	if (obj.type == TYPE_PLANE)
-		rotate_plane(obj.data, dx, dy);
+		rotate_plane(obj.data, axis, angle);
 	if (obj.type == TYPE_SQUARE)
-		rotate_square(obj.data, dx, dy);
+		rotate_square(obj.data, axis, angle);
 	if (obj.type == TYPE_CYLINDER || obj.type == TYPE_CYLINDER_CAPS)
-		rotate_cylinder(obj.data, dx, dy);
+		rotate_cylinder(obj.data, axis, angle);
 	if (obj.type == TYPE_CUBE)
-		rotate_cube(obj.data, dx, dy);
+		rotate_cube(obj.data, axis, angle);
 	if (obj.type == TYPE_PYRAMID)
-		rotate_pyramid(obj.data, dx, dy);
+		rotate_pyramid(obj.data, axis, angle);
 }
