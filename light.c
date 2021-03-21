@@ -82,6 +82,13 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 		result = c_add(result, c_mul(light.color, diff * light.brightness));
 		specular = c_add(specular, calc_specular(rec, lightdir, diff, &light));
 	}
+	if (BONUS && rec.bonus == TEXTURE_RAINBOW)
+	{
+		t_vec n = v_mul(v_add(rec.normal, v_new(1, 1, 1)), 0.5);
+		double t = 0.7;
+		t_color local_color = (t_color){n.x, n.y, n.z};
+		return (c_add(c_mix(local_color, result), specular));
+	}
 	return (c_add(c_mix(rec.color, result), specular));
 }
 

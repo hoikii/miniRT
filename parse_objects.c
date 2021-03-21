@@ -25,7 +25,7 @@ void	parse_sphere(char *line, t_mlx *rt, int linenum)
 	double		diameter;
 	char		**words;
 
-	if (ft_cntwords(line, ' ') != 4)
+	if ((ft_cntwords(line, ' ') != 4) && (ft_cntwords(line, ' ') != 4 + BONUS))
 		exit_error_ln("Sphere: sp center diameter R,G,B", rt, linenum);
 	sp = malloc(sizeof(t_sphere));
 	if (!sp)
@@ -37,6 +37,8 @@ void	parse_sphere(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Sphere: Invalid diameter value", rt, linenum);
 	if (get_color(words[3], &sp->color) == FAIL)
 		exit_error_ln("Sphere: Invalid color value", rt, linenum);
+	if (BONUS && words[4] != 0 &&get_bonus(words[4], &sp->bonus) == FAIL)
+		exit_error_ln("Sphere: Invalid Bonus type", rt, linenum);
 	sp->radius = diameter / 2;
 	append_object(sp, TYPE_SPHERE, rt);
 	free_words(words);

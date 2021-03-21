@@ -20,6 +20,7 @@ typedef struct	s_sphere {
 	t_vec		center;
 	double		radius;
 	t_color		color;
+	int			bonus;
 }				t_sphere;
 
 void			move_sphere(t_sphere *sp, t_vec mv);

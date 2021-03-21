@@ -77,6 +77,7 @@ typedef struct	s_rec {
 	t_vec		normal;
 	t_vec		point;
 	t_vec		raydir;
+	int			bonus;
 }				t_rec;
 
 typedef enum	e_obj_type {
@@ -113,6 +114,13 @@ typedef enum	e_color_filter {
 }				t_color_filter;
 
 # define FILTER_CNT 8
+
+typedef enum	e_texture {
+	TEXTURE_NONE = 0,
+	TEXTURE_RAINBOW
+}				t_texture;
+
+
 
 typedef struct	s_mlx {
 	void		*mlx;

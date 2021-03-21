@@ -19,4 +19,6 @@ int		get_color(char *str, t_color *ret);
 int		get_vector(char *str, t_vec *ret);
 int		get_vector_norm(char *str, t_vec *ret);
 
+int		get_bonus(char *str, int *ret);
+
 #endif

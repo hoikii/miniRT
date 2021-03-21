@@ -35,6 +35,7 @@ int	hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec)
 		rec->t = t;
 		rec->normal = v_unit(v_sub(ray_at(ray, t), sp->center));
 		rec->point = ray_at(ray, t);
+		rec->bonus = sp->bonus;
 		return (1);
 	}
 	return (0);
