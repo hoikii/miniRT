@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 17:49:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 00:22:47 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	get_bonus(char *str, int *ret)
 	*ret = TEXTURE_NONE;
 	if (ft_strequ(str, "rainbow"))
 		*ret = TEXTURE_RAINBOW;
+	else if (ft_strequ(str, "checkerboard"))
+		*ret = TEXTURE_CHECKERBOARD;
 	return (SUCCESS);
 }
 

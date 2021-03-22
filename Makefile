@@ -2,7 +2,7 @@ NAME		= miniRT
 SRC			= main.c vec.c vec2.c vec3.c color.c key.c sphere.c math_utils.c ray.c render.c \
 			  light.c plane.c objects.c triangle.c camera.c square.c cylinder.c cube.c pyramid.c \
 			  parser.c parser_utils.c parse_value.c parse_objects.c parse_info.c parse_compounds.c parse_bonus.c \
-			  hit_compounds.c exit.c \
+			  hit_compounds.c exit.c disruption.c \
 			  gnl/get_next_line.c gnl/get_next_line_utils.c bmp.c trace_ray.c \
 			  transform.c hit.c hit_utils.c progress.c show_transform_info.c color_filter.c
 HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h light.h \

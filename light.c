@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 17:27:42 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 14:11:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "light.h"
 #include "objects.h"
 #include "math_utils.h"
+#include "disruption.h"
 
 t_light	*new_light(t_vec position, double brightness, t_color color)
 {
@@ -83,12 +84,9 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 		specular = c_add(specular, calc_specular(rec, lightdir, diff, &light));
 	}
 	if (BONUS && rec.bonus == TEXTURE_RAINBOW)
-	{
-		t_vec n = v_mul(v_add(rec.normal, v_new(1, 1, 1)), 0.5);
-		double t = 0.7;
-		t_color local_color = (t_color){n.x, n.y, n.z};
-		return (c_add(c_mix(local_color, result), specular));
-	}
+		return (c_add(c_mix(rainbow(rec), result), specular));
+	if (BONUS && rec.bonus == TEXTURE_CHECKERBOARD)
+		return (c_add(c_mix(checkerboard(rec), result), specular));
 	return (c_add(c_mix(rec.color, result), specular));
 }
 

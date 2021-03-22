@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 12:40:15 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 00:22:07 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ typedef enum	e_color_filter {
 
 typedef enum	e_texture {
 	TEXTURE_NONE = 0,
-	TEXTURE_RAINBOW
+	TEXTURE_RAINBOW,
+	TEXTURE_CHECKERBOARD
 }				t_texture;
 
 
