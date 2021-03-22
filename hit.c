@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/15 15:12:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 22:19:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec)
 		rec->t = t;
 		rec->normal = v_unit(v_sub(ray_at(ray, t), sp->center));
 		rec->point = ray_at(ray, t);
+		rec->objtype = TYPE_SPHERE;
 		rec->bonus = sp->bonus;
 		return (1);
 	}
@@ -67,6 +68,8 @@ int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 		rec->t = t;
 		rec->normal = pl->normal;
 		rec->point = ray_at(ray, t);
+		rec->objtype = TYPE_PLANE;
+		rec->bonus = pl->bonus;
 		return (1);
 	}
 	return (0);
@@ -93,6 +96,8 @@ int	hit_triangle(t_triangle *tri, t_ray ray, double tmax, t_rec *rec)
 		else
 			rec->normal = v_mul(r.normal, -1);
 		rec->point = r.point;
+		rec->objtype = TYPE_TRIANGLE;
+		rec->bonus = tri->bonus;
 		return (1);
 	}
 	return (0);
@@ -120,6 +125,8 @@ int	hit_square(t_square *sq, t_ray ray, double tmax, t_rec *rec)
 		else
 			rec->normal = v_mul(r.normal, -1);
 		rec->point = r.point;
+		rec->objtype = TYPE_SQUARE;
+		rec->bonus = sq->bonus;
 		return (1);
 	}
 	return (0);
@@ -159,6 +166,8 @@ int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 		rec->normal = cylinder_normal(cy, ray, t);
 		if (t == root2)
 			rec->normal = v_mul(rec->normal, -1);
+		rec->objtype = TYPE_CYLINDER;
+		rec->bonus = cy->bonus;
 		return (1);
 	}
 	return (0);

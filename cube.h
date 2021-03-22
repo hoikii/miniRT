@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:41:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:26:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_cube {
 	double		size;
 	t_color		color;
 	t_square	face[6];
+	int			bonus;
 }				t_cube;
 
 void			fill_cube_info(t_cube *cu, int is_init);

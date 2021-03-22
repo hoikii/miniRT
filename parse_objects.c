@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:54:00 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:02:40 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 	t_plane	*pl;
 	char	**words;
 
-	if (ft_cntwords(line, ' ') != 4)
+	if ((ft_cntwords(line, ' ') != 4) && (ft_cntwords(line, ' ') != 4 + BONUS))
 		exit_error_ln("Plane: pl point normal R,G,B", rt, linenum);
 	pl = malloc(sizeof(t_plane));
 	if (!pl)
@@ -63,6 +63,8 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 			each x,y,z", rt, linenum);
 	if (get_color(words[3], &pl->color) == FAIL)
 		exit_error_ln("Plane: Invalid color value", rt, linenum);
+	if (BONUS && words[4] != 0 &&get_bonus(words[4], &pl->bonus) == FAIL)
+		exit_error_ln("Plane: Invalid Bonus type", rt, linenum);
 	append_object(pl, TYPE_PLANE, rt);
 	free_words(words);
 	return ;

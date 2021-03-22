@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:41:47 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:26:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_square {
 	t_vec		p2;
 	t_vec		p3;
 	t_vec		p4;
+	int			bonus;
 }				t_square;
 
 void			fill_square_info(t_square *sq, int is_init);

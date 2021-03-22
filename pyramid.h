@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:49:17 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 18:26:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_pyramid {
 	t_vec		p3;
 	t_vec		p4;
 	t_vec		top;
+	int			bonus;
 }				t_pyramid;
 
 void			fill_pyramid_info(t_pyramid *py, int is_init);

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 14:36:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/22 22:20:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int			hit_cylinder_caps(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 	}
 	if (!hit_cylinder(cy, ray, tmax, rec) && is_hit_caps == 0)
 		return (0);
+	rec->objtype = TYPE_CYLINDER;
+	rec->bonus = cy->bonus;
 	return (1);
 }
 
@@ -104,9 +106,11 @@ int			hit_cube(t_cube *cu, t_ray ray, double tmax, t_rec *rec)
 		is_hit_face = 1;
 	if (hit_square(&(cu->face[5]), ray, rec->t, rec))
 		is_hit_face = 1;
-	if (is_hit_face)
-		return (1);
-	return (0);
+	if (!is_hit_face)
+		return (0);
+	rec->objtype = TYPE_CUBE;
+	rec->bonus = cu->bonus;
+	return (1);
 }
 
 int			hit_pyramid(t_pyramid *py, t_ray ray, double tmax, t_rec *rec)
@@ -127,7 +131,9 @@ int			hit_pyramid(t_pyramid *py, t_ray ray, double tmax, t_rec *rec)
 		is_hit_face = 1;
 	if (hit_triangle(&(py->face[5]), ray, rec->t, rec))
 		is_hit_face = 1;
-	if (is_hit_face)
-		return (1);
-	return (0);
+	if (!is_hit_face)
+		return (0);
+	rec->objtype = TYPE_PYRAMID;
+	rec->bonus = py->bonus;
+	return (1);
 }
