@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/22 22:18:25 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/23 02:12:17 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct	s_rec {
 	t_vec		normal;
 	t_vec		point;
 	t_vec		raydir;
+	int			obj_id;
 	int			objtype;
 	int			bonus;
 }				t_rec;

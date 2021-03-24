@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 08:04:57 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/23 02:11:27 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	hit_nearest_object(t_mlx *rt, t_ray ray, t_rec *rec)
 		{
 			tmax = rec->t;
 			rec->raydir = ray.direction;
+			rec->obj_id = i;
 			ret = 1;
 		}
 	}

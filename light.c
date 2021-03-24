@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/22 14:11:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/23 02:18:17 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 	if (BONUS && rec.bonus == TEXTURE_RAINBOW)
 		return (c_add(c_mix(rainbow(rec), result), specular));
 	if (BONUS && rec.bonus == TEXTURE_CHECKERBOARD)
-		return (c_add(c_mix(checkerboard(rec), result), specular));
+		return (c_add(c_mix(checkerboard(rec, rt), result), specular));
 	return (c_add(c_mix(rec.color, result), specular));
 }
 

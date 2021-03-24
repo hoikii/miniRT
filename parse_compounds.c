@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:49:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/23 00:21:17 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	parse_cylinder_caps(char *line, t_mlx *rt, int linenum)
 	double		diameter;
 	char		**words;
 
-	if (ft_cntwords(line, ' ') != 6)
+	if ((ft_cntwords(line, ' ') != 6) && (ft_cntwords(line, ' ') != 6 + BONUS))
 		exit_error_ln("Cylinder: cy center normal diameter height R,G,B",
 			rt, linenum);
 	cy = malloc(sizeof(t_cylinder));
@@ -41,6 +41,8 @@ void	parse_cylinder_caps(char *line, t_mlx *rt, int linenum)
 		|| (get_double(words[4], &cy->height) == FAIL)
 		|| (get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
+	if (BONUS && words[6] != 0 &&get_bonus(words[6], &cy->bonus) == FAIL)
+		exit_error_ln("Cylinder: Invalid Bonus type", rt, linenum);
 	cy->radius = diameter / 2;
 	fill_cylinder_info(cy);
 	append_object(cy, TYPE_CYLINDER_CAPS, rt);
@@ -53,7 +55,7 @@ void	parse_cube(char *line, t_mlx *rt, int linenum)
 	t_cube	*cu;
 	char	**words;
 
-	if (ft_cntwords(line, ' ') != 5)
+	if ((ft_cntwords(line, ' ') != 5) && (ft_cntwords(line, ' ') != 5 + BONUS))
 		exit_error_ln("Cube: cu center normal  size R,G,B", rt, linenum);
 	cu = malloc(sizeof(t_cube));
 	if (!cu)
@@ -66,6 +68,8 @@ void	parse_cube(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &cu->normal) == FAIL)
 		exit_error_ln("Cube: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
+	if (BONUS && words[5] != 0 &&get_bonus(words[5], &cu->bonus) == FAIL)
+		exit_error_ln("Cube: Invalid Bonus type", rt, linenum);
 	fill_cube_info(cu, 1);
 	append_object(cu, TYPE_CUBE, rt);
 	free_words(words);
@@ -77,7 +81,7 @@ void	parse_pyramid(char *line, t_mlx *rt, int linenum)
 	t_pyramid	*py;
 	char		**words;
 
-	if (ft_cntwords(line, ' ') != 6)
+	if ((ft_cntwords(line, ' ') != 6) && (ft_cntwords(line, ' ') != 6 + BONUS))
 		exit_error_ln("Pyramid: py center norm size height R,G,B", rt, linenum);
 	py = malloc(sizeof(t_pyramid));
 	if (!py)
@@ -91,6 +95,8 @@ void	parse_pyramid(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &py->normal) == FAIL)
 		exit_error_ln("Pyramid: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
+	if (BONUS && words[6] != 0 &&get_bonus(words[6], &py->bonus) == FAIL)
+		exit_error_ln("Pyramid: Invalid Bonus type", rt, linenum);
 	fill_pyramid_info(py, 1);
 	append_object(py, TYPE_PYRAMID, rt);
 	free_words(words);
