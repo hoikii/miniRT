@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/25 00:00:01 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/25 01:39:29 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,31 @@ t_color	checkerboard(t_rec rec, t_mlx *rt)
 			local_color = (t_color)WHITE;
 	}
 	return (local_color);
+}
+
+t_vec	wave(t_rec *rec, t_vec pl_point)
+{
+#if 1
+	double	sinn;
+	double	scal;
+	t_vec	ret;
+
+	scal = 0.433;
+	sinn = sin(rec->point.z * scal) + sin(rec->point.y * scal);
+	ret = v_rotate(rec->normal, v_new(1, 0, 0), sinn);
+	return (ret);
+#else
+	t_vec	wave_n;
+	double	alpha;
+	double	d;
+
+	wave_n = v_sub(pl_point, rec->point);
+	d = v_len(wave_n);
+	alpha = 100 * exp(-d * 0.025) * cos(0.25 * PI * d);
+	wave_n = v_sub(rec->point, pl_point);
+	wave_n.x *= alpha;
+	wave_n.z *= alpha;
+	wave_n.y = 100;
+	return (v_unit(wave_n));
+#endif
 }

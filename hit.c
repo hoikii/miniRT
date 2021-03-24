@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/22 22:19:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/25 01:19:26 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "hit.h"
 #include "hit_utils.h"
 #include "math_utils.h"
+#include "disruption.h"
 
 int	hit_sphere(t_sphere *sp, t_ray ray, double tmax, t_rec *rec)
 {
@@ -70,6 +71,8 @@ int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 		rec->point = ray_at(ray, t);
 		rec->objtype = TYPE_PLANE;
 		rec->bonus = pl->bonus;
+		if (BONUS && pl->bonus == TEXTURE_WAVE)
+			rec->normal = wave(rec, pl->point);
 		return (1);
 	}
 	return (0);
