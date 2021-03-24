@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:48:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/24 22:38:47 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		fill_square_info(t_square *sq, int is_init)
 		sq->up = v_new(0, 1, 0);
 		if (normal.x == 0 && normal.z == 0)
 			sq->up = v_new(0, 0, -1);
+		sq->up = v_unit(v_cross(normal, sq->up));
 	}
 	up = v_mul(sq->up, sq->size / 2);
 	right = v_cross(up, normal);

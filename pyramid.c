@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:48:12 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/25 00:19:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		fill_pyramid_info(t_pyramid *py, int is_init)
 		py->up = v_new(0, 1, 0);
 		if (normal.x == 0 && normal.z == 0)
 			py->up = v_new(0, 0, -1);
+		py->up = v_unit(v_cross(normal, py->up));
 	}
 	up = v_mul(py->up, py->size / 2);
 	right = v_cross(up, normal);
