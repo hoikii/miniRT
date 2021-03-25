@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/23 02:11:27 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 03:15:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include "objects.h"
 #include "vec.h"
 #include "bmp.h"
-#include <stdio.h>
+#include "disruption.h"
 
 static int	hit_nearest_object(t_mlx *rt, t_ray ray, t_rec *rec)
 {
@@ -99,6 +99,8 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 
 	if (!hit_nearest_object(rt, ray, &rec))
 		return (color(0, 0, 0));
+	if (BONUS && rec.bonus == TEXTURE_WAVE)
+		rec.normal = wave(rec, rt);
 	local_color = apply_light(rec, -1, rt);
 	r = 0.1;
 	if (depth <= 0 || r <= 0)
