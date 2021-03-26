@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 14:07:58 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:02:26 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ static void	draw_thread(t_mlx *rt, int tid)
 	int			i;
 	int			j;
 	t_ray		ray;
-	t_viewport	vp;
 
-	set_viewport(rt, &vp);
+	set_viewport(rt);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
 	i = -1;
 	while (++i < rt->screen_height)
@@ -61,12 +60,10 @@ static void	draw_thread(t_mlx *rt, int tid)
 		while (++j < rt->screen_width)
 		{
 			if (rt->anti_aliasing == 1)
-				supersample(ray, vp, i, j, rt);
+				supersample(ray, i, j, rt);
 			else
 			{
-				ray.direction = set_ray_direction(ray, vp,
-					(double)i / (rt->screen_height - 1),
-					(double)j / (rt->screen_width - 1));
+				ray.direction = set_ray_direction(ray, i, j, rt);
 				set_pixel_color(rt, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
 			}
 		}
@@ -91,9 +88,8 @@ static void	draw(t_mlx *rt)
 	int			i;
 	int			j;
 	t_ray		ray;
-	t_viewport	vp;
 
-	set_viewport(rt, &vp);
+	set_viewport(rt);
 	ray.origin = ((t_cam *)(rt->cam_list->content))->origin;
 	i = -1;
 	while (++i < rt->screen_height)
@@ -101,9 +97,7 @@ static void	draw(t_mlx *rt)
 		j = -1;
 		while (++j < rt->screen_width)
 		{
-			ray.direction = set_ray_direction(ray, vp,
-					(double)i / (rt->screen_height - 1),
-					(double)j / (rt->screen_width - 1));
+			ray.direction = set_ray_direction(ray, i, j, rt);
 			set_pixel_color(rt, i, j,
 				trace_ray(ray, REFLECTION_DEPTH, rt));
 		}

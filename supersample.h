@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 14:05:17 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 14:05:54 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:02:42 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "minirt.h"
 
-void	supersample(t_ray ray, t_viewport vp, int i, int j, t_mlx *rt);
+void	supersample(t_ray ray, int i, int j, t_mlx *rt);
 
 #endif

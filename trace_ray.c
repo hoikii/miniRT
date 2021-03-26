@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 03:15:08 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 19:54:38 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ static int	hit_nearest_object(t_mlx *rt, t_ray ray, t_rec *rec)
 	return (ret);
 }
 
-void		set_viewport(t_mlx *rt, t_viewport *vp)
+void		set_viewport(t_mlx *rt)
 {
-	t_cam	*cam;
-	double	vp_width;
-	double	vp_height;
+	t_cam		*cam;
+	t_viewport	*vp;
+	double		vp_width;
+	double		vp_height;
 
 	cam = (t_cam *)(rt->cam_list->content);
+	vp = &(cam->vp);
 	vp_width = 2 * tan(degree_to_radian(cam->fov / 2));
 	vp_height = vp_width / rt->screen_width * rt->screen_height;
 	vp->horizontal = v_mul(cam->u, vp_width);
@@ -62,12 +64,16 @@ void		set_viewport(t_mlx *rt, t_viewport *vp)
 	return ;
 }
 
-t_vec		set_ray_direction(t_ray ray, t_viewport vp, double y, double x)
+t_vec		set_ray_direction(t_ray ray, double y, double x, t_mlx *rt)
 {
 	t_vec	direction;
+	t_cam	*cam;
 
-	direction = v_add(vp.upper_left_corner, v_mul(vp.horizontal, x));
-	direction = v_add(direction, v_mul(vp.vertical, y));
+	cam = (t_cam *)(rt->cam_list->content);
+	y = y / (rt->screen_height - 1);
+	x = x / (rt->screen_width - 1);
+	direction = v_add(cam->vp.upper_left_corner, v_mul(cam->vp.horizontal, x));
+	direction = v_add(direction, v_mul(cam->vp.vertical, y));
 	direction = v_sub(direction, ray.origin);
 	return (direction);
 }
@@ -110,13 +116,3 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 	reflected_color = trace_ray(new_ray(rec.point, reflect_dir), depth - 1, rt);
 	return (c_add(c_mul(local_color, 1 - r), c_mul(reflected_color, r)));
 }
-
-/*
-** normal disruption
-**	t_vec unit = v_unit(ray.direction);
-**	double t = 0.5 * (unit.y + 1.0);
-**	rgb.r = 255 * ((1.0 - t) * 0.5 + t * 1.0);
-**	rgb.g = 255 * ((1.0 - t) * 0.7 + t * 1.0);
-**	rgb.b = 255 * ((1.0 - t) * 1.0 + t * 1.0);
-**	return rgb;
-*/
