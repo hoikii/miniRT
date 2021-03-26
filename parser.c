@@ -6,13 +6,14 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 12:41:09 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 17:59:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 #include "minirt.h"
 #include "parser_utils.h"
 #include "parse_info.h"
@@ -105,6 +106,9 @@ static void	check_mandatory(t_mlx *rt)
 	}
 	ft_lstadd_back(&(rt->cam_list), rt->cam_list);
 	light_list_to_array(rt, rt->lights_list);
+	printf("Rendering %d objects with %d cameras in %dx%d\n",
+		rt->objs_cnt, ft_lstsize(rt->cam_list), rt->screen_width,
+		rt->screen_height);
 	return ;
 }
 
@@ -115,7 +119,13 @@ void		parser(char *filepath, t_mlx *rt)
 	int		linenum;
 
 	linenum = 0;
-	fd = open(filepath, O_RDONLY);
+	fd = open(filepath, O_RDWR);
+	if (fd < 0)
+	{
+		if (errno == EISDIR)
+			exit_error(ft_strjoin(filepath, " is directory"), rt);
+		fd = open(filepath, O_RDONLY);
+	}
 	if (fd < 0)
 		exit_error(ft_strjoin("cannot open ", filepath), rt);
 	while (get_next_line(fd, &line) > 0)
@@ -127,9 +137,6 @@ void		parser(char *filepath, t_mlx *rt)
 	parse_line(line, rt, linenum);
 	free(line);
 	check_mandatory(rt);
-	printf("Rendering %d objects with %d cameras in %dx%d\n",
-		rt->objs_cnt, ft_lstsize(rt->cam_list), rt->screen_width,
-		rt->screen_height);
 	close(fd);
 	return ;
 }
