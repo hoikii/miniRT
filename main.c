@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 17:50:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 17:19:03 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ static void	init_struct(t_mlx *rt)
 	rt->obj_selected_idx = 0;
 	rt->light_sel_idx = 0;
 	rt->color_filter = 0;
+#if 0
+	rt->frequency = 50;
+	rt->amplitude = 0.00;
+#endif
+	rt->anti_aliasing = 0;
 	return ;
 }
 
@@ -61,13 +66,14 @@ static void	init_mlx_hook(t_mlx *rt)
 
 static void	prn_usage(void)
 {
-	printf("=============================================================\n");
-	printf("wasdqz: move    arrows: rotate     c,o,l: cam<->obj<->light\n");
-	printf("space: change camera\n");
-	printf("+-: fov in cam mode, resize in obj mode\n");
-	printf("*/: resize height of cylinder or pyramid\n");
-	printf("1, 2: change color filter\n");
-	printf("=============================================================\n");
+	printf("*=============================================================*\n");
+	printf("|  wasdqz: move       arrows: rotate    space: change camera  |\n");
+	printf("|  c,o,l: cam<->obj<->light                                   |\n");
+	printf("|  +-: fov in cam mode, resize in obj mode                    |\n");
+	printf("|  */: resize height of cylinder or pyramid                   |\n");
+	printf("|  1, 2: change color filter                                  |\n");
+	printf("|  T: apply Anti-Aliasing                                     |\n");
+	printf("*=============================================================*\n");
 }
 
 int			main(int ac, char **av)

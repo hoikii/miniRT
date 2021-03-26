@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/16 13:49:12 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 14:07:58 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 #include "progress.h"
 #include "show_transform_info.h"
 #include "color_filter.h"
+#include "supersample.h"
 
 int			put_img_to_window(t_mlx *rt)
 {
@@ -59,11 +60,15 @@ static void	draw_thread(t_mlx *rt, int tid)
 		j = -1;
 		while (++j < rt->screen_width)
 		{
-			ray.direction = set_ray_direction(ray, vp,
+			if (rt->anti_aliasing == 1)
+				supersample(ray, vp, i, j, rt);
+			else
+			{
+				ray.direction = set_ray_direction(ray, vp,
 					(double)i / (rt->screen_height - 1),
 					(double)j / (rt->screen_width - 1));
-			set_pixel_color(rt, i, j,
-				trace_ray(ray, REFLECTION_DEPTH, rt));
+				set_pixel_color(rt, i, j, trace_ray(ray, REFLECTION_DEPTH, rt));
+			}
 		}
 		print_progress(tid, (i + 1) * 100 / rt->screen_height);
 	}

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/25 00:57:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 17:01:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,12 @@ typedef struct	s_mlx {
 	int			obj_selected_idx;
 	int			light_sel_idx;
 	int			color_filter;
+
+	int anti_aliasing;
+#if 0
+	double frequency;
+	double amplitude;
+#endif
 }				t_mlx;
 
 typedef struct	s_thread {
