@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 04:28:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 05:23:04 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 #include "libft/libft.h"
 #include "vec.h"
 #include "color.h"
+#include "exit.h"
 
-int	get_texture(char *filepath, t_img *texture, t_mlx *rt)
+int		get_texture(char *filepath, t_img *texture, t_mlx *rt)
 {
 	texture->img_ptr = 0;
 	if (ft_strncmp(filepath + ft_strlen(filepath) - 3, "png", 3) == 0)
@@ -31,7 +32,7 @@ int	get_texture(char *filepath, t_img *texture, t_mlx *rt)
 	return (SUCCESS);
 }
 
-int	get_bonus(char *str, int *ret)
+int		get_bonus(char *str, int *ret)
 {
 	*ret = TEXTURE_NONE;
 	if (ft_strequ(str, "rainbow"))
@@ -45,4 +46,20 @@ int	get_bonus(char *str, int *ret)
 	else
 		return (FAIL);
 	return (SUCCESS);
+}
+
+void	parse_skybox(char *line, t_mlx *rt, int linenum)
+{
+	char	**words;
+
+	if (rt->skybox_declared)
+		exit_error_ln("Skybox must be declared once.", rt, linenum);
+	rt->skybox_declared = 1;
+	if (ft_cntwords(line, ' ') != 2)
+		exit_error_ln("Skybox: Sk path_to_texture", rt, linenum);
+	words = ft_split(line, ' ');
+	if (get_texture(words[1], &rt->skybox, rt) == FAIL)
+		exit_error_ln("Skybox: Loading texture failed.", rt, linenum);
+	free_words(words);
+	return ;
 }

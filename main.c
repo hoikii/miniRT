@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 16:33:31 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 04:53:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_struct(t_mlx *rt)
 	rt->lights_list = NULL;
 	rt->resolution_declared = 0;
 	rt->ambient_declared = 0;
+	rt->skybox_declared = 0;
 	rt->win = NULL;
 	rt->transform_mode = MODE_CAM;
 	rt->obj_selected_idx = 0;

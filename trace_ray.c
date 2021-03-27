@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 19:54:38 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 06:13:20 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #include "vec.h"
 #include "bmp.h"
 #include "disruption.h"
+#include "uv_mapping.h"
 
 static int	hit_nearest_object(t_mlx *rt, t_ray ray, t_rec *rec)
 {
@@ -75,7 +76,7 @@ t_vec		set_ray_direction(t_ray ray, double y, double x, t_mlx *rt)
 	direction = v_add(cam->vp.upper_left_corner, v_mul(cam->vp.horizontal, x));
 	direction = v_add(direction, v_mul(cam->vp.vertical, y));
 	direction = v_sub(direction, ray.origin);
-	return (direction);
+	return (v_unit(direction));
 }
 
 void		set_pixel_color(t_mlx *rt, int y, int x, t_color color)
@@ -104,7 +105,11 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 	double	r;
 
 	if (!hit_nearest_object(rt, ray, &rec))
+	{
+		if (BONUS && rt->skybox_declared)
+			return (skymap(ray.direction, rt));
 		return (color(0, 0, 0));
+	}
 	if (BONUS && rec.bonus == TEXTURE_WAVE)
 		rec.normal = wave(rec, rt);
 	local_color = apply_light(rec, -1, rt);

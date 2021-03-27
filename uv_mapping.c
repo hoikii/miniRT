@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 04:31:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 05:13:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,13 @@ t_color			uvmap(t_rec rec, t_mlx *rt)
 	sp = (t_sphere *)rt->objects_array[rec.obj_id].data;
 	get_spherical_coords(rec.normal, &u, &v);
 	return (get_texture_color(sp->texture, u, v));
+}
+
+t_color			skymap(t_vec raydir, t_mlx *rt)
+{
+	double		u;
+	double		v;
+
+	get_spherical_coords(raydir, &u, &v);
+	return (get_texture_color(rt->skybox, u, v));
 }

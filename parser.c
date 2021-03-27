@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 17:59:46 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 06:19:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@
 
 static void	parse_objects(char *line, t_mlx *rt, int linenum)
 {
-	if (*line == 's' && *(line + 1) == 'p')
+	if (*line == 's' && *(line + 1) == 'p' && *(line + 2) == ' ')
 		parse_sphere(line, rt, linenum);
-	else if (*line == 'p' && *(line + 1) == 'l')
+	else if (*line == 'p' && *(line + 1) == 'l' && *(line + 2) == ' ')
 		parse_plane(line, rt, linenum);
-	else if (*line == 't' && *(line + 1) == 'r')
+	else if (*line == 't' && *(line + 1) == 'r' && *(line + 2) == ' ')
 		parse_triangle(line, rt, linenum);
-	else if (*line == 's' && *(line + 1) == 'q')
+	else if (*line == 's' && *(line + 1) == 'q' && *(line + 2) == ' ')
 		parse_square(line, rt, linenum);
-	else if (*line == 'c' && *(line + 1) == 'y')
+	else if (*line == 'c' && *(line + 1) == 'y' && *(line + 2) == ' ')
 		parse_cylinder(line, rt, linenum);
-	else if (*line == 'c' && *(line + 1) == 'c')
+	else if (*line == 'c' && *(line + 1) == 'c' && *(line + 2) == ' ')
 		parse_cylinder_caps(line, rt, linenum);
-	else if (*line == 'c' && *(line + 1) == 'u')
+	else if (*line == 'c' && *(line + 1) == 'u' && *(line + 2) == ' ')
 		parse_cube(line, rt, linenum);
-	else if (*line == 'p' && *(line + 1) == 'y')
+	else if (*line == 'p' && *(line + 1) == 'y' && *(line + 2) == ' ')
 		parse_pyramid(line, rt, linenum);
 	else if (*line != '\0')
 		exit_error_ln("Unknown element", rt, linenum);
@@ -61,6 +61,8 @@ static void	parse_line(char *line, t_mlx *rt, int linenum)
 		parse_camera(line, rt, linenum);
 	else if (*line == 'l' && *(line + 1) == ' ')
 		parse_light(line, rt, linenum);
+	else if (BONUS && *line == 'S' && *(line + 1) == 'k' && *(line + 2) == ' ')
+		parse_skybox(line, rt, linenum);
 	else
 		parse_objects(line, rt, linenum);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 19:19:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 05:05:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,8 @@ typedef struct	s_mlx {
 	int			color_filter;
 
 	int anti_aliasing;
+	int skybox_declared;
+	t_img skybox;
 #if 0
 	double frequency;
 	double amplitude;

@@ -1,0 +1,12 @@
+R 640 480 
+A 0.2                              255,255,255
+   
+c  0,-10,-30    0,0,1     80
+
+l -100,10,-0.5   0.7   255,255,255
+l  -100,10,-50   0.7   255,255,255 
+
+sp  0,-60,1      100      0,0,0         uvmap:textures/moon.png
+sp  30,30,80     100       0,0,0     uvmap:textures/jupiter.png
+sp   0,0,1      10         0,0,0       uvmap:textures/earth.png
+Sk textures/milkyway_4k.png
