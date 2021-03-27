@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 23:22:10 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/19 12:40:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 16:35:48 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ const char	*g_obj_type_string[] = {
 
 void		show_keycode(int keycode, t_mlx *rt)
 {
-	t_cam	*cam;
 	char	*msg;
 	char	*str_keycode;
 
-	cam = rt->cam_list->content;
 	put_img_to_window(rt);
 	str_keycode = ft_itoa(keycode);
 	msg = ft_strjoin("keycode = ", str_keycode);
@@ -43,7 +41,6 @@ void		show_keycode(int keycode, t_mlx *rt)
 
 static void	show_object_info(int idx, t_mlx *rt)
 {
-	t_cam	*cam;
 	char	*msg[3];
 	int		i;
 	char	*idxstring;
@@ -52,7 +49,6 @@ static void	show_object_info(int idx, t_mlx *rt)
 	msg[0] = ft_strjoin("object selected idx:", idxstring);
 	msg[1] = (char *)g_obj_type_string[rt->objects_array[idx].type];
 	msg[2] = NULL;
-	cam = rt->cam_list->content;
 	i = -1;
 	while (msg[++i] != NULL)
 	{
@@ -66,7 +62,6 @@ static void	show_object_info(int idx, t_mlx *rt)
 
 static void	show_light_info(int idx, t_mlx *rt)
 {
-	t_cam	*cam;
 	char	*msg[3];
 	int		i;
 	char	*idxstring;
@@ -74,7 +69,6 @@ static void	show_light_info(int idx, t_mlx *rt)
 	idxstring = ft_itoa(idx);
 	msg[0] = ft_strjoin("light selected idx:", idxstring);
 	msg[1] = NULL;
-	cam = rt->cam_list->content;
 	i = -1;
 	while (msg[++i] != NULL)
 	{

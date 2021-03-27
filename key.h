@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 16:54:12 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 16:29:36 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 #  define KEY_L 108
 #  define KEY_1 49
 #  define KEY_2 50
-#  define KEY_T -1
+#  define KEY_T 116
 # else
 #  define DESTROYNOTIFY 17
 #  define STRUCTURENOTIFYMASK 131072

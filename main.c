@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 21:17:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 16:33:31 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ static void	prn_usage(void)
 	printf("|  c,o,l: cam<->obj<->light                                   |\n");
 	printf("|  +-: fov in cam mode, resize in obj mode                    |\n");
 	printf("|  */: resize height of cylinder or pyramid                   |\n");
-	printf("|  1, 2: change color filter                                  |\n");
-	printf("|  T: apply Anti-Aliasing                                     |\n");
+	printf("|  1, 2: change color filter          T: apply Anti-Aliasing  |\n");
+	printf("|  Click: change camera direction                             |\n");
 	printf("*=============================================================*\n");
 }
 
