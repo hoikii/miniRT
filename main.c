@@ -6,12 +6,13 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 17:19:03 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/26 21:17:23 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "key.h"
+#include "mouse.h"
 #include "parser.h"
 #include "objects.h"
 #include "exit.h"
@@ -52,6 +53,7 @@ static void	init_mlx_hook(t_mlx *rt)
 	mlx_hook(rt->win, CLIENTMESSAGE, WM_DELETE_WINDOW, close_window, rt);
 	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
 	mlx_hook(rt->win, VISIBILITYNOTIFY, (1L << 16), put_img_to_window, rt);
+	mlx_mouse_hook(rt->win, mouse_clicked, rt);
 }
 
 #else
@@ -60,6 +62,7 @@ static void	init_mlx_hook(t_mlx *rt)
 {
 	mlx_hook(rt->win, DESTROYNOTIFY, STRUCTURENOTIFYMASK, close_window, rt);
 	mlx_hook(rt->win, KEYPRESS, 1L, key_pressed, rt);
+	mlx_mouse_hook(rt->win, mouse_clicked, rt);
 }
 
 #endif
