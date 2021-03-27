@@ -6,11 +6,12 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:13:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 16:18:53 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:09:21 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mouse.h"
+#include "camera.h"
 #include "math_utils.h"
 
 int	mouse_clicked(int btn, int click_x, int click_y, t_mlx *rt)

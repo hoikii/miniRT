@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/23 02:18:17 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 01:55:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "objects.h"
 #include "math_utils.h"
 #include "disruption.h"
+#include "uv_mapping.h"
 
 t_light	*new_light(t_vec position, double brightness, t_color color)
 {
@@ -87,6 +88,8 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 		return (c_add(c_mix(rainbow(rec), result), specular));
 	if (BONUS && rec.bonus == TEXTURE_CHECKERBOARD)
 		return (c_add(c_mix(checkerboard(rec, rt), result), specular));
+	if (BONUS && rec.bonus == TEXTURE_UVMAP && rec.objtype == TYPE_SPHERE)
+		return (c_add(c_mix(uvmap(rec, rt), result), specular));
 	return (c_add(c_mix(rec.color, result), specular));
 }
 

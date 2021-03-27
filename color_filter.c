@@ -6,12 +6,13 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:34:35 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 08:24:19 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:10:31 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "color_filter.h"
 #include "color.h"
+#include "camera.h"
 #include "math_utils.h"
 
 /*

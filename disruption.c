@@ -6,12 +6,12 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 03:49:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/28 01:54:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "minirt.h"
+#include "disruption.h"
 #include "objects.h"
 #include "color.h"
 #include "math_utils.h"

@@ -6,12 +6,13 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 09:05:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:08:54 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "libft/libft.h"
+#include "camera.h"
 
 static void	destroy_img(t_mlx *rt)
 {

@@ -6,13 +6,14 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 16:54:23 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:07:46 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "key.h"
 #include "objects.h"
 #include "transform.h"
+#include "camera.h"
 #include "exit.h"
 #include "show_transform_info.h"
 

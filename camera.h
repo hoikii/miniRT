@@ -6,22 +6,15 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 18:02:21 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 18:06:54 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:04:15 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAMERA_H
 # define CAMERA_H
 
+# include "minirt.h"
 # include "vec.h"
-
-typedef struct	s_img {
-	void		*img_ptr;
-	char		*imgdata;
-	int			bpp;
-	int			size_line;
-	int			endian;
-}				t_img;
 
 typedef struct	s_viewport {
 	t_vec		horizontal;

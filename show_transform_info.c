@@ -6,11 +6,12 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 23:22:10 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 16:35:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 22:28:34 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "show_transform_info.h"
+#include "camera.h"
 #include "objects.h"
 #include "light.h"
 

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/23 00:19:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:17:39 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void	parse_sphere(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Sphere: Invalid color value", rt, linenum);
 	if (BONUS && words[4] != 0 &&get_bonus(words[4], &sp->bonus) == FAIL)
 		exit_error_ln("Sphere: Invalid Bonus type", rt, linenum);
+	if (BONUS && sp->bonus == TEXTURE_UVMAP
+		&& get_texture(words[4] + 6, &sp->texture, rt) == FAIL)
+		exit_error_ln("Sphere: Loading texture failed", rt, linenum);
 	sp->radius = diameter / 2;
 	append_object(sp, TYPE_SPHERE, rt);
 	free_words(words);

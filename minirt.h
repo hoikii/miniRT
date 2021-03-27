@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/26 17:01:49 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/27 19:19:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "minilibx/mlx.h"
 # include "vec.h"
 # include "color.h"
-# include "camera.h"
 # include "light_def.h"
 # include "libft/libft.h"
 
@@ -65,6 +64,16 @@ typedef short	t_uint16_t;
 ** Define DBL_MAX manually instead of using float.h
 */
 # define DBL_MAX 1.79769e+308
+
+typedef struct	s_img {
+	void		*img_ptr;
+	char		*imgdata;
+	int			width;
+	int			height;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_img;
 
 typedef struct	s_ambient {
 	double		brightness;
@@ -121,7 +130,8 @@ typedef enum	e_texture {
 	TEXTURE_NONE = 0,
 	TEXTURE_RAINBOW,
 	TEXTURE_CHECKERBOARD,
-	TEXTURE_WAVE
+	TEXTURE_WAVE,
+	TEXTURE_UVMAP
 }				t_texture;
 
 
