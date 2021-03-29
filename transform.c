@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 03:56:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/20 19:46:50 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/29 17:28:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ void	rotate_yaw(t_mlx *rt, int amount)
 
 	cam = rt->cam_list->content;
 	if (rt->transform_mode == MODE_CAM)
-		rotate_camera(cam, 0, amount);
+//		rotate_camera(cam, v_new(0, 1, 0), -amount);
+		rotate_camera_yaw(cam, -amount);
 	else
-		rotate_object(rt, cam->v, amount);
+		rotate_object(rt, v_new(0, 1, 0), amount);
 	return ;
 }
 
@@ -56,8 +57,9 @@ void	rotate_pitch(t_mlx *rt, int amount)
 
 	cam = rt->cam_list->content;
 	if (rt->transform_mode == MODE_CAM)
-		rotate_camera(cam, amount, 0);
+//		rotate_camera(cam, cam->u, -amount);
+		rotate_camera_pitch(cam, -amount);
 	else
-		rotate_object(rt, cam->u, amount);
+		rotate_object(rt, v_new(1, 0, 0), amount);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:13:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 19:09:21 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/29 18:18:49 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 int	mouse_clicked(int btn, int click_x, int click_y, t_mlx *rt)
 {
-printf("btn=%d   (%d,%d)\n", btn, click_x, click_y);
 	t_vec	direction;
 	t_cam	*cam;
 	double	x;
 	double	y;
+	t_vec	tmp;
 
 	if (btn != MOUSE_LCLICK || click_y <= 0)
 		return (0);
@@ -30,10 +30,12 @@ printf("btn=%d   (%d,%d)\n", btn, click_x, click_y);
 	direction = v_add(cam->vp.upper_left_corner, v_mul(cam->vp.horizontal, x));
 	direction = v_add(direction, v_mul(cam->vp.vertical, y));
 	direction = v_sub(direction, cam->origin);
-	direction = v_unit(direction);
-	cam->anglex = rtod(asin(direction.y));
-	cam->angley = 0 - rtod(atan2(direction.x, direction.z));
-	rotate_camera(cam, 0, 0);
+	cam->direction = v_unit(direction);
+	tmp = v_new(0, 1, 0);
+	if (cam->direction.x == 0 && cam->direction.z == 0)
+		tmp = v_new(0, 0, -1);
+	cam->u = v_unit(v_cross(tmp, cam->direction));
+	cam->v = v_unit(v_cross(cam->direction, cam->u));
 	render_scene(rt, 0);
 	return (0);
 }
