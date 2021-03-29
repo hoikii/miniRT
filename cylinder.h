@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:49:36 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/22 18:26:02 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/29 18:29:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct	s_cylinder {
 	t_vec		center;
 	t_vec		direction;
+	double		diameter;
 	double		radius;
 	double		height;
 	t_color		color;

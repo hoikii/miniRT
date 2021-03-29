@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/25 05:19:43 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/29 19:02:28 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,17 +158,15 @@ int	hit_cylinder(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 		t = root2;
 	else
 		return (0);
-	if (EPSILON <= t && t < tmax)
-	{
-		rec->color = cy->color;
-		rec->t = t;
-		rec->point = ray_at(ray, t);
-		rec->normal = cylinder_normal(cy, ray, t);
-		if (t == root2)
-			rec->normal = v_mul(rec->normal, -1);
-		rec->objtype = TYPE_CYLINDER;
-		rec->bonus = cy->bonus;
-		return (1);
-	}
-	return (0);
+	if (t < EPSILON || t > tmax)
+		return (0);
+	rec->color = cy->color;
+	rec->t = t;
+	rec->point = ray_at(ray, t);
+	rec->normal = cylinder_normal(cy, ray, t);
+	if (t == root2)
+		rec->normal = v_mul(rec->normal, -1);
+	rec->objtype = TYPE_CYLINDER;
+	rec->bonus = cy->bonus;
+	return (1);
 }

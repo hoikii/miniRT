@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 01:54:55 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/29 18:35:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 #include "objects.h"
 #include "color.h"
 #include "math_utils.h"
-
-#define BLACK {0,0,0}
-#define WHITE {1,1,1}
 
 t_color			rainbow(t_rec rec)
 {
@@ -45,8 +42,8 @@ static t_color	checker_square(t_rec rec, t_mlx *rt)
 	tmp.x = fabs(floor(v_dot(v_sub(rec.point, sq->p1), right) *4 / sq->size));
 	tmp.y = fabs(floor(v_dot(v_sub(rec.point, sq->p1), up) *4 / sq->size));
 	if ((int)(tmp.x) % 2 ^ (int)(tmp.y) % 2)
-		return ((t_color)WHITE);
-	return ((t_color)BLACK);
+		return ((t_color){1, 1, 1});
+	return ((t_color){0, 0, 0});
 }
 
 t_color			checkerboard(t_rec rec, t_mlx *rt)
@@ -54,14 +51,14 @@ t_color			checkerboard(t_rec rec, t_mlx *rt)
 	t_color		local_color;
 	t_vec		tmp;
 
-	local_color = (t_color)BLACK;
+	local_color = (t_color){0, 0, 0};
 	if (rec.objtype == TYPE_SPHERE)
 	{
 		tmp.x = (int)(fabs(floor(rec.normal.x * 2 ))) % 2;
 		tmp.y = (int)(fabs(floor(rec.normal.y * 2 ))) % 2;
 		tmp.z = (int)(fabs(floor(rec.normal.z * 2 ))) % 2;
 		if ((int)tmp.x ^ (int)tmp.y ^ (int)tmp.z)
-			local_color = (t_color)WHITE;
+			local_color = (t_color){1, 1, 1};
 	}
 	else if (rec.objtype == TYPE_SQUARE)
 		local_color = checker_square(rec, rt);
@@ -71,7 +68,7 @@ t_color			checkerboard(t_rec rec, t_mlx *rt)
 		tmp.y = (int)(fabs(floor(rec.point.y * 2 ))) % 2;
 		tmp.z = (int)(fabs(floor(rec.point.z * 2 ))) % 2;
 		if ((int)tmp.x ^ (int)tmp.y ^ (int)tmp.z)
-			local_color = (t_color)WHITE;
+			local_color = (t_color){1, 1, 1};
 	}
 	return (local_color);
 }
