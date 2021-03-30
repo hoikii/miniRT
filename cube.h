@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/22 18:26:12 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/30 18:52:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 # include "color.h"
 # include "square.h"
 
-typedef struct	s_cube {
-	t_vec		center;
-	t_vec		normal;
-	t_vec		up;
-	double		size;
-	t_color		color;
-	t_square	face[6];
-	int			bonus;
-}				t_cube;
+typedef struct		s_cube {
+	t_vec			center;
+	t_vec			normal;
+	t_vec			up;
+	double			size;
+	t_color			color;
+	t_square		face[6];
+	t_bonus_attr	bonus;
+}					t_cube;
 
 void			fill_cube_info(t_cube *cu, int is_init);
 void			move_cube(t_cube *cu, t_vec mv);

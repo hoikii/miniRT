@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 06:13:20 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/30 19:10:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,12 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 			return (skymap(ray.direction, rt));
 		return (color(0, 0, 0));
 	}
-	if (BONUS && rec.bonus == TEXTURE_WAVE)
+	if (BONUS && rec.bonus.texture_type == TEXTURE_WAVE)
 		rec.normal = wave(rec, rt);
 	local_color = apply_light(rec, -1, rt);
-	r = 0.1;
+	r = 0;
+	if (BONUS)
+		r = rec.bonus.refl_rate;
 	if (depth <= 0 || r <= 0)
 		return (local_color);
 	reflect_dir = v_sub(ray.direction,

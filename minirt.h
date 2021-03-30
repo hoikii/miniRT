@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 05:05:33 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/29 21:56:48 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ typedef struct	s_ambient {
 	t_color		color;
 }				t_ambient;
 
+typedef struct	s_bonus_attr {
+	double		refl_rate;
+	int			texture_type;
+	t_img		texture;
+}				t_bonus_attr;
+
 typedef struct	s_rec {
 	t_color		color;
 	double		t;
@@ -88,7 +94,7 @@ typedef struct	s_rec {
 	t_vec		raydir;
 	int			obj_id;
 	int			objtype;
-	int			bonus;
+	t_bonus_attr	bonus;
 }				t_rec;
 
 typedef enum	e_obj_type {

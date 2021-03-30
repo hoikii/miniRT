@@ -6,17 +6,19 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 05:23:04 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/30 18:55:58 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minirt.h"
+#include "parse_value.h"
 #include "parser_utils.h"
 #include "libft/libft.h"
 #include "vec.h"
 #include "color.h"
 #include "exit.h"
 
-int		get_texture(char *filepath, t_img *texture, t_mlx *rt)
+int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 {
 	texture->img_ptr = 0;
 	if (ft_strncmp(filepath + ft_strlen(filepath) - 3, "png", 3) == 0)
@@ -32,9 +34,8 @@ int		get_texture(char *filepath, t_img *texture, t_mlx *rt)
 	return (SUCCESS);
 }
 
-int		get_bonus(char *str, int *ret)
+static int	get_bonus_type(char *str, int *ret)
 {
-	*ret = TEXTURE_NONE;
 	if (ft_strequ(str, "rainbow"))
 		*ret = TEXTURE_RAINBOW;
 	else if (ft_strequ(str, "checkerboard"))
@@ -43,12 +44,40 @@ int		get_bonus(char *str, int *ret)
 		*ret = TEXTURE_WAVE;
 	else if (ft_strncmp(str, "uvmap:", 6) == 0)
 		*ret = TEXTURE_UVMAP;
-	else
+	else if (ft_strncmp(str, "R:", 2) != 0)
 		return (FAIL);
 	return (SUCCESS);
 }
 
-void	parse_skybox(char *line, t_mlx *rt, int linenum)
+int			get_bonus(char **str, t_bonus_attr *bonus, t_mlx *rt)
+{
+	int	i;
+
+	bonus->texture_type = TEXTURE_NONE;
+	bonus->refl_rate = 0;
+	i = 0;
+	while (str[i] != NULL)
+	{
+		if (get_bonus_type(str[i], &bonus->texture_type) == FAIL)
+			return (FAIL);
+		if (bonus->texture_type == TEXTURE_UVMAP)
+		{
+			if (get_texture(str[i] + 6, &bonus->texture, rt) == FAIL)
+			   return (FAIL);
+		}
+		if (ft_strncmp(str[i], "R:", 2) == 0)
+		{
+			if (get_double(str[i] + 2, &bonus->refl_rate) == FAIL)
+			   return (FAIL);
+			if (bonus->refl_rate < 0.0 || bonus->refl_rate > 1.0)
+				return (FAIL);
+		}
+		i++;
+	}
+	return (SUCCESS);
+}
+
+void		parse_skybox(char *line, t_mlx *rt, int linenum)
 {
 	char	**words;
 
