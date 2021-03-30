@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/25 00:19:49 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/31 00:02:58 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void		move_pyramid(t_pyramid *py, t_vec mv)
 
 void		resize_pyramid(t_pyramid *py, double amount, int flag)
 {
-	if (flag == 0)
+	if (flag == 0 && py->size + amount > 0 + EPSILON)
 		py->size += amount;
-	else
+	if (flag == 1 && py->height + amount > 0 + EPSILON)
 		py->height += amount;
 	fill_pyramid_info(py, 0);
 }

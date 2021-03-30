@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/24 22:38:47 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/31 00:00:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void		move_square(t_square *sq, t_vec mv)
 
 void		resize_square(t_square *sq, double amount)
 {
-	sq->size += amount;
-	fill_square_info(sq, 0);
+	if (sq->size + amount > 0 + EPSILON)
+	{
+		sq->size += amount;
+		fill_square_info(sq, 0);
+	}
 }
 
 void		rotate_square(t_square *sq, t_vec axis, double angle)

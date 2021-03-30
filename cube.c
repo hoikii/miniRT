@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:36:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/25 00:26:29 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/31 00:02:45 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ void			move_cube(t_cube *cu, t_vec mv)
 
 void			resize_cube(t_cube *cu, double amount)
 {
-	cu->size += amount;
-	fill_cube_info(cu, 0);
+	if (cu->size + amount > 0 + EPSILON)
+	{
+		cu->size += amount;
+		fill_cube_info(cu, 0);
+	}
 }
 
 void			rotate_cube(t_cube *cu, t_vec axis, double angle)

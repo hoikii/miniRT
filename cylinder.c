@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/29 18:30:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/31 00:02:30 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void		move_cylinder(t_cylinder *cy, t_vec mv)
 
 void		resize_cylinder(t_cylinder *cy, double amount, int flag)
 {
-	if (flag == 0)
+	if (flag == 0 && cy->diameter + amount > 0 + EPSILON)
 		cy->diameter += amount;
-	else if (flag == 1)
+	if (flag == 1 && cy->height + amount > 0 + EPSILON)
 		cy->height += amount;
 	fill_cylinder_info(cy);
 }
