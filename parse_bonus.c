@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 18:55:58 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/30 20:07:32 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@
 #include "vec.h"
 #include "color.h"
 #include "exit.h"
+
+/*
+** minilibx for linux cannot load png images :(
+*/
+
+#ifdef LINUX
+
+int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
+{
+	texture->img_ptr = 0;
+	if (ft_strncmp(filepath + ft_strlen(filepath) - 3, "xpm", 3) == 0)
+		texture->img_ptr = mlx_xpm_file_to_image(rt->mlx, filepath,
+				&texture->width, &texture->height);
+	if (!(texture->img_ptr))
+		return (FAIL);
+	texture->imgdata = mlx_get_data_addr(texture->img_ptr,
+			&texture->bpp, &texture->size_line, &texture->endian);
+	return (SUCCESS);
+}
+
+#else
 
 int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 {
@@ -33,6 +54,8 @@ int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 			&texture->bpp, &texture->size_line, &texture->endian);
 	return (SUCCESS);
 }
+
+#endif
 
 static int	get_bonus_type(char *str, int *ret)
 {
@@ -63,12 +86,12 @@ int			get_bonus(char **str, t_bonus_attr *bonus, t_mlx *rt)
 		if (bonus->texture_type == TEXTURE_UVMAP)
 		{
 			if (get_texture(str[i] + 6, &bonus->texture, rt) == FAIL)
-			   return (FAIL);
+				return (FAIL);
 		}
 		if (ft_strncmp(str[i], "R:", 2) == 0)
 		{
 			if (get_double(str[i] + 2, &bonus->refl_rate) == FAIL)
-			   return (FAIL);
+				return (FAIL);
 			if (bonus->refl_rate < 0.0 || bonus->refl_rate > 1.0)
 				return (FAIL);
 		}
