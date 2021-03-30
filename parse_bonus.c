@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 20:07:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/03/30 22:30:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			get_bonus(char **str, t_bonus_attr *bonus, t_mlx *rt)
 	{
 		if (get_bonus_type(str[i], &bonus->texture_type) == FAIL)
 			return (FAIL);
-		if (bonus->texture_type == TEXTURE_UVMAP)
+		if (ft_strncmp(str[i], "uvmap:", 6) == 0)
 		{
 			if (get_texture(str[i] + 6, &bonus->texture, rt) == FAIL)
 				return (FAIL);
