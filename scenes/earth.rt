@@ -1,0 +1,13 @@
+R 800 600
+
+A 0.2 255,255,255  
+
+Sk textures/starmap_4k.png
+c 0,0,-20 0,0,1    90
+
+l -10,40,-20 0.8 255,255,255
+
+sp  0,-55,0    100   0,0,0  uvmap:textures/moon.png
+sp  -5,-5,15   16   0,0,0  uvmap:textures/earth.png
+sp  5,3,20      7    0,0,0  uvmap:textures/mars.png
+sp  10,20,70   70   0,0,0  uvmap:textures/jupiter.png
