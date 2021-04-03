@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:18:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 16:20:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/03 18:34:30 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,10 @@ void	free_words(char **words)
 	}
 	free(words);
 	return ;
+}
+
+void	set_wave_attr(t_bonus_attr *bonus, double frequency, double amplitude)
+{
+	bonus->wave_frequency = frequency;
+	bonus->wave_amplitude = amplitude;
 }

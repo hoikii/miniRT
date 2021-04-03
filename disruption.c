@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/29 18:35:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 01:49:22 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static t_color	checker_square(t_rec rec, t_mlx *rt)
 	sq = (t_square *)rt->objects_array[rec.obj_id].data;
 	up = v_mul(sq->up, sq->size / 2);
 	right = v_cross(up, sq->normal);
-	tmp.x = fabs(floor(v_dot(v_sub(rec.point, sq->p1), right) *4 / sq->size));
-	tmp.y = fabs(floor(v_dot(v_sub(rec.point, sq->p1), up) *4 / sq->size));
+	tmp.x = fabs(floor(v_dot(v_sub(rec.point, sq->p1), right) * 4 / sq->size));
+	tmp.y = fabs(floor(v_dot(v_sub(rec.point, sq->p1), up) * 4 / sq->size));
 	if ((int)(tmp.x) % 2 ^ (int)(tmp.y) % 2)
-		return ((t_color){1, 1, 1});
-	return ((t_color){0, 0, 0});
+		return (color(1, 1, 1));
+	return (color(0, 0, 0));
 }
 
 t_color			checkerboard(t_rec rec, t_mlx *rt)
@@ -51,73 +51,49 @@ t_color			checkerboard(t_rec rec, t_mlx *rt)
 	t_color		local_color;
 	t_vec		tmp;
 
-	local_color = (t_color){0, 0, 0};
+	local_color = color(0, 0, 0);
 	if (rec.objtype == TYPE_SPHERE)
 	{
-		tmp.x = (int)(fabs(floor(rec.normal.x * 2 ))) % 2;
-		tmp.y = (int)(fabs(floor(rec.normal.y * 2 ))) % 2;
-		tmp.z = (int)(fabs(floor(rec.normal.z * 2 ))) % 2;
+		tmp.x = (int)(fabs(floor(rec.normal.x * 2))) % 2;
+		tmp.y = (int)(fabs(floor(rec.normal.y * 2))) % 2;
+		tmp.z = (int)(fabs(floor(rec.normal.z * 2))) % 2;
 		if ((int)tmp.x ^ (int)tmp.y ^ (int)tmp.z)
-			local_color = (t_color){1, 1, 1};
+			local_color = color(1, 1, 1);
 	}
 	else if (rec.objtype == TYPE_SQUARE)
 		local_color = checker_square(rec, rt);
 	else
 	{
-		tmp.x = (int)(fabs(floor(rec.point.x * 2 ))) % 2;
-		tmp.y = (int)(fabs(floor(rec.point.y * 2 ))) % 2;
-		tmp.z = (int)(fabs(floor(rec.point.z * 2 ))) % 2;
+		tmp.x = (int)(fabs(floor(rec.point.x * 2))) % 2;
+		tmp.y = (int)(fabs(floor(rec.point.y * 2))) % 2;
+		tmp.z = (int)(fabs(floor(rec.point.z * 2))) % 2;
 		if ((int)tmp.x ^ (int)tmp.y ^ (int)tmp.z)
-			local_color = (t_color){1, 1, 1};
+			local_color = color(1, 1, 1);
 	}
 	return (local_color);
 }
 
-/*
-** SinA + SinB = 2*Sin((A+B)/2)*COS((A-B)/2)
-*/
-
-t_vec	wave(t_rec rec, t_mlx *rt)
+t_vec			wave(t_rec rec, t_ray ray)
 {
-#if 0
-	double	sinn;
-	double	scal;
-	t_vec	ret;
-
-	scal = 60 * v_len(v_sub(rec.point, ray_origin));
-	sinn = sin(rec.point.z * scal) + sin(rec.point.y * scal);
-	ret = v_rotate(rec.normal, v_new(1, 0, 0), sinn);
-	return (ret);
-#endif
-#if 1
-	t_vec	tmp;
 	double	frequency;
 	double	amplitude;
+	double	rate;
 	t_vec	ret;
-	
-	frequency = 50;
-	amplitude = 0.01;
-	frequency = 30;
-	amplitude = 0.03;
-//	frequency = rt->frequency;
-//	amplitude = clamp(rt->amplitude, 0, 0.2);
-	amplitude *= 90;
-	tmp.x = sin(rec.point.x * frequency) * amplitude;
-	ret = v_rotate(rec.normal, v_new(1, 0, 0), tmp.x);
-	return (ret);
-#endif
-#if 0
-	t_vec	wave_n;
-	double	alpha;
-	double	d;
+	t_vec	tmp;
 
-	wave_n = v_sub(ray_origin, rec.point);
-	d = v_len(wave_n);
-	alpha = 100 * exp(-d * 0.025) * cos(0.25 * PI * d);
-	wave_n = v_sub(rec.point, ray_origin);
-	wave_n.x *= alpha;
-	wave_n.z *= alpha;
-	wave_n.y = 100;
-	return (v_unit(wave_n));
-#endif
+	tmp = v_sub(rec.point, ray.origin);
+	frequency = rec.bonus.wave_frequency;
+	amplitude = rec.bonus.wave_amplitude;
+	amplitude *= 90;
+	if (rec.objtype == TYPE_PLANE)
+		rate = sin(v_len(tmp) * frequency) * amplitude;
+	else if (rec.objtype == TYPE_SPHERE)
+		rate = sin(rec.point.y * frequency) * amplitude;
+	else
+		rate = sin(rec.point.x * frequency) * amplitude;
+	if (fabs(rec.normal.x) != 1)
+		ret = v_rotate(rec.normal, v_new(1, 0, 0), rate);
+	else
+		ret = v_rotate(rec.normal, v_new(0, 1, 0), rate);
+	return (ret);
 }

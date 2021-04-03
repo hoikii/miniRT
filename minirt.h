@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/29 21:56:48 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 01:48:59 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,47 +57,49 @@
 ** and 2 bytes for short.
 */
 
-typedef int		t_uint32_t;
-typedef short	t_uint16_t;
+typedef int			t_uint32_t;
+typedef short		t_uint16_t;
 
 /*
 ** Define DBL_MAX manually instead of using float.h
 */
 # define DBL_MAX 1.79769e+308
 
-typedef struct	s_img {
-	void		*img_ptr;
-	char		*imgdata;
-	int			width;
-	int			height;
-	int			bpp;
-	int			size_line;
-	int			endian;
-}				t_img;
+typedef struct		s_img {
+	void			*img_ptr;
+	char			*imgdata;
+	int				width;
+	int				height;
+	int				bpp;
+	int				size_line;
+	int				endian;
+}					t_img;
 
-typedef struct	s_ambient {
-	double		brightness;
-	t_color		color;
-}				t_ambient;
+typedef struct		s_ambient {
+	double			brightness;
+	t_color			color;
+}					t_ambient;
 
-typedef struct	s_bonus_attr {
-	double		refl_rate;
-	int			texture_type;
-	t_img		texture;
-}				t_bonus_attr;
+typedef struct		s_bonus_attr {
+	double			refl_rate;
+	int				texture_type;
+	t_img			texture;
+	double			wave_frequency;
+	double			wave_amplitude;
+}					t_bonus_attr;
 
-typedef struct	s_rec {
-	t_color		color;
-	double		t;
-	t_vec		normal;
-	t_vec		point;
-	t_vec		raydir;
-	int			obj_id;
-	int			objtype;
+typedef struct		s_rec {
+	t_color			color;
+	double			t;
+	t_vec			normal;
+	t_vec			point;
+	t_vec			raydir;
+	int				obj_id;
+	int				objtype;
 	t_bonus_attr	bonus;
-}				t_rec;
+}					t_rec;
 
-typedef enum	e_obj_type {
+typedef enum		e_obj_type {
 	TYPE_SPHERE = 0,
 	TYPE_PLANE,
 	TYPE_TRIANGLE,
@@ -106,20 +108,20 @@ typedef enum	e_obj_type {
 	TYPE_CYLINDER_CAPS,
 	TYPE_CUBE,
 	TYPE_PYRAMID
-}				t_obj_type;
+}					t_obj_type;
 
-typedef struct	s_objects {
-	t_obj_type	type;
-	void		*data;
-}				t_objects;
+typedef struct		s_objects {
+	t_obj_type		type;
+	void			*data;
+}					t_objects;
 
-typedef enum	e_transform_mode {
+typedef enum		e_transform_mode {
 	MODE_CAM = 0,
 	MODE_OBJ,
 	MODE_LIGHT
-}				t_transform_mode;
+}					t_transform_mode;
 
-typedef enum	e_color_filter {
+typedef enum		e_color_filter {
 	FILTER_NONE = 0,
 	FILTER_RED,
 	FILTER_GREEN,
@@ -128,54 +130,47 @@ typedef enum	e_color_filter {
 	FILTER_SEPIA,
 	FILTER_SEPIA2,
 	FILTER_INVERSE
-}				t_color_filter;
+}					t_color_filter;
 
 # define FILTER_CNT 8
 
-typedef enum	e_texture {
+typedef enum		e_texture {
 	TEXTURE_NONE = 0,
 	TEXTURE_RAINBOW,
 	TEXTURE_CHECKERBOARD,
 	TEXTURE_WAVE,
 	TEXTURE_UVMAP
-}				t_texture;
+}					t_texture;
 
+typedef struct		s_mlx {
+	void			*mlx;
+	void			*win;
+	int				screen_height;
+	int				screen_width;
+	int				resolution_declared;
+	t_ambient		ambient;
+	int				ambient_declared;
+	t_list			*cam_list;
+	t_list			*lights_list;
+	t_light			*lights_array;
+	int				lights_cnt;
+	int				objs_cnt;
+	t_objects		*objects_array;
+	int				transform_mode;
+	int				obj_selected_idx;
+	int				light_sel_idx;
+	int				color_filter;
+	int				anti_aliasing;
+	int				skybox_declared;
+	t_img			skybox;
+}					t_mlx;
 
+typedef struct		s_thread {
+	t_mlx			*mlx;
+	int				tid;
+}					t_thread;
 
-typedef struct	s_mlx {
-	void		*mlx;
-	void		*win;
-	int			screen_height;
-	int			screen_width;
-	int			resolution_declared;
-	t_ambient	ambient;
-	int			ambient_declared;
-	t_list		*cam_list;
-	t_list		*lights_list;
-	t_light		*lights_array;
-	int			lights_cnt;
-	int			objs_cnt;
-	t_objects	*objects_array;
-	int			transform_mode;
-	int			obj_selected_idx;
-	int			light_sel_idx;
-	int			color_filter;
-
-	int anti_aliasing;
-	int skybox_declared;
-	t_img skybox;
-#if 0
-	double frequency;
-	double amplitude;
-#endif
-}				t_mlx;
-
-typedef struct	s_thread {
-	t_mlx		*mlx;
-	int			tid;
-}				t_thread;
-
-void			render_scene(t_mlx *rt, int save_bmp);
-int				put_img_to_window(t_mlx *rt);
+void				render_scene(t_mlx *rt, int save_bmp);
+int					put_img_to_window(t_mlx *rt);
 
 #endif

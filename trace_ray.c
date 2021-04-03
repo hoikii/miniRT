@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 19:10:08 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 01:29:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_color		trace_ray(t_ray ray, int depth, t_mlx *rt)
 		return (color(0, 0, 0));
 	}
 	if (BONUS && rec.bonus.texture_type == TEXTURE_WAVE)
-		rec.normal = wave(rec, rt);
+		rec.normal = wave(rec, ray);
 	local_color = apply_light(rec, -1, rt);
 	r = 0;
 	if (BONUS)

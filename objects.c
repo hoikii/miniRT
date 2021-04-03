@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/21 02:54:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 01:46:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,31 @@ void	rotate_object(t_mlx *rt, t_vec axis, double angle)
 		rotate_cube(obj.data, axis, angle);
 	if (obj.type == TYPE_PYRAMID)
 		rotate_pyramid(obj.data, axis, angle);
+}
+
+int		modify_wave_attr(t_mlx *rt, int is_brace, int incdec)
+{
+	t_objects		obj;
+	t_bonus_attr	*bonus;
+
+	obj = rt->objects_array[rt->obj_selected_idx];
+	if (obj.type == TYPE_SPHERE)
+		bonus = &((t_sphere *)(obj.data))->bonus;
+	if (obj.type == TYPE_PLANE)
+		bonus = &((t_plane *)(obj.data))->bonus;
+	if (obj.type == TYPE_TRIANGLE)
+		bonus = &((t_triangle *)(obj.data))->bonus;
+	if (obj.type == TYPE_SQUARE)
+		bonus = &((t_square *)(obj.data))->bonus;
+	if (obj.type == TYPE_CYLINDER)
+		bonus = &((t_cylinder *)(obj.data))->bonus;
+	if (bonus->texture_type != TEXTURE_WAVE)
+		return (0);
+	if (is_brace)
+		bonus->wave_frequency += 5 * incdec;
+	else
+		bonus->wave_amplitude += 0.01 * incdec;
+	bonus->wave_frequency = clamp(bonus->wave_frequency, 0, 200);
+	bonus->wave_amplitude = clamp(bonus->wave_amplitude, 0, 0.2);
+	return (1);
 }

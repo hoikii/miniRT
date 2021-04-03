@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 19:18:15 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/03 18:36:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	parse_cylinder_caps(char *line, t_mlx *rt, int linenum)
 	if (BONUS && get_bonus(words + 6, &cy->bonus, rt) == FAIL)
 		exit_error_ln("Cylinder: Invalid Bonus type", rt, linenum);
 	fill_cylinder_info(cy);
+	set_wave_attr(&cy->bonus, 50, 0.05);
 	append_object(cy, TYPE_CYLINDER_CAPS, rt);
 	free_words(words);
 	return ;
@@ -68,6 +69,7 @@ void	parse_cube(char *line, t_mlx *rt, int linenum)
 	if (BONUS && get_bonus(words + 5, &cu->bonus, rt) == FAIL)
 		exit_error_ln("Cube: Invalid Bonus type", rt, linenum);
 	fill_cube_info(cu, 1);
+	set_wave_attr(&cu->bonus, 50, 0.05);
 	append_object(cu, TYPE_CUBE, rt);
 	free_words(words);
 	return ;
@@ -95,6 +97,7 @@ void	parse_pyramid(char *line, t_mlx *rt, int linenum)
 	if (BONUS && get_bonus(words + 6, &py->bonus, rt) == FAIL)
 		exit_error_ln("Pyramid: Invalid Bonus type", rt, linenum);
 	fill_pyramid_info(py, 1);
+	set_wave_attr(&py->bonus, 50, 0.05);
 	append_object(py, TYPE_PYRAMID, rt);
 	free_words(words);
 	return ;

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/28 04:53:09 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 01:29:43 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ static void	init_struct(t_mlx *rt)
 	rt->obj_selected_idx = 0;
 	rt->light_sel_idx = 0;
 	rt->color_filter = 0;
-#if 0
-	rt->frequency = 50;
-	rt->amplitude = 0.00;
-#endif
 	rt->anti_aliasing = 0;
 	return ;
 }

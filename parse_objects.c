@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 19:17:20 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/03 18:35:10 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	parse_sphere(char *line, t_mlx *rt, int linenum)
 	if (BONUS && get_bonus(words + 4, &sp->bonus, rt) == FAIL)
 		exit_error_ln("Sphere: Invalid Bonus type", rt, linenum);
 	sp->radius = diameter / 2;
+	set_wave_attr(&sp->bonus, 120, 0.05);
 	append_object(sp, TYPE_SPHERE, rt);
 	free_words(words);
 	return ;
@@ -65,6 +66,7 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Plane: Invalid color value", rt, linenum);
 	if (BONUS && get_bonus(words + 4, &pl->bonus, rt) == FAIL)
 		exit_error_ln("Plane: Invalid Bonus type", rt, linenum);
+	set_wave_attr(&pl->bonus, 20, 0.03);
 	append_object(pl, TYPE_PLANE, rt);
 	free_words(words);
 	return ;
@@ -92,6 +94,7 @@ void	parse_triangle(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Triangle: Invalid Bonus type", rt, linenum);
 	normal = v_cross(v_sub(tri->p2, tri->p1), v_sub(tri->p3, tri->p1));
 	tri->normal = v_unit(normal);
+	set_wave_attr(&tri->bonus, 50, 0.05);
 	append_object(tri, TYPE_TRIANGLE, rt);
 	free_words(words);
 	return ;
@@ -118,6 +121,7 @@ void	parse_square(char *line, t_mlx *rt, int linenum)
 	if (BONUS && get_bonus(words + 5, &sq->bonus, rt) == FAIL)
 		exit_error_ln("Square: Invalid Bonus type", rt, linenum);
 	fill_square_info(sq, 1);
+	set_wave_attr(&sq->bonus, 50, 0.05);
 	append_object(sq, TYPE_SQUARE, rt);
 	free_words(words);
 	return ;
@@ -146,6 +150,7 @@ void	parse_cylinder(char *line, t_mlx *rt, int linenum)
 	if (BONUS && get_bonus(words + 6, &cy->bonus, rt) == FAIL)
 		exit_error_ln("Cylinder: Invalid Bonus type", rt, linenum);
 	fill_cylinder_info(cy);
+	set_wave_attr(&cy->bonus, 50, 0.05);
 	append_object(cy, TYPE_CYLINDER, rt);
 	free_words(words);
 	return ;

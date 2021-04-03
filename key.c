@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:02:14 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 19:07:46 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 01:34:17 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,10 @@ static void	key_sign_pressed(int keycode, t_mlx *rt)
 {
 	if (rt->transform_mode == MODE_CAM)
 	{
-#if 1
 		if (keycode == KEY_NP_PLUS || keycode == KEY_PLUS)
 			modify_fov(rt->cam_list->content, -5.0);
 		else if (keycode == KEY_NP_MINUS || keycode == KEY_MINUS)
 			modify_fov(rt->cam_list->content, +5.0);
-#else
-		if (keycode == KEY_NP_PLUS || keycode == KEY_PLUS)
-			rt->frequency += 10;
-		else if (keycode == KEY_NP_MINUS || keycode == KEY_MINUS) {
-			rt->frequency -= 10;
-			if (rt->frequency < 0) rt->frequency = 0;
-		}
-		else if (keycode == KEY_NP_MUL || keycode == KEY_MUL) {
-			rt->amplitude += 0.01;
-			if (rt->amplitude > 0.2) rt->amplitude = 0.2;
-		}
-		else if (keycode == KEY_NP_DIV || keycode == KEY_DIV) {
-			rt->amplitude -= 0.01;
-			if (rt->amplitude < 0) rt->amplitude = 0;
-		}
-#endif
 	}
 	else if (rt->transform_mode == MODE_OBJ)
 	{
@@ -142,6 +125,18 @@ int			key_pressed(int keycode, t_mlx *rt)
 	{
 		rt->anti_aliasing ^= 1;
 		render_scene(rt, 0);
+	}
+	else if (rt->transform_mode == MODE_OBJ
+		&& (keycode == KEY_COMMA || keycode == KEY_LB))
+	{
+		if (modify_wave_attr(rt, keycode == KEY_LB, -1))
+			render_scene(rt, 0);
+	}
+	else if (rt->transform_mode == MODE_OBJ
+		&& (keycode == KEY_PERIOD || keycode == KEY_RB))
+	{
+		if (modify_wave_attr(rt, keycode == KEY_RB, 1))
+			render_scene(rt, 0);
 	}
 	else
 		key_pressed2(keycode, rt);
