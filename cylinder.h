@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:49:36 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 18:51:57 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 00:05:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct		s_cylinder {
 	t_color			color;
 	t_vec			bottom;
 	t_vec			top;
+	t_vec			meridian;
 	t_bonus_attr	bonus;
 }					t_cylinder;
 

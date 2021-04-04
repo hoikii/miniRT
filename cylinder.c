@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 22:46:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/31 00:02:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 00:06:51 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void		fill_cylinder_info(t_cylinder *cy)
 	cy->radius = cy->diameter / 2.0;
 	cy->bottom = v_sub(cy->center, v_mul(cy->direction, cy->height / 2));
 	cy->top = v_add(cy->center, v_mul(cy->direction, cy->height / 2));
+	if (cy->direction.y != 1)
+		cy->meridian = v_unit(v_cross(cy->direction, v_new(0, 1, 0)));
+	else
+		cy->meridian = v_unit(v_cross(cy->direction, v_new(0, 0, -1)));
 }
 
 void		move_cylinder(t_cylinder *cy, t_vec mv)
