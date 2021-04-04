@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 01:49:22 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 17:01:48 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ t_color			rainbow(t_rec rec)
 		n = v_mul(v_add(rec.normal, v_new(1, 1, 1)), 0.5);
 	local_color = (t_color){n.x, 1 - n.y, n.z};
 	return (local_color);
+}
+
+static t_color	checker_plane(t_rec rec, t_mlx *rt)
+{
+	t_plane	*pl;
+	t_vec	tmp;
+	double	x;
+	double	y;
+
+	pl = (t_plane *)rt->objects_array[rec.obj_id].data;
+	tmp = v_sub(rec.point, pl->point);
+	x = fabs(floor(v_dot(pl->u, tmp)));
+	y = fabs(floor(v_dot(pl->v, tmp)));
+	if (((int)x % 2) ^ ((int)y % 2))
+		return (color(1, 1, 1));
+	return (color(0, 0, 0));
 }
 
 static t_color	checker_square(t_rec rec, t_mlx *rt)
@@ -54,20 +70,22 @@ t_color			checkerboard(t_rec rec, t_mlx *rt)
 	local_color = color(0, 0, 0);
 	if (rec.objtype == TYPE_SPHERE)
 	{
-		tmp.x = (int)(fabs(floor(rec.normal.x * 2))) % 2;
-		tmp.y = (int)(fabs(floor(rec.normal.y * 2))) % 2;
-		tmp.z = (int)(fabs(floor(rec.normal.z * 2))) % 2;
-		if ((int)tmp.x ^ (int)tmp.y ^ (int)tmp.z)
+		tmp.x = fabs(floor(rec.normal.x * 2));
+		tmp.y = fabs(floor(rec.normal.y * 2));
+		tmp.z = fabs(floor(rec.normal.z * 2));
+		if (((int)tmp.x % 2) ^ ((int)tmp.y % 2) ^ ((int)tmp.z % 2))
 			local_color = color(1, 1, 1);
 	}
+	else if (rec.objtype == TYPE_PLANE)
+		local_color = checker_plane(rec, rt);
 	else if (rec.objtype == TYPE_SQUARE)
 		local_color = checker_square(rec, rt);
 	else
 	{
-		tmp.x = (int)(fabs(floor(rec.point.x * 2))) % 2;
-		tmp.y = (int)(fabs(floor(rec.point.y * 2))) % 2;
-		tmp.z = (int)(fabs(floor(rec.point.z * 2))) % 2;
-		if ((int)tmp.x ^ (int)tmp.y ^ (int)tmp.z)
+		tmp.x = fabs(floor(rec.point.x * 2 + EPSILON));
+		tmp.y = fabs(floor(rec.point.y * 2 + EPSILON));
+		tmp.z = fabs(floor(rec.point.z * 2 + EPSILON));
+		if (((int)tmp.x % 2) ^ ((int)tmp.y % 2) ^ ((int)tmp.z % 2))
 			local_color = color(1, 1, 1);
 	}
 	return (local_color);

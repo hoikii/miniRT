@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/03 18:35:10 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/04 16:54:11 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Plane: Invalid color value", rt, linenum);
 	if (BONUS && get_bonus(words + 4, &pl->bonus, rt) == FAIL)
 		exit_error_ln("Plane: Invalid Bonus type", rt, linenum);
+	fill_plane_info(pl);
 	set_wave_attr(&pl->bonus, 20, 0.03);
 	append_object(pl, TYPE_PLANE, rt);
 	free_words(words);
