@@ -1,12 +1,17 @@
 R 640 480 
 A 0.2                              255,255,255
    
-c  0,-10,-30    0,0,1     80
+c  0,-20,-50    0,0,1     80
+c  -70,30,120    1,-0.8,-1     80
+c  -130,30,130    1,0,0     80
+c  -140,-85,0      1,0,0   80
 
-l -100,10,-0.5   0.7   255,255,255
-l  -100,10,-50   0.7   255,255,255 
+l -200,10,-0.5   0.7   255,255,255
+l  -200,10,-50   0.7   255,255,255 
 
-sp  0,-60,1      100      0,0,0         uvmap:textures/moon.png
-sp  30,30,80     100       0,0,0     uvmap:textures/jupiter.png
-sp   0,0,1      10         0,0,0       uvmap:textures/earth.png
+sp  0,-65,-13      100      0,0,0         uvmap:textures/earth.png
+sp  30,30,80     150       0,0,0     uvmap:textures/jupiter.png
+sp   0,0,1      10         0,0,0       uvmap:textures/moon.png
+sp   -62,23,50   20        0,0,0      uvmap:textures/venus_surface.png
+sp   -105,30,140   20        0,0,0      uvmap:textures/mars.png
 Sk textures/milkyway_4k.png
