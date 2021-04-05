@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 19:07:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 17:11:34 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ t_color	calc_specular(t_rec rec, t_vec lightdir, double diff, t_light *light)
 	return (color(0, 0, 0));
 }
 
+/*
+** idx is initialized as -1 by caller (trace_ray())
+*/
+
 t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 {
 	t_light	light;
@@ -73,7 +77,6 @@ t_color	apply_light(t_rec rec, int idx, t_mlx *rt)
 
 	specular = color(0, 0, 0);
 	result = c_mul(rt->ambient.color, rt->ambient.brightness);
-	idx = -1;
 	while (++idx < rt->lights_cnt)
 	{
 		light = rt->lights_array[idx];

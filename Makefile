@@ -1,5 +1,5 @@
 NAME		= miniRT
-SRC			= main.c vec.c vec2.c vec3.c color.c key.c sphere.c math_utils.c ray.c render.c \
+SRC			= main.c vec.c vec2.c vec3.c color.c key.c  key2.c sphere.c math_utils.c ray.c render.c \
 			  light.c plane.c objects.c triangle.c camera.c square.c cylinder.c cube.c pyramid.c \
 			  parser.c parser_utils.c parse_value.c parse_objects.c parse_info.c parse_compounds.c parse_bonus.c \
 			  hit_compounds.c exit.c disruption.c checkerboard.c  supersample.c mouse.c uv_mapping.c \

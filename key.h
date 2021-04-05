@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:07:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 01:33:30 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 17:07:13 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@
 #  define KEY_RB 30
 # endif
 
-int	key_pressed(int keycode, t_mlx *param);
+int		key_pressed(int keycode, t_mlx *param);
+void	key_wasd(int keycode, t_mlx *rt);
+void	key_arrow(int keycode, t_mlx *rt);
+void	key_sign(int keycode, t_mlx *rt);
 
 #endif
