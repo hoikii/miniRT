@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/03 18:36:06 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 21:04:05 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	parse_cylinder_caps(char *line, t_mlx *rt, int linenum)
 		|| (get_double(words[4], &cy->height) == FAIL)
 		|| (get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
-	if (BONUS && get_bonus(words + 6, &cy->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 6, &cy->bonus, TYPE_CYLINDER, rt) == FAIL)
 		exit_error_ln("Cylinder: Invalid Bonus type", rt, linenum);
 	fill_cylinder_info(cy);
 	set_wave_attr(&cy->bonus, 50, 0.05);
@@ -66,7 +66,7 @@ void	parse_cube(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &cu->normal) == FAIL)
 		exit_error_ln("Cube: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	if (BONUS && get_bonus(words + 5, &cu->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 5, &cu->bonus, TYPE_CUBE, rt) == FAIL)
 		exit_error_ln("Cube: Invalid Bonus type", rt, linenum);
 	fill_cube_info(cu, 1);
 	set_wave_attr(&cu->bonus, 50, 0.05);
@@ -94,7 +94,7 @@ void	parse_pyramid(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &py->normal) == FAIL)
 		exit_error_ln("Pyramid: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	if (BONUS && get_bonus(words + 6, &py->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 6, &py->bonus, TYPE_PYRAMID, rt) == FAIL)
 		exit_error_ln("Pyramid: Invalid Bonus type", rt, linenum);
 	fill_pyramid_info(py, 1);
 	set_wave_attr(&py->bonus, 50, 0.05);

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 22:30:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 02:56:18 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 		return (FAIL);
 	texture->imgdata = mlx_get_data_addr(texture->img_ptr,
 			&texture->bpp, &texture->size_line, &texture->endian);
+	mlx_destroy_image(rt->mlx, texture->img_ptr);
 	return (SUCCESS);
 }
 
@@ -52,6 +53,7 @@ int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 		return (FAIL);
 	texture->imgdata = mlx_get_data_addr(texture->img_ptr,
 			&texture->bpp, &texture->size_line, &texture->endian);
+	mlx_destroy_image(rt->mlx, texture->img_ptr);
 	return (SUCCESS);
 }
 
@@ -72,19 +74,21 @@ static int	get_bonus_type(char *str, int *ret)
 	return (SUCCESS);
 }
 
-int			get_bonus(char **str, t_bonus_attr *bonus, t_mlx *rt)
+int			get_bonus(char **str, t_bonus_attr *bonus, int type, t_mlx *rt)
 {
 	int	i;
 
 	bonus->texture_type = TEXTURE_NONE;
 	bonus->refl_rate = 0;
-	i = 0;
-	while (str[i] != NULL)
+	i = -1;
+	while (str[++i] != NULL)
 	{
 		if (get_bonus_type(str[i], &bonus->texture_type) == FAIL)
 			return (FAIL);
 		if (ft_strncmp(str[i], "uvmap:", 6) == 0)
 		{
+			if (type != TYPE_SPHERE)
+				return (FAIL);
 			if (get_texture(str[i] + 6, &bonus->texture, rt) == FAIL)
 				return (FAIL);
 		}
@@ -95,7 +99,6 @@ int			get_bonus(char **str, t_bonus_attr *bonus, t_mlx *rt)
 			if (bonus->refl_rate < 0.0 || bonus->refl_rate > 1.0)
 				return (FAIL);
 		}
-		i++;
 	}
 	return (SUCCESS);
 }
@@ -106,12 +109,12 @@ void		parse_skybox(char *line, t_mlx *rt, int linenum)
 
 	if (rt->skybox_declared)
 		exit_error_ln("Skybox must be declared once.", rt, linenum);
-	rt->skybox_declared = 1;
 	if (ft_cntwords(line, ' ') != 2)
 		exit_error_ln("Skybox: Sk path_to_texture", rt, linenum);
 	words = ft_split(line, ' ');
 	if (get_texture(words[1], &rt->skybox, rt) == FAIL)
 		exit_error_ln("Skybox: Loading texture failed.", rt, linenum);
+	rt->skybox_declared = 1;
 	free_words(words);
 	return ;
 }

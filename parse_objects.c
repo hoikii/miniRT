@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:48:20 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 16:54:11 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 21:03:34 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	parse_sphere(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Sphere: Invalid diameter value", rt, linenum);
 	if (get_color(words[3], &sp->color) == FAIL)
 		exit_error_ln("Sphere: Invalid color value", rt, linenum);
-	if (BONUS && get_bonus(words + 4, &sp->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 4, &sp->bonus, TYPE_SPHERE, rt) == FAIL)
 		exit_error_ln("Sphere: Invalid Bonus type", rt, linenum);
 	sp->radius = diameter / 2;
 	set_wave_attr(&sp->bonus, 120, 0.05);
@@ -64,7 +64,7 @@ void	parse_plane(char *line, t_mlx *rt, int linenum)
 			each x,y,z", rt, linenum);
 	if (get_color(words[3], &pl->color) == FAIL)
 		exit_error_ln("Plane: Invalid color value", rt, linenum);
-	if (BONUS && get_bonus(words + 4, &pl->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 4, &pl->bonus, TYPE_PLANE, rt) == FAIL)
 		exit_error_ln("Plane: Invalid Bonus type", rt, linenum);
 	fill_plane_info(pl);
 	set_wave_attr(&pl->bonus, 20, 0.03);
@@ -91,7 +91,7 @@ void	parse_triangle(char *line, t_mlx *rt, int linenum)
 		exit_error_ln("Triangle: Invalid point value", rt, linenum);
 	if (get_color(words[4], &tri->color) == FAIL)
 		exit_error_ln("Triangle: Invalid color value", rt, linenum);
-	if (BONUS && get_bonus(words + 5, &tri->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 5, &tri->bonus, TYPE_TRIANGLE, rt) == FAIL)
 		exit_error_ln("Triangle: Invalid Bonus type", rt, linenum);
 	normal = v_cross(v_sub(tri->p2, tri->p1), v_sub(tri->p3, tri->p1));
 	tri->normal = v_unit(normal);
@@ -119,7 +119,7 @@ void	parse_square(char *line, t_mlx *rt, int linenum)
 	if (get_vector_norm(words[2], &sq->normal) == FAIL)
 		exit_error_ln("Square: Direction vector must be in range [-1,1] for \
 			each x,y,z", rt, linenum);
-	if (BONUS && get_bonus(words + 5, &sq->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 5, &sq->bonus, TYPE_SQUARE, rt) == FAIL)
 		exit_error_ln("Square: Invalid Bonus type", rt, linenum);
 	fill_square_info(sq, 1);
 	set_wave_attr(&sq->bonus, 50, 0.05);
@@ -148,7 +148,7 @@ void	parse_cylinder(char *line, t_mlx *rt, int linenum)
 		|| (get_double(words[4], &cy->height) == FAIL)
 		|| (get_color(words[5], &cy->color) == FAIL))
 		exit_error_ln("Cylinder: Invalid parameters", rt, linenum);
-	if (BONUS && get_bonus(words + 6, &cy->bonus, rt) == FAIL)
+	if (BONUS && get_bonus(words + 6, &cy->bonus, TYPE_CYLINDER, rt) == FAIL)
 		exit_error_ln("Cylinder: Invalid Bonus type", rt, linenum);
 	fill_cylinder_info(cy);
 	set_wave_attr(&cy->bonus, 50, 0.05);
