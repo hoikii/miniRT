@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 01:29:43 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 16:53:08 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int			main(int ac, char **av)
 	rt.mlx = mlx_init();
 	if (ac < 2 || ac > 3 || (ac == 3 && !ft_strequ(av[2], "-save")))
 		exit_error("Usage: miniRT scene.rt [-save]", &rt);
+	if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) != 0)
+		exit_error("Wrong extension(.rt)", &rt);
 	parser(av[1], &rt);
 	save_bmp = 0;
 	if (ac == 3)
