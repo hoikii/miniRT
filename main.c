@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 10:03:16 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/05 16:53:08 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:58:36 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,25 @@ static void	init_mlx_hook(t_mlx *rt)
 
 static void	prn_usage(void)
 {
-	printf("*=============================================================*\n");
+	char	*line;
+
+	line = "*=============================================================*\n";
+	printf("%s", line);
 	printf("|  wasdqz: move       arrows: rotate    space: change camera  |\n");
 	printf("|  c,o,l: cam<->obj<->light                                   |\n");
 	printf("|  +-: fov in cam mode, resize in obj mode                    |\n");
 	printf("|  */: resize height of cylinder or pyramid                   |\n");
-	printf("|  1, 2: change color filter          T: apply Anti-Aliasing  |\n");
+	if (!BONUS)
+	{
+		printf("%s", line);
+		return ;
+	}
+	printf("|  1, 2: change color filter                                  |\n");
+	printf("|  T: apply Anti-Aliasing                                     |\n");
+	printf("|  [ ] < > : change wave length, strength                     |\n");
 	printf("|  Click: change camera direction                             |\n");
-	printf("*=============================================================*\n");
+	printf("%s", line);
+	return ;
 }
 
 int			main(int ac, char **av)
