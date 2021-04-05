@@ -16,8 +16,8 @@ LIBFTNAME	= ft
 CC			= gcc
 ####################################
 ####################################
-#CFLAGS		= -Wall -Wextra -Werror
 CFLAGS		= -Wall -Wextra
+CFLAGS		= -Wall -Wextra -Werror
 ####################################
 ####################################
 RM			= rm -rf
@@ -46,10 +46,6 @@ endif
 
 .PHONY: test all bonus cleanlib clean fclean re
 
-test: CFLAGS += -g3 -fsanitize=address -DBONUS -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
-test: all
-	./$(NAME) smpl.rt
-	
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -67,6 +63,10 @@ $(NAME): $(OBJS)
 
 bonus: CFLAGS += -DBONUS -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)
 bonus: clean all
+
+test: CFLAGS += -g3 -fsanitize=address
+test: bonus
+	./$(NAME) scenes/smpl.rt
 
 cleanlib:
 	@echo "$(CCBLUE) >>> clean libft <<< $(CCEND)"
