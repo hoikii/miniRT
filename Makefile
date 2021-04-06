@@ -1,10 +1,7 @@
 NAME		= miniRT
 INCLUDES	= includes
 SRCDIR		= srcs/
-SRC			= main.c \
-			  vec.c \
-			  vec2.c \
-			  vec3.c \
+SRCFILES	= main.c \
 			  color.c \
 			  key.c \
 			  key2.c \
@@ -16,7 +13,6 @@ SRC			= main.c \
 			  objects/cylinder.c \
 			  objects/cube.c \
 			  objects/pyramid.c \
-			  math_utils.c \
 			  ray.c \
 			  trace_ray.c \
 			  render.c \
@@ -33,34 +29,28 @@ SRC			= main.c \
 			  parser/get_next_line.c \
 			  parser/get_next_line_utils.c \
 			  hit.c \
-			  hit_compounds.c \
 			  hit_utils.c \
-			  exit.c \
+			  hit_compounds.c \
+			  math_utils/math_utils.c \
+			  math_utils/vec.c \
+			  math_utils/vec2.c \
+			  math_utils/vec3.c \
 			  disruption.c \
 			  checkerboard.c \
-			  supersample.c \
 			  uv_mapping.c \
+			  supersample.c \
+			  color_filter.c \
 			  bmp.c \
 			  transform.c \
 			  progress.c \
 			  show_transform_info.c \
-			  color_filter.c
-HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h light.h \
-			  plane.h objects.h triangle.h \
-			  parser.h parser_utils.h parse_value.h parse_objects.h parse_info.h exit.h \
-			  gnl/get_next_line.h trace_ray.h \
-			  transform.h hit.h hit_utils.h progress.h
-SRCS		= $(addprefix $(SRCDIR), $(SRC))
+			  exit.c
+SRCS		= $(addprefix $(SRCDIR), $(SRCFILES))
 OBJS		= $(SRCS:.c=.o)
 LIBFTDIR	= libft
 LIBFTNAME	= ft
 CC			= gcc
-####################################
-####################################
-CFLAGS		= -Wall -Wextra
 CFLAGS		= -Wall -Wextra -Werror -I $(INCLUDES)
-####################################
-####################################
 RM			= rm -rf
 
 CCBLUE		= \033[34m
