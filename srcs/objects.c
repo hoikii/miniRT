@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 01:46:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:37:09 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		hit(t_objects obj, t_ray ray, double tmax, t_rec *rec)
 	if (obj.type == TYPE_CYLINDER)
 		return (hit_cylinder(obj.data, ray, tmax, rec));
 	if (obj.type == TYPE_CYLINDER_CAPS)
-		return (hit_cylinder_caps(obj.data, ray, tmax, rec));
+		return (hit_cylinder_cap(obj.data, ray, tmax, rec));
 	if (obj.type == TYPE_CUBE)
 		return (hit_cube(obj.data, ray, tmax, rec));
 	if (obj.type == TYPE_PYRAMID)

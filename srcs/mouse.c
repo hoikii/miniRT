@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 21:13:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/05 19:38:51 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:35:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	mouse_clicked(int btn, int click_x, int click_y, t_mlx *rt)
 	double	y;
 	t_vec	tmp;
 
-	if (!BONUS ||  btn != MOUSE_LCLICK || click_y <= 0)
+	if (!BONUS || btn != MOUSE_LCLICK || click_y <= 0)
 		return (0);
 	cam = (t_cam *)(rt->cam_list->content);
 	x = (double)click_x / (rt->screen_width - 1);

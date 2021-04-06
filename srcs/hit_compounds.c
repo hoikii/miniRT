@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/22 22:20:52 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:36:44 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	hit_top_cap(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 	return (0);
 }
 
-int			hit_cylinder_caps(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
+int			hit_cylinder_cap(t_cylinder *cy, t_ray ray, double tmax, t_rec *rec)
 {
 	int		is_hit_caps;
 	t_rec	rec_caps;
