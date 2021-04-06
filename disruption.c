@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/05 03:01:44 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 16:41:31 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ t_color			rainbow(t_rec rec)
 	t_color	local_color;
 	t_vec	n;
 
-	if (rec.objtype == TYPE_PLANE)
-		n = v_mul(v_add(rec.raydir, v_new(1, 1, 1)), 0.5);
-	else
+	if (rec.objtype == TYPE_SPHERE || rec.objtype == TYPE_CYLINDER)
 		n = v_mul(v_add(rec.normal, v_new(1, 1, 1)), 0.5);
+	else
+		n = v_mul(v_add(rec.raydir, v_new(1, 1, 1)), 0.5);
 	local_color = (t_color){n.x, 1 - n.y, n.z};
 	return (local_color);
 }
