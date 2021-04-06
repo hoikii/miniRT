@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 21:29:59 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/29 19:02:28 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 15:41:55 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	hit_plane(t_plane *pl, t_ray ray, double tmax, t_rec *rec)
 		rec->color = pl->color;
 		rec->t = t;
 		rec->normal = pl->normal;
+		if (v_dot(ray.direction, pl->normal) > 0)
+			rec->normal = v_mul(rec->normal, -1);
 		rec->point = ray_at(ray, t);
 		rec->objtype = TYPE_PLANE;
 		rec->bonus = pl->bonus;
