@@ -1,23 +1,64 @@
 NAME		= miniRT
-SRC			= main.c vec.c vec2.c vec3.c color.c key.c  key2.c sphere.c math_utils.c ray.c render.c \
-			  light.c plane.c objects.c triangle.c camera.c square.c cylinder.c cube.c pyramid.c \
-			  parser.c parser_utils.c parse_value.c parse_objects.c parse_info.c parse_compounds.c parse_bonus.c \
-			  hit_compounds.c exit.c disruption.c checkerboard.c  supersample.c mouse.c uv_mapping.c \
-			  gnl/get_next_line.c gnl/get_next_line_utils.c bmp.c trace_ray.c \
-			  transform.c hit.c hit_utils.c progress.c show_transform_info.c color_filter.c
+INCLUDES	= includes
+SRCDIR		= srcs/
+SRC			= main.c \
+			  vec.c \
+			  vec2.c \
+			  vec3.c \
+			  color.c \
+			  key.c \
+			  key2.c \
+			  mouse.c \
+			  objects/sphere.c \
+			  objects/plane.c \
+			  objects/triangle.c \
+			  objects/square.c \
+			  objects/cylinder.c \
+			  objects/cube.c \
+			  objects/pyramid.c \
+			  math_utils.c \
+			  ray.c \
+			  trace_ray.c \
+			  render.c \
+			  light.c \
+			  objects.c \
+			  camera.c \
+			  parser/parser.c \
+			  parser/parser_utils.c \
+			  parser/parse_value.c \
+			  parser/parse_objects.c \
+			  parser/parse_info.c \
+			  parser/parse_compounds.c \
+			  parser/parse_bonus.c \
+			  parser/get_next_line.c \
+			  parser/get_next_line_utils.c \
+			  hit.c \
+			  hit_compounds.c \
+			  hit_utils.c \
+			  exit.c \
+			  disruption.c \
+			  checkerboard.c \
+			  supersample.c \
+			  uv_mapping.c \
+			  bmp.c \
+			  transform.c \
+			  progress.c \
+			  show_transform_info.c \
+			  color_filter.c
 HEADER		= vec.h color.h key.h minirt.h math_utils.h ray.h light.h \
 			  plane.h objects.h triangle.h \
 			  parser.h parser_utils.h parse_value.h parse_objects.h parse_info.h exit.h \
 			  gnl/get_next_line.h trace_ray.h \
 			  transform.h hit.h hit_utils.h progress.h
-OBJS		= $(SRC:.c=.o)
+SRCS		= $(addprefix $(SRCDIR), $(SRC))
+OBJS		= $(SRCS:.c=.o)
 LIBFTDIR	= libft
 LIBFTNAME	= ft
 CC			= gcc
 ####################################
 ####################################
 CFLAGS		= -Wall -Wextra
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -I $(INCLUDES)
 ####################################
 ####################################
 RM			= rm -rf

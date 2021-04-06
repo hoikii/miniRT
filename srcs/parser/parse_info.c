@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:22:01 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 09:00:01 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:06:07 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 #include "parse_objects.h"
 #include "color.h"
 #include "vec.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+#include "../libft/libft.h"
+#include "get_next_line.h"
 #include "camera.h"
 #include "light.h"
 #include "exit.h"

@@ -6,14 +6,14 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/06 02:56:18 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:07:01 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "parse_value.h"
 #include "parser_utils.h"
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include "vec.h"
 #include "color.h"
 #include "exit.h"

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 13:17:23 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 01:48:59 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:01:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
-# include "minilibx/mlx.h"
+# ifdef LINUX
+#  include "../minilibx-linux/mlx.h"
+# else
+#  include "../minilibx/mlx.h"
+# endif
 # include "vec.h"
 # include "color.h"
 # include "light_def.h"
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 # define STDOUT 1
 

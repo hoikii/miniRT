@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 01:05:03 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/18 01:40:20 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/06 18:15:06 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 */
 
 #include "minirt.h"
-#include "libft/libft.h"
+#include "../libft/libft.h"
 
 int		g_threads_progress[THREADS_CNT + 1];
 
