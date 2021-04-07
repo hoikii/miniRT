@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/03 00:39:27 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/10 18:07:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/08 02:25:12 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	write_file_header(t_mlx *rt, t_img image, int fd)
 {
 	unsigned char	file_header[BMP_FILE_HEADER_SIZE];
 	int				fsize;
-	int				padding_size;
+	int				pad_size;
 
-	padding_size = (4 - (rt->screen_width * image.bpp / 8) % 4) % 4;
+	pad_size = (4 - rt->screen_width % 4) % 4;
 	fsize = BMP_FILE_HEADER_SIZE + BMP_INFO_HEADER_SIZE
-		+ (rt->screen_width + padding_size) * rt->screen_height * image.bpp / 8;
+		+ (rt->screen_width + pad_size) * rt->screen_height * image.bpp / 8;
 	ft_memset(file_header, 0, BMP_FILE_HEADER_SIZE);
 	file_header[0] = 'B';
 	file_header[1] = 'M';
@@ -40,7 +40,7 @@ static void	write_info_header(t_mlx *rt, t_img image, int fd)
 	int				size;
 	int				pad_size;
 
-	pad_size = (4 - (rt->screen_width * image.bpp / 8) % 4) % 4;
+	pad_size = (4 - rt->screen_width % 4) % 4;
 	size = (rt->screen_width + pad_size) * rt->screen_height * image.bpp / 8;
 	ft_memset(info_header, 0, BMP_INFO_HEADER_SIZE);
 	info_header[0] = BMP_INFO_HEADER_SIZE;
@@ -55,18 +55,13 @@ static void	write_info_header(t_mlx *rt, t_img image, int fd)
 
 static void	write_data(t_mlx *rt, t_img image, int fd)
 {
-	int				i;
-	int				padding_size;
-	unsigned char	padding[3];
+	int	i;
 
-	ft_memset(padding, 0, 3);
-	padding_size = (4 - (rt->screen_width * image.bpp / 8) % 4) % 4;
 	i = rt->screen_height;
 	while (--i >= 0)
 	{
-		write(fd, image.imgdata + (i * rt->screen_width * image.bpp / 8),
-			image.size_line);
-		write(fd, padding, padding_size);
+		write(fd, image.imgdata + (i * image.size_line),
+			rt->screen_width * (image.bpp / 8));
 	}
 	return ;
 }
