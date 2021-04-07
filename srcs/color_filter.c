@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 13:34:35 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/27 19:10:31 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/07 01:26:50 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,27 @@
 #include "math_utils.h"
 
 /*
-** RGB to YCbCr
+** RGB to YCbCr formula
 **
-**	double y = 0.299 * r + 0.587 * g + 0.114 * b;
-**	double cb = -0.16874 * r - 0.33126 * g + 0.50000 * b;
-**	double cr = 0.50000 * r - 0.41869 * g - 0.08131 * b;
-**	//cb = 0.564(b-y)
-**	//cr = 0.713(r-y)
+**		y = 0.299 * r + 0.587 * g + 0.114 * b;
+**		cb = -0.16874 * r - 0.33126 * g + 0.50000 * b;
+**		cr = 0.50000 * r - 0.41869 * g - 0.08131 * b;
+**		(  cb = 0.564(b-y)  )
+**		(  cr = 0.713(r-y)  )
 **
-**	r = y + 1.40200 * cr;
-**	g = y - 0.34414 * cb - 0.71414 * cr;
-**	b = y + 1.77200 * cb;
-**
-**	r = clamp(r, 0, 255);
-**	g = clamp(g, 0, 255);
-**	b = clamp(b, 0, 255);
-**
-**	imgfilter[pos + 0] = b;
-**	imgfilter[pos + 1] = g;
-**	imgfilter[pos + 2] = r;
+** YCbCr to RGB fomula
+**		r = y + 1.40200 * cr;
+**		g = y - 0.34414 * cb - 0.71414 * cr;
+**		b = y + 1.77200 * cb;
 */
+
+static int	apply_greyscale(int r, int g, int b)
+{
+	int	grey;
+
+	grey = clamp(r * 0.299 + g * 0.587 + b * 0.114, 0, 255);
+	return (grey << 16 | grey << 8 | grey);
+}
 
 static int	apply_sepia(int r, int g, int b)
 {
@@ -54,29 +55,13 @@ static int	apply_sepia2(int r, int g, int b)
 	double	cb;
 	double	cr;
 
-	y = 0.299 * r + 0.587 * g + 0.114 * b;
-	cb = -0.16874 * r - 0.33126 * g + 0.50000 * b;
-	cr = 0.50000 * r - 0.41869 * g - 0.08131 * b;
+	y = clamp(r * 0.299 + g * 0.587 + b * 0.114, 0, 255);
 	cb = -0.2 * 255;
 	cr = 0.1 * 255;
-	y = clamp(y, 0, 255);
-	cb = clamp(cb, -127.5, 127.5);
-	cr = clamp(cr, -127.5, 127.5);
-	r = y + 1.40200 * cr;
-	g = y - 0.34414 * cb - 0.71414 * cr;
-	b = y + 1.77200 * cb;
-	r = clamp(r, 0, 255);
-	g = clamp(g, 0, 255);
-	b = clamp(b, 0, 255);
+	r = clamp(y + 1.40200 * cr, 0, 255);
+	g = clamp(y - 0.34414 * cb - 0.71414 * cr, 0, 255);
+	b = clamp(y + 1.77200 * cb, 0, 255);
 	return (r << 16 | g << 8 | b);
-}
-
-static int	apply_greyscale(int r, int g, int b)
-{
-	int	grey;
-
-	grey = clamp(r * 0.299 + g * 0.587 + b * 0.114, 0, 255);
-	return (grey << 16 | grey << 8 | grey);
 }
 
 static int	apply_filter(int filter_type, unsigned int color)

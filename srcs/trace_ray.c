@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 08:48:30 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/04 01:29:08 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/07 02:07:33 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 #include "minirt.h"
 #include "ray.h"
 #include "camera.h"
-#include "sphere.h"
-#include "plane.h"
 #include "light.h"
-#include "key.h"
 #include "math_utils.h"
 #include "objects.h"
 #include "vec.h"
-#include "bmp.h"
 #include "disruption.h"
 #include "uv_mapping.h"
 

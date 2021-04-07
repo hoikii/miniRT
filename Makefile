@@ -97,7 +97,7 @@ bonus: clean all
 
 test: CFLAGS += -g3 -fsanitize=address
 test: bonus
-	./$(NAME) scenes/smpl.rt
+	./$(NAME) scenes/objects.rt
 
 cleanlib:
 	@echo "$(CCBLUE) >>> clean libft <<< $(CCEND)"

@@ -6,14 +6,13 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 14:44:24 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/05 16:42:16 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/07 01:29:53 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "checkerboard.h"
 #include "objects.h"
-#include "color.h"
 #include "math_utils.h"
 
 t_color		checker_sphere(t_rec rec)
