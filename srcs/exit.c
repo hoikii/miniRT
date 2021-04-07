@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:25:55 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/07 20:50:32 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/08 02:32:52 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "camera.h"
 #include "sphere.h"
 
-static void	destroy_img(t_mlx *rt)
+static void	destroy_cam_img(t_mlx *rt)
 {
 	t_list	*tmp;
 	t_list	*head;
@@ -48,7 +48,7 @@ int			close_window(t_mlx *param)
 		free(param->objects_array[i].data);
 	}
 	ft_lstclear(&(param->lights_list), free);
-	destroy_img(param);
+	destroy_cam_img(param);
 	ft_lstclear(&(param->cam_list), free);
 	if (param->skybox_declared == 1)
 		mlx_destroy_image(param->mlx, param->skybox.img_ptr);
