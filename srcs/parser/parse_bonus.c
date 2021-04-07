@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:22:04 by kanlee            #+#    #+#             */
-/*   Updated: 2021/04/06 18:07:01 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/07 20:43:05 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 		return (FAIL);
 	texture->imgdata = mlx_get_data_addr(texture->img_ptr,
 			&texture->bpp, &texture->size_line, &texture->endian);
-	mlx_destroy_image(rt->mlx, texture->img_ptr);
 	return (SUCCESS);
 }
 
@@ -53,7 +52,6 @@ int			get_texture(char *filepath, t_img *texture, t_mlx *rt)
 		return (FAIL);
 	texture->imgdata = mlx_get_data_addr(texture->img_ptr,
 			&texture->bpp, &texture->size_line, &texture->endian);
-	mlx_destroy_image(rt->mlx, texture->img_ptr);
 	return (SUCCESS);
 }
 
