@@ -35,11 +35,11 @@ SRCFILES	= main.c \
 			  math_utils/vec.c \
 			  math_utils/vec2.c \
 			  math_utils/vec3.c \
-			  disruption.c \
-			  checkerboard.c \
-			  uv_mapping.c \
-			  supersample.c \
-			  color_filter.c \
+			  bonus/color_filter.c \
+			  bonus/disruption.c \
+			  bonus/checkerboard.c \
+			  bonus/uv_mapping.c \
+			  bonus/supersample.c \
 			  bmp.c \
 			  transform.c \
 			  progress.c \
