@@ -89,7 +89,7 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LDLIBS) -o $(NAME)
 	@echo "$(CCBLUE_BOLD) >>> make $(NAME) done!  <<< $(CCEND)"
 
-%.o: %.c $(HEADER)
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: CFLAGS += -DBONUS -D THREADS_CNT=$(shell getconf _NPROCESSORS_ONLN)

@@ -6,7 +6,7 @@
 /*   By: kanlee <kanlee@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/19 22:39:51 by kanlee            #+#    #+#             */
-/*   Updated: 2021/03/30 18:52:35 by kanlee           ###   ########.fr       */
+/*   Updated: 2021/04/08 17:57:41 by kanlee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct		s_pyramid {
 	t_bonus_attr	bonus;
 }					t_pyramid;
 
-void			fill_pyramid_info(t_pyramid *py, int is_init);
-void			move_pyramid(t_pyramid *py, t_vec mv);
-void			resize_pyramid(t_pyramid *py, double amount, int flag);
-void			rotate_pyramid(t_pyramid *py, t_vec axis, double angle);
+void				fill_pyramid_info(t_pyramid *py, int is_init);
+void				move_pyramid(t_pyramid *py, t_vec mv);
+void				resize_pyramid(t_pyramid *py, double amount, int flag);
+void				rotate_pyramid(t_pyramid *py, t_vec axis, double angle);
 
 #endif
